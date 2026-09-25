@@ -1,0 +1,21 @@
+# Web framework
+fastapi>=0.115
+uvicorn[standard]>=0.30
+
+# DB: PostgreSQL + pgvector
+sqlalchemy>=2.0
+psycopg[binary]>=3.2
+pgvector>=0.3.6
+
+# Config
+pydantic>=2.7
+pydantic-settings>=2.4
+python-dotenv>=1.0
+
+# Tầng 1: parsing PDF/DOCX
+pymupdf>=1.24
+
+# Tầng 2: LLM SDK — TODO(B): bỏ comment đúng 1 dòng theo API key hiện có
+# openai>=1.40            # nếu có key OpenAI
+# anthropic>=0.34         # nếu có key Anthropic (Claude)
+# google-genai>=1.0       # nếu có key Google (Gemini)

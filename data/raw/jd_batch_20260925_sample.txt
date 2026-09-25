@@ -1,0 +1,55 @@
+Vị trí: Backend Developer (Python/FastAPI)
+Công ty: ABC Tech
+Địa điểm: Hà Nội
+Mức lương: 15-25 triệu
+Nguồn: https://www.facebook.com/groups/tuyendungIT/posts/123456
+
+Mô tả công việc:
+- Phát triển và bảo trì các API RESTful bằng Python/FastAPI
+- Thiết kế cơ sở dữ liệu PostgreSQL
+- Viết unit test, integration test
+- Tham gia code review và pair programming
+- Phối hợp với team Frontend (React) để hoàn thiện sản phẩm
+
+Yêu cầu:
+- Tốt nghiệp ĐH ngành CNTT hoặc liên quan
+- 1-3 năm kinh nghiệm Python
+- Thành thạo FastAPI hoặc Django/Flask
+- Có kinh nghiệm PostgreSQL, Redis
+- Biết Docker, Git
+- Tiếng Anh đọc hiểu tài liệu kỹ thuật
+===
+Data Analyst Intern
+Công ty: XYZ Data
+Địa điểm: TP.HCM
+Nguồn: https://www.facebook.com/groups/dataVN/posts/789012
+
+Mô tả công việc:
+- Hỗ trợ phân tích dữ liệu kinh doanh
+- Tạo báo cáo và dashboard bằng Power BI / Tableau
+- Làm sạch và xử lý dữ liệu bằng Python/SQL
+
+Yêu cầu:
+- Sinh viên năm 3-4 ngành CNTT, Thống kê, Toán ứng dụng
+- Biết SQL cơ bản
+- Biết Python (pandas, numpy) là lợi thế
+- Chăm chỉ, ham học hỏi
+===
+Senior Frontend Engineer
+Location: Remote / Ha Noi
+Salary: 2000-3500 USD
+Source: https://itviec.com/it-jobs/senior-frontend-12345
+
+Job Description:
+- Build and maintain large-scale React applications
+- Implement responsive UI with modern CSS (Flexbox, Grid)
+- Optimize web performance (Core Web Vitals)
+- Mentor junior developers
+
+Requirements:
+- 5+ years of experience in frontend development
+- Expert in React, TypeScript, Next.js
+- Strong understanding of HTML, CSS, JavaScript
+- Experience with state management (Redux, Zustand)
+- CI/CD pipeline experience (GitHub Actions)
+- Good communication skills in English
