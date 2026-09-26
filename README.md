@@ -62,3 +62,15 @@ full hybrid) và ghi trực tiếp trong module scoring.
 - **T2**: Tầng 1+2 — parsing + extraction, parse đúng ≥90% trên 30 CV mẫu
 - **T3**: Tầng 3+4 — embedding + pgvector retrieval + hybrid scoring, baseline/ablation
 - **T4**: Tầng 5 + deploy Docker Compose có health-check, URL public
+
+---
+
+## Trạng thái & Blockers (cập nhật 2026-09-26)
+
+- [ ] **LLM extraction (Tầng 2) đang bị chặn**: cần `LLM_API_KEY` trong `.env`
+  (mặc định NVIDIA NIM, xem `.env.example`). **Việc này do con người quyết định** —
+  chọn nhà cung cấp, tạo key, điền vào `.env` (KHÔNG commit `.env`). Sau khi có key,
+  kiểm tra bằng `python scripts/test_llm_api.py`.
+- [ ] Bộ JD `data/processed/jds.json` sẽ được A cập nhật (bổ sung JD nhóm Data/AI) —
+  Tầng 3 (embedding) và Tầng 2 phía JD chỉ chạy SAU khi có bản mới, tránh làm lại.
+- [x] Tầng 1+2 cho CV (D2): parser + extraction + rule fallback — xong, 14/14 test pass.
