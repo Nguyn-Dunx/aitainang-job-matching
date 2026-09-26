@@ -8,10 +8,12 @@ class Settings(BaseSettings):
 
     database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5432/aitainang"
 
-    # LLM cho Tầng 2 (extraction) — provider cụ thể chốt ở T2 theo API key hiện có.
-    llm_provider: str = ""  # "openai" | "anthropic" | "google"
+    # LLM cho Tầng 2 & Tầng 5 — Mặc định dùng NVIDIA NIM (Kimi-K3 + Nemotron fallback)
+    llm_provider: str = "openai"  # OpenAI client tương thích NVIDIA NIM
+    llm_base_url: str = "https://integrate.api.nvidia.com/v1"
     llm_api_key: str = ""
-    llm_model: str = ""
+    llm_model: str = "moonshotai/kimi-k3"
+    llm_fallback_model: str = "nvidia/nemotron-3-ultra-550b-a55b"
 
 
 settings = Settings()

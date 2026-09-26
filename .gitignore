@@ -13,6 +13,15 @@ venv/
 # Data artifacts (keep folder structure via .gitkeep, ignore bulky raw files if needed)
 # data/raw/*.pdf
 
+# Node / Frontend
+node_modules/
+frontend/dist/
+
+# Consent (bằng chứng đồng ý — chứa thông tin cá nhân, KHÔNG commit)
+data/consent/*.png
+data/consent/*.jpg
+data/consent/*.pdf
+
 # OS / editor
 .DS_Store
 Thumbs.db

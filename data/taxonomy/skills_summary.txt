@@ -1,0 +1,237 @@
+Rank | Skill                               | Category                       | JD Count |     % | Vi                                 
+--------------------------------------------------------------------------------------------------------------------------------------------
+   1 | Communication                       | Soft Skill                     |      219 |  48.7 | Giao tiếp                          
+   2 | Report Writing                      | Soft Skill                     |      193 |  42.9 | Viết báo cáo                       
+   3 | English Proficiency                 | Language Skill                 |      181 |  40.2 | Tiếng Anh                          
+   4 | Independent Work                    | Soft Skill                     |      163 |  36.2 | Làm việc độc lập                   
+   5 | Problem Solving                     | Soft Skill                     |      158 |  35.1 | Giải quyết vấn đề                  
+   6 | Responsibility                      | Soft Skill                     |      140 |  31.1 | Trách nhiệm                        
+   7 | Teamwork                            | Soft Skill                     |      139 |  30.9 | Làm việc nhóm                      
+   8 | Python                              | Programming Language           |      114 |  25.3 | Python                             
+   9 | Machine Learning                    | AI & Data Science              |      107 |  23.8 | Học máy                            
+  10 | Self-Learning                       | Soft Skill                     |      106 |  23.6 | Tự học                             
+  11 | SQL                                 | Programming Language           |       97 |  21.6 | SQL                                
+  12 | Attention to Detail                 | Soft Skill                     |       94 |  20.9 | Cẩn thận chi tiết                  
+  13 | Mentoring                           | Soft Skill                     |       92 |  20.4 | Hướng dẫn/Đào tạo                  
+  14 | Networking                          | Networking                     |       89 |  19.8 | Mạng máy tính                      
+  15 | Git                                 | Version Control                |       87 |  19.3 | Git                                
+  16 | Analytical Thinking                 | Soft Skill                     |       83 |  18.4 | Tư duy phân tích                   
+  17 | Agile                               | Methodology                    |       78 |  17.3 | Agile                              
+  18 | Java                                | Programming Language           |       73 |  16.2 | Java                               
+  19 | Linux                               | Operating System               |       63 |  14.0 | Linux                              
+  20 | JavaScript                          | Programming Language           |       62 |  13.8 | JavaScript                         
+  21 | MySQL                               | Database                       |       61 |  13.6 | MySQL                              
+  22 | Docker                              | DevOps & Infrastructure        |       60 |  13.3 | Docker                             
+  23 | Data Analysis                       | Data Engineering               |       59 |  13.1 | Phân tích dữ liệu                  
+  24 | RESTful API                         | Architecture                   |       59 |  13.1 | API RESTful                        
+  25 | Scrum                               | Methodology                    |       56 |  12.4 | Scrum                              
+  26 | CI/CD                               | DevOps & Infrastructure        |       53 |  11.8 | Tích hợp/Triển khai liên tục       
+  27 | Project Management                  | Soft Skill                     |       52 |  11.6 | Quản lý dự án                      
+  28 | AWS                                 | Cloud Platform                 |       50 |  11.1 | Amazon Web Services                
+  29 | Leadership                          | Soft Skill                     |       50 |  11.1 | Lãnh đạo                           
+  30 | Cybersecurity                       | Security                       |       45 |  10.0 | An ninh mạng                       
+  31 | Creativity                          | Soft Skill                     |       44 |   9.8 | Sáng tạo                           
+  32 | Microsoft Office                    | Enterprise Software            |       44 |   9.8 | Tin học văn phòng                  
+  33 | PostgreSQL                          | Database                       |       41 |   9.1 | PostgreSQL                         
+  34 | Azure                               | Cloud Platform                 |       41 |   9.1 | Microsoft Azure                    
+  35 | Jira                                | Project Management Tool        |       40 |   8.9 | Jira                               
+  36 | React                               | Frontend Framework             |       39 |   8.7 | React                              
+  37 | Kubernetes                          | DevOps & Infrastructure        |       39 |   8.7 | Kubernetes                         
+  38 | Microservices                       | Architecture                   |       37 |   8.2 | Kiến trúc vi dịch vụ               
+  39 | OOP                                 | Methodology                    |       37 |   8.2 | Lập trình hướng đối tượng          
+  40 | Google Cloud Platform               | Cloud Platform                 |       36 |   8.0 | Google Cloud                       
+  41 | Pressure Resilience                 | Soft Skill                     |       36 |   8.0 | Chịu áp lực                        
+  42 | UI/UX Design                        | Design                         |       35 |   7.8 | Thiết kế UI/UX                     
+  43 | Oracle Database                     | Database                       |       34 |   7.6 | Oracle Database                    
+  44 | Time Management                     | Soft Skill                     |       33 |   7.3 | Quản lý thời gian                  
+  45 | MongoDB                             | Database                       |       32 |   7.1 | MongoDB                            
+  46 | Presentation                        | Soft Skill                     |       32 |   7.1 | Thuyết trình                       
+  47 | Firewall                            | Security                       |       31 |   6.9 | Tường lửa                          
+  48 | HTML                                | Web Technology                 |       30 |   6.7 | HTML                               
+  49 | Code Review                         | Methodology                    |       30 |   6.7 | Đánh giá mã nguồn                  
+  50 | CSS                                 | Web Technology                 |       29 |   6.4 | CSS                                
+  51 | LLM                                 | AI & Data Science              |       28 |   6.2 | Mô hình ngôn ngữ lớn               
+  52 | Microsoft SQL Server                | Database                       |       27 |   6.0 | SQL Server                         
+  53 | Deep Learning                       | AI & Data Science              |       26 |   5.8 | Học sâu                            
+  54 | Spring                              | Backend Framework              |       25 |   5.6 | Spring                             
+  55 | PyTorch                             | AI & Data Science              |       25 |   5.6 | PyTorch                            
+  56 | Power BI                            | Data Visualization             |       25 |   5.6 | Power BI                           
+  57 | E-commerce                          | Domain Knowledge               |       25 |   5.6 | Thương mại điện tử                 
+  58 | Angular                             | Frontend Framework             |       24 |   5.3 | Angular                            
+  59 | TensorFlow                          | AI & Data Science              |       24 |   5.3 | TensorFlow                         
+  60 | Big Data                            | Data Engineering               |       24 |   5.3 | Dữ liệu lớn                        
+  61 | Automation Testing                  | Testing                        |       24 |   5.3 | Kiểm thử tự động                   
+  62 | ERP                                 | Domain Knowledge               |       24 |   5.3 | Hệ thống hoạch định nguồn lực doanh nghiệp
+  63 | Node.js                             | Backend Framework              |       23 |   5.1 | Node.js                            
+  64 | Cisco                               | Networking                     |       23 |   5.1 | Cisco                              
+  65 | TypeScript                          | Programming Language           |       22 |   4.9 | TypeScript                         
+  66 | Computer Vision                     | AI & Data Science              |       22 |   4.9 | Thị giác máy tính                  
+  67 | TCP/IP                              | Networking                     |       22 |   4.9 | TCP/IP                             
+  68 | PHP                                 | Programming Language           |       21 |   4.7 | PHP                                
+  69 | Unit Testing                        | Testing                        |       21 |   4.7 | Kiểm thử đơn vị                    
+  70 | Vue.js                              | Frontend Framework             |       20 |   4.4 | Vue.js                             
+  71 | Jenkins                             | DevOps & Infrastructure        |       20 |   4.4 | Jenkins                            
+  72 | Figma                               | Design Tool                    |       19 |   4.2 | Figma                              
+  73 | Adobe Photoshop                     | Design Tool                    |       19 |   4.2 | Adobe Photoshop                    
+  74 | Customer Service                    | Soft Skill                     |       19 |   4.2 | Chăm sóc khách hàng                
+  75 | Redis                               | Database                       |       18 |   4.0 | Redis                              
+  76 | Natural Language Processing         | AI & Data Science              |       18 |   4.0 | Xử lý ngôn ngữ tự nhiên            
+  77 | Tableau                             | Data Visualization             |       18 |   4.0 | Tableau                            
+  78 | Postman                             | API Tool                       |       18 |   4.0 | Postman                            
+  79 | Unity                               | Game Engine                    |       18 |   4.0 | Unity                              
+  80 | iOS Development                     | Mobile Development             |       18 |   4.0 | Phát triển iOS                     
+  81 | Shell/Bash                          | Programming Language           |       17 |   3.8 | Shell/Bash                         
+  82 | ETL                                 | Data Engineering               |       17 |   3.8 | Trích xuất-Chuyển đổi-Nạp dữ liệu  
+  83 | Data Warehouse                      | Data Engineering               |       17 |   3.8 | Kho dữ liệu                        
+  84 | Apache Kafka                        | Data Engineering               |       16 |   3.6 | Apache Kafka                       
+  85 | SDLC                                | Methodology                    |       15 |   3.3 | Vòng đời phát triển phần mềm       
+  86 | VMware                              | Virtualization                 |       14 |   3.1 | VMware                             
+  87 | Apache Spark                        | Data Engineering               |       14 |   3.1 | Apache Spark                       
+  88 | Design Patterns                     | Methodology                    |       14 |   3.1 | Mẫu thiết kế                       
+  89 | Japanese Proficiency                | Language Skill                 |       14 |   3.1 | Tiếng Nhật                         
+  90 | CRM                                 | Domain Knowledge               |       14 |   3.1 | Quản lý quan hệ khách hàng         
+  91 | MLOps                               | AI & Data Science              |       14 |   3.1 | MLOps                              
+  92 | VPN                                 | Security                       |       14 |   3.1 | VPN                                
+  93 | Windows Server                      | Operating System               |       13 |   2.9 | Windows Server                     
+  94 | Selenium                            | Testing                        |       13 |   2.9 | Selenium                           
+  95 | Android Development                 | Mobile Development             |       13 |   2.9 | Phát triển Android                 
+  96 | Prometheus                          | DevOps & Infrastructure        |       12 |   2.7 | Prometheus                         
+  97 | Grafana                             | DevOps & Infrastructure        |       12 |   2.7 | Grafana                            
+  98 | Data Pipeline                       | Data Engineering               |       12 |   2.7 | Đường ống dữ liệu                  
+  99 | Ansible                             | DevOps & Infrastructure        |       11 |   2.4 | Ansible                            
+ 100 | Penetration Testing                 | Security                       |       11 |   2.4 | Kiểm thử xâm nhập                  
+ 101 | Go                                  | Programming Language           |       10 |   2.2 | Go                                 
+ 102 | .NET                                | Backend Framework              |       10 |   2.2 | .NET                               
+ 103 | Hadoop                              | Data Engineering               |       10 |   2.2 | Hadoop                             
+ 104 | Confluence                          | Project Management Tool        |       10 |   2.2 | Confluence                         
+ 105 | Performance Testing                 | Testing                        |       10 |   2.2 | Kiểm thử hiệu năng                 
+ 106 | API Testing                         | Testing                        |       10 |   2.2 | Kiểm thử API                       
+ 107 | Responsive Design                   | Design                         |       10 |   2.2 | Thiết kế đáp ứng                   
+ 108 | GitLab CI/CD                        | DevOps & Infrastructure        |       10 |   2.2 | GitLab CI/CD                       
+ 109 | Waterfall                           | Methodology                    |       10 |   2.2 | Thác nước                          
+ 110 | Terraform                           | DevOps & Infrastructure        |        9 |   2.0 | Terraform                          
+ 111 | Pandas                              | Data Engineering               |        9 |   2.0 | Pandas                             
+ 112 | ELK Stack                           | DevOps & Infrastructure        |        9 |   2.0 | ELK Stack                          
+ 113 | Hugging Face                        | AI & Data Science              |        9 |   2.0 | Hugging Face                       
+ 114 | Appium                              | Testing                        |        9 |   2.0 | Appium                             
+ 115 | JMeter                              | Testing                        |        9 |   2.0 | JMeter                             
+ 116 | Negotiation                         | Soft Skill                     |        9 |   2.0 | Đàm phán                           
+ 117 | NestJS                              | Backend Framework              |        8 |   1.8 | NestJS                             
+ 118 | GraphQL                             | Architecture                   |        8 |   1.8 | GraphQL                            
+ 119 | Manual Testing                      | Testing                        |        8 |   1.8 | Kiểm thử thủ công                  
+ 120 | SASS/SCSS                           | Frontend Library               |        8 |   1.8 | SASS/SCSS                          
+ 121 | OWASP                               | Security                       |        8 |   1.8 | OWASP                              
+ 122 | OAuth                               | Security                       |        8 |   1.8 | OAuth                              
+ 123 | Cypress                             | Testing                        |        8 |   1.8 | Cypress                            
+ 124 | Swift                               | Programming Language           |        7 |   1.6 | Swift                              
+ 125 | Kotlin                              | Programming Language           |        7 |   1.6 | Kotlin                             
+ 126 | Next.js                             | Frontend Framework             |        7 |   1.6 | Next.js                            
+ 127 | Laravel                             | Backend Framework              |        7 |   1.6 | Laravel                            
+ 128 | Elasticsearch                       | Database                       |        7 |   1.6 | Elasticsearch                      
+ 129 | Firebase                            | Database                       |        7 |   1.6 | Firebase                           
+ 130 | NumPy                               | Data Engineering               |        7 |   1.6 | NumPy                              
+ 131 | JUnit                               | Testing                        |        7 |   1.6 | JUnit                              
+ 132 | Scala                               | Programming Language           |        6 |   1.3 | Scala                              
+ 133 | Django                              | Backend Framework              |        6 |   1.3 | Django                             
+ 134 | Flask                               | Backend Framework              |        6 |   1.3 | Flask                              
+ 135 | React Native                        | Mobile Framework               |        6 |   1.3 | React Native                       
+ 136 | Flutter                             | Mobile Framework               |        6 |   1.3 | Flutter                            
+ 137 | jQuery                              | Frontend Library               |        6 |   1.3 | jQuery                             
+ 138 | Apache                              | DevOps & Infrastructure        |        6 |   1.3 | Apache                             
+ 139 | RabbitMQ                            | Message Queue                  |        6 |   1.3 | RabbitMQ                           
+ 140 | Fintech                             | Domain Knowledge               |        6 |   1.3 | Công nghệ tài chính                
+ 141 | SAP                                 | Enterprise Software            |        6 |   1.3 | SAP                                
+ 142 | GitHub Actions                      | DevOps & Infrastructure        |        6 |   1.3 | GitHub Actions                     
+ 143 | Data Lake                           | Data Engineering               |        6 |   1.3 | Hồ dữ liệu                         
+ 144 | Looker                              | Data Visualization             |        6 |   1.3 | Looker                             
+ 145 | JWT                                 | Security                       |        6 |   1.3 | JWT                                
+ 146 | gRPC                                | Architecture                   |        6 |   1.3 | gRPC                               
+ 147 | PCI DSS                             | Domain Knowledge               |        6 |   1.3 | PCI DSS                            
+ 148 | Express.js                          | Backend Framework              |        5 |   1.1 | Express.js                         
+ 149 | FastAPI                             | Backend Framework              |        5 |   1.1 | FastAPI                            
+ 150 | Trello                              | Project Management Tool        |        5 |   1.1 | Trello                             
+ 151 | IoT                                 | Domain Knowledge               |        5 |   1.1 | Internet vạn vật                   
+ 152 | Helm                                | DevOps & Infrastructure        |        5 |   1.1 | Helm                               
+ 153 | Keras                               | AI & Data Science              |        5 |   1.1 | Keras                              
+ 154 | Apache Airflow                      | Data Engineering               |        5 |   1.1 | Apache Airflow                     
+ 155 | WebSocket                           | Architecture                   |        5 |   1.1 | WebSocket                          
+ 156 | Message Queue                       | Architecture                   |        5 |   1.1 | Hàng đợi tin nhắn                  
+ 157 | Odoo                                | Enterprise Software            |        5 |   1.1 | Odoo                               
+ 158 | C                                   | Programming Language           |        4 |   0.9 | C                                  
+ 159 | Objective-C                         | Programming Language           |        4 |   0.9 | Objective-C                        
+ 160 | Tailwind CSS                        | Frontend Library               |        4 |   0.9 | Tailwind CSS                       
+ 161 | Redux                               | Frontend Library               |        4 |   0.9 | Redux                              
+ 162 | MariaDB                             | Database                       |        4 |   0.9 | MariaDB                            
+ 163 | Nginx                               | DevOps & Infrastructure        |        4 |   0.9 | Nginx                              
+ 164 | Adobe Illustrator                   | Design Tool                    |        4 |   0.9 | Adobe Illustrator                  
+ 165 | Blockchain                          | Domain Knowledge               |        4 |   0.9 | Chuỗi khối                         
+ 166 | ArgoCD                              | DevOps & Infrastructure        |        4 |   0.9 | ArgoCD                             
+ 167 | Load Balancer                       | DevOps & Infrastructure        |        4 |   0.9 | Cân bằng tải                       
+ 168 | AWS Lambda                          | Cloud Platform                 |        4 |   0.9 | AWS Lambda                         
+ 169 | Scikit-learn                        | AI & Data Science              |        4 |   0.9 | Scikit-learn                       
+ 170 | TDD                                 | Methodology                    |        4 |   0.9 | Phát triển hướng kiểm thử          
+ 171 | SLA                                 | Domain Knowledge               |        4 |   0.9 | Thỏa thuận mức dịch vụ             
+ 172 | Bootstrap                           | Frontend Library               |        3 |   0.7 | Bootstrap                          
+ 173 | Cassandra                           | Database                       |        3 |   0.7 | Cassandra                          
+ 174 | Swagger                             | API Tool                       |        3 |   0.7 | Swagger                            
+ 175 | Unreal Engine                       | Game Engine                    |        3 |   0.7 | Unreal Engine                      
+ 176 | Symfony                             | Backend Framework              |        3 |   0.7 | Symfony                            
+ 177 | OpenCV                              | AI & Data Science              |        3 |   0.7 | OpenCV                             
+ 178 | Clean Architecture                  | Architecture                   |        3 |   0.7 | Kiến trúc sạch                     
+ 179 | ITIL                                | Domain Knowledge               |        3 |   0.7 | ITIL                               
+ 180 | Rust                                | Programming Language           |        2 |   0.4 | Rust                               
+ 181 | Dart                                | Programming Language           |        2 |   0.4 | Dart                               
+ 182 | Webpack                             | Build Tool                     |        2 |   0.4 | Webpack                            
+ 183 | DynamoDB                            | Database                       |        2 |   0.4 | DynamoDB                           
+ 184 | SQLite                              | Database                       |        2 |   0.4 | SQLite                             
+ 185 | Jest                                | Testing                        |        2 |   0.4 | Jest                               
+ 186 | Salesforce                          | Enterprise Software            |        2 |   0.4 | Salesforce                         
+ 187 | SharePoint                          | Enterprise Software            |        2 |   0.4 | SharePoint                         
+ 188 | Solidity                            | Programming Language           |        2 |   0.4 | Solidity                           
+ 189 | CodeIgniter                         | Backend Framework              |        2 |   0.4 | CodeIgniter                        
+ 190 | Material UI                         | Frontend Library               |        2 |   0.4 | Material UI                        
+ 191 | Docker Compose                      | DevOps & Infrastructure        |        2 |   0.4 | Docker Compose                     
+ 192 | dbt                                 | Data Engineering               |        2 |   0.4 | dbt                                
+ 193 | SSL/TLS                             | Security                       |        2 |   0.4 | SSL/TLS                            
+ 194 | TestNG                              | Testing                        |        2 |   0.4 | TestNG                             
+ 195 | Kanban                              | Methodology                    |        2 |   0.4 | Kanban                             
+ 196 | Zeplin                              | Design Tool                    |        2 |   0.4 | Zeplin                             
+ 197 | After Effects                       | Design Tool                    |        2 |   0.4 | After Effects                      
+ 198 | C++                                 | Programming Language           |        1 |   0.2 | C++                                
+ 199 | Ruby                                | Programming Language           |        1 |   0.2 | Ruby                               
+ 200 | SOLID                               | Methodology                    |        1 |   0.2 | Nguyên tắc SOLID                   
+ 201 | Perl                                | Programming Language           |        1 |   0.2 | Perl                               
+ 202 | Gin                                 | Backend Framework              |        1 |   0.2 | Gin                                
+ 203 | Fiber                               | Backend Framework              |        1 |   0.2 | Fiber                              
+ 204 | Yii                                 | Backend Framework              |        1 |   0.2 | Yii                                
+ 205 | Ant Design                          | Frontend Library               |        1 |   0.2 | Ant Design                         
+ 206 | InfluxDB                            | Database                       |        1 |   0.2 | InfluxDB                           
+ 207 | HAProxy                             | DevOps & Infrastructure        |        1 |   0.2 | HAProxy                            
+ 208 | AWS S3                              | Cloud Platform                 |        1 |   0.2 | AWS S3                             
+ 209 | Metabase                            | Data Visualization             |        1 |   0.2 | Metabase                           
+ 210 | Event-Driven Architecture           | Architecture                   |        1 |   0.2 | Kiến trúc hướng sự kiện            
+ 211 | CQRS                                | Architecture                   |        1 |   0.2 | CQRS                               
+ 212 | C#                                  | Programming Language           |        0 |   0.0 | C#                                 
+ 213 | R                                   | Programming Language           |        0 |   0.0 | R                                  
+ 214 | Ruby on Rails                       | Backend Framework              |        0 |   0.0 | Ruby on Rails                      
+ 215 | Lua                                 | Programming Language           |        0 |   0.0 | Lua                                
+ 216 | VBA                                 | Programming Language           |        0 |   0.0 | VBA                                
+ 217 | MATLAB                              | Programming Language           |        0 |   0.0 | MATLAB                             
+ 218 | Nuxt.js                             | Frontend Framework             |        0 |   0.0 | Nuxt.js                            
+ 219 | Svelte                              | Frontend Framework             |        0 |   0.0 | Svelte                             
+ 220 | ClickHouse                          | Database                       |        0 |   0.0 | ClickHouse                         
+ 221 | Neo4j                               | Database                       |        0 |   0.0 | Neo4j                              
+ 222 | CouchDB                             | Database                       |        0 |   0.0 | CouchDB                            
+ 223 | Memcached                           | Database                       |        0 |   0.0 | Memcached                          
+ 224 | CDN                                 | DevOps & Infrastructure        |        0 |   0.0 | Mạng phân phối nội dung            
+ 225 | AWS EC2                             | Cloud Platform                 |        0 |   0.0 | AWS EC2                            
+ 226 | Heroku                              | Cloud Platform                 |        0 |   0.0 | Heroku                             
+ 227 | DigitalOcean                        | Cloud Platform                 |        0 |   0.0 | DigitalOcean                       
+ 228 | Apache Flink                        | Data Engineering               |        0 |   0.0 | Apache Flink                       
+ 229 | Google Analytics                    | Data Visualization             |        0 |   0.0 | Google Analytics                   
+ 230 | pytest                              | Testing                        |        0 |   0.0 | pytest                             
+ 231 | Domain-Driven Design                | Architecture                   |        0 |   0.0 | Thiết kế hướng miền                
+ 232 | Sketch                              | Design Tool                    |        0 |   0.0 | Sketch                             
+ 233 | Adobe XD                            | Design Tool                    |        0 |   0.0 | Adobe XD                           
+ 234 | InVision                            | Design Tool                    |        0 |   0.0 | InVision                           
+ 235 | ServiceNow                          | Enterprise Software            |        0 |   0.0 | ServiceNow                         

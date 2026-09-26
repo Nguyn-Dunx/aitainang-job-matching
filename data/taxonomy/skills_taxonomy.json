@@ -1,0 +1,3684 @@
+{
+  "metadata": {
+    "version": "1.1.0",
+    "created_date": "2026-09-26",
+    "source": "Thống kê tần suất từ 400 JD IT (dataset tinixai/vietnamese-job-descriptions)",
+    "total_skills": 235,
+    "total_active_skills": 211,
+    "total_aliases": 690,
+    "categories": [
+      {
+        "name": "AI & Data Science",
+        "skill_count": 12,
+        "active_in_jds": 12
+      },
+      {
+        "name": "API Tool",
+        "skill_count": 2,
+        "active_in_jds": 2
+      },
+      {
+        "name": "Architecture",
+        "skill_count": 10,
+        "active_in_jds": 9
+      },
+      {
+        "name": "Backend Framework",
+        "skill_count": 15,
+        "active_in_jds": 14
+      },
+      {
+        "name": "Build Tool",
+        "skill_count": 1,
+        "active_in_jds": 1
+      },
+      {
+        "name": "Cloud Platform",
+        "skill_count": 8,
+        "active_in_jds": 5
+      },
+      {
+        "name": "Data Engineering",
+        "skill_count": 14,
+        "active_in_jds": 13
+      },
+      {
+        "name": "Data Visualization",
+        "skill_count": 5,
+        "active_in_jds": 4
+      },
+      {
+        "name": "Database",
+        "skill_count": 17,
+        "active_in_jds": 13
+      },
+      {
+        "name": "Design",
+        "skill_count": 2,
+        "active_in_jds": 2
+      },
+      {
+        "name": "Design Tool",
+        "skill_count": 8,
+        "active_in_jds": 5
+      },
+      {
+        "name": "DevOps & Infrastructure",
+        "skill_count": 19,
+        "active_in_jds": 18
+      },
+      {
+        "name": "Domain Knowledge",
+        "skill_count": 9,
+        "active_in_jds": 9
+      },
+      {
+        "name": "Enterprise Software",
+        "skill_count": 6,
+        "active_in_jds": 5
+      },
+      {
+        "name": "Frontend Framework",
+        "skill_count": 6,
+        "active_in_jds": 4
+      },
+      {
+        "name": "Frontend Library",
+        "skill_count": 7,
+        "active_in_jds": 7
+      },
+      {
+        "name": "Game Engine",
+        "skill_count": 2,
+        "active_in_jds": 2
+      },
+      {
+        "name": "Language Skill",
+        "skill_count": 2,
+        "active_in_jds": 2
+      },
+      {
+        "name": "Message Queue",
+        "skill_count": 1,
+        "active_in_jds": 1
+      },
+      {
+        "name": "Methodology",
+        "skill_count": 10,
+        "active_in_jds": 10
+      },
+      {
+        "name": "Mobile Development",
+        "skill_count": 2,
+        "active_in_jds": 2
+      },
+      {
+        "name": "Mobile Framework",
+        "skill_count": 2,
+        "active_in_jds": 2
+      },
+      {
+        "name": "Networking",
+        "skill_count": 3,
+        "active_in_jds": 3
+      },
+      {
+        "name": "Operating System",
+        "skill_count": 2,
+        "active_in_jds": 2
+      },
+      {
+        "name": "Programming Language",
+        "skill_count": 24,
+        "active_in_jds": 19
+      },
+      {
+        "name": "Project Management Tool",
+        "skill_count": 3,
+        "active_in_jds": 3
+      },
+      {
+        "name": "Security",
+        "skill_count": 8,
+        "active_in_jds": 8
+      },
+      {
+        "name": "Soft Skill",
+        "skill_count": 18,
+        "active_in_jds": 18
+      },
+      {
+        "name": "Testing",
+        "skill_count": 13,
+        "active_in_jds": 12
+      },
+      {
+        "name": "Version Control",
+        "skill_count": 1,
+        "active_in_jds": 1
+      },
+      {
+        "name": "Virtualization",
+        "skill_count": 1,
+        "active_in_jds": 1
+      },
+      {
+        "name": "Web Technology",
+        "skill_count": 2,
+        "active_in_jds": 2
+      }
+    ]
+  },
+  "skills": [
+    {
+      "canonical": "Communication",
+      "vi": "Giao tiếp",
+      "category": "Soft Skill",
+      "aliases": [
+        "communication",
+        "giao tiếp",
+        "kỹ năng giao tiếp",
+        "communication skills"
+      ],
+      "frequency": {
+        "jd_count": 219,
+        "total_mentions": 320,
+        "jd_percentage": 48.7
+      }
+    },
+    {
+      "canonical": "Report Writing",
+      "vi": "Viết báo cáo",
+      "category": "Soft Skill",
+      "aliases": [
+        "viết báo cáo",
+        "báo cáo",
+        "report",
+        "reporting",
+        "viết tài liệu",
+        "documentation"
+      ],
+      "frequency": {
+        "jd_count": 193,
+        "total_mentions": 376,
+        "jd_percentage": 42.9
+      }
+    },
+    {
+      "canonical": "English Proficiency",
+      "vi": "Tiếng Anh",
+      "category": "Language Skill",
+      "aliases": [
+        "tiếng anh",
+        "english",
+        "ngoại ngữ",
+        "toeic",
+        "ielts",
+        "đọc hiểu tiếng anh",
+        "giao tiếp tiếng anh",
+        "tiếng anh giao tiếp",
+        "tiếng anh đọc hiểu"
+      ],
+      "frequency": {
+        "jd_count": 181,
+        "total_mentions": 248,
+        "jd_percentage": 40.2
+      }
+    },
+    {
+      "canonical": "Independent Work",
+      "vi": "Làm việc độc lập",
+      "category": "Soft Skill",
+      "aliases": [
+        "làm việc độc lập",
+        "độc lập",
+        "chủ động",
+        "independent",
+        "work independently",
+        "tự chủ"
+      ],
+      "frequency": {
+        "jd_count": 163,
+        "total_mentions": 274,
+        "jd_percentage": 36.2
+      }
+    },
+    {
+      "canonical": "Problem Solving",
+      "vi": "Giải quyết vấn đề",
+      "category": "Soft Skill",
+      "aliases": [
+        "problem solving",
+        "problem-solving",
+        "giải quyết vấn đề",
+        "xử lý vấn đề",
+        "khả năng giải quyết vấn đề"
+      ],
+      "frequency": {
+        "jd_count": 158,
+        "total_mentions": 192,
+        "jd_percentage": 35.1
+      }
+    },
+    {
+      "canonical": "Responsibility",
+      "vi": "Trách nhiệm",
+      "category": "Soft Skill",
+      "aliases": [
+        "trách nhiệm",
+        "tinh thần trách nhiệm",
+        "responsibility",
+        "responsible",
+        "trách nhiệm cao"
+      ],
+      "frequency": {
+        "jd_count": 140,
+        "total_mentions": 236,
+        "jd_percentage": 31.1
+      }
+    },
+    {
+      "canonical": "Teamwork",
+      "vi": "Làm việc nhóm",
+      "category": "Soft Skill",
+      "aliases": [
+        "teamwork",
+        "team work",
+        "làm việc nhóm",
+        "làm việc team",
+        "làm việc theo nhóm",
+        "phối hợp nhóm",
+        "tinh thần đồng đội"
+      ],
+      "frequency": {
+        "jd_count": 139,
+        "total_mentions": 171,
+        "jd_percentage": 30.9
+      }
+    },
+    {
+      "canonical": "Python",
+      "vi": "Python",
+      "category": "Programming Language",
+      "aliases": [
+        "python",
+        "python3",
+        "python 3",
+        "python 3.x",
+        "lập trình python",
+        "ngôn ngữ python",
+        "python programming"
+      ],
+      "frequency": {
+        "jd_count": 114,
+        "total_mentions": 161,
+        "jd_percentage": 25.3
+      }
+    },
+    {
+      "canonical": "Machine Learning",
+      "vi": "Học máy",
+      "category": "AI & Data Science",
+      "aliases": [
+        "machine learning",
+        "ml",
+        "học máy",
+        "máy học"
+      ],
+      "frequency": {
+        "jd_count": 107,
+        "total_mentions": 227,
+        "jd_percentage": 23.8
+      }
+    },
+    {
+      "canonical": "Self-Learning",
+      "vi": "Tự học",
+      "category": "Soft Skill",
+      "aliases": [
+        "tự học",
+        "ham học hỏi",
+        "tự nghiên cứu",
+        "học hỏi",
+        "tinh thần học hỏi",
+        "khả năng tự học",
+        "self-learning",
+        "continuous learning"
+      ],
+      "frequency": {
+        "jd_count": 106,
+        "total_mentions": 134,
+        "jd_percentage": 23.6
+      }
+    },
+    {
+      "canonical": "SQL",
+      "vi": "SQL",
+      "category": "Programming Language",
+      "aliases": [
+        "sql",
+        "structured query language",
+        "ngôn ngữ sql",
+        "truy vấn sql"
+      ],
+      "frequency": {
+        "jd_count": 97,
+        "total_mentions": 150,
+        "jd_percentage": 21.6
+      }
+    },
+    {
+      "canonical": "Attention to Detail",
+      "vi": "Cẩn thận chi tiết",
+      "category": "Soft Skill",
+      "aliases": [
+        "cẩn thận",
+        "tỉ mỉ",
+        "chi tiết",
+        "attention to detail",
+        "cẩn thận chi tiết",
+        "tỉ mỉ chi tiết"
+      ],
+      "frequency": {
+        "jd_count": 94,
+        "total_mentions": 135,
+        "jd_percentage": 20.9
+      }
+    },
+    {
+      "canonical": "Mentoring",
+      "vi": "Hướng dẫn/Đào tạo",
+      "category": "Soft Skill",
+      "aliases": [
+        "mentor",
+        "mentoring",
+        "hướng dẫn",
+        "đào tạo nhân viên",
+        "coaching"
+      ],
+      "frequency": {
+        "jd_count": 92,
+        "total_mentions": 119,
+        "jd_percentage": 20.4
+      }
+    },
+    {
+      "canonical": "Networking",
+      "vi": "Mạng máy tính",
+      "category": "Networking",
+      "aliases": [
+        "networking",
+        "network",
+        "mạng",
+        "mạng máy tính",
+        "hệ thống mạng"
+      ],
+      "frequency": {
+        "jd_count": 89,
+        "total_mentions": 273,
+        "jd_percentage": 19.8
+      }
+    },
+    {
+      "canonical": "Git",
+      "vi": "Git",
+      "category": "Version Control",
+      "aliases": [
+        "git",
+        "github",
+        "gitlab",
+        "bitbucket",
+        "quản lý mã nguồn"
+      ],
+      "frequency": {
+        "jd_count": 87,
+        "total_mentions": 150,
+        "jd_percentage": 19.3
+      }
+    },
+    {
+      "canonical": "Analytical Thinking",
+      "vi": "Tư duy phân tích",
+      "category": "Soft Skill",
+      "aliases": [
+        "analytical thinking",
+        "analytical skills",
+        "tư duy phân tích",
+        "phân tích logic",
+        "tư duy logic"
+      ],
+      "frequency": {
+        "jd_count": 83,
+        "total_mentions": 92,
+        "jd_percentage": 18.4
+      }
+    },
+    {
+      "canonical": "Agile",
+      "vi": "Agile",
+      "category": "Methodology",
+      "aliases": [
+        "agile",
+        "agile methodology",
+        "phương pháp agile"
+      ],
+      "frequency": {
+        "jd_count": 78,
+        "total_mentions": 121,
+        "jd_percentage": 17.3
+      }
+    },
+    {
+      "canonical": "Java",
+      "vi": "Java",
+      "category": "Programming Language",
+      "aliases": [
+        "java",
+        "java se",
+        "java ee",
+        "core java",
+        "lập trình java",
+        "ngôn ngữ java"
+      ],
+      "frequency": {
+        "jd_count": 73,
+        "total_mentions": 132,
+        "jd_percentage": 16.2
+      }
+    },
+    {
+      "canonical": "Linux",
+      "vi": "Linux",
+      "category": "Operating System",
+      "aliases": [
+        "linux",
+        "hệ điều hành linux",
+        "centos",
+        "ubuntu",
+        "debian",
+        "redhat",
+        "red hat"
+      ],
+      "frequency": {
+        "jd_count": 63,
+        "total_mentions": 128,
+        "jd_percentage": 14.0
+      }
+    },
+    {
+      "canonical": "JavaScript",
+      "vi": "JavaScript",
+      "category": "Programming Language",
+      "aliases": [
+        "javascript",
+        "js",
+        "ecmascript",
+        "es6",
+        "es6+",
+        "es2015",
+        "lập trình javascript"
+      ],
+      "frequency": {
+        "jd_count": 62,
+        "total_mentions": 112,
+        "jd_percentage": 13.8
+      }
+    },
+    {
+      "canonical": "MySQL",
+      "vi": "MySQL",
+      "category": "Database",
+      "aliases": [
+        "mysql",
+        "my sql"
+      ],
+      "frequency": {
+        "jd_count": 61,
+        "total_mentions": 92,
+        "jd_percentage": 13.6
+      }
+    },
+    {
+      "canonical": "Docker",
+      "vi": "Docker",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "docker",
+        "docker container",
+        "dockerfile"
+      ],
+      "frequency": {
+        "jd_count": 60,
+        "total_mentions": 91,
+        "jd_percentage": 13.3
+      }
+    },
+    {
+      "canonical": "Data Analysis",
+      "vi": "Phân tích dữ liệu",
+      "category": "Data Engineering",
+      "aliases": [
+        "data analysis",
+        "phân tích dữ liệu",
+        "data analytics"
+      ],
+      "frequency": {
+        "jd_count": 59,
+        "total_mentions": 99,
+        "jd_percentage": 13.1
+      }
+    },
+    {
+      "canonical": "RESTful API",
+      "vi": "API RESTful",
+      "category": "Architecture",
+      "aliases": [
+        "restful",
+        "rest api",
+        "restful api",
+        "rest",
+        "api restful"
+      ],
+      "frequency": {
+        "jd_count": 59,
+        "total_mentions": 94,
+        "jd_percentage": 13.1
+      }
+    },
+    {
+      "canonical": "Scrum",
+      "vi": "Scrum",
+      "category": "Methodology",
+      "aliases": [
+        "scrum",
+        "scrum framework"
+      ],
+      "frequency": {
+        "jd_count": 56,
+        "total_mentions": 80,
+        "jd_percentage": 12.4
+      }
+    },
+    {
+      "canonical": "CI/CD",
+      "vi": "Tích hợp/Triển khai liên tục",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "ci/cd",
+        "cicd",
+        "ci cd",
+        "continuous integration",
+        "continuous delivery",
+        "continuous deployment"
+      ],
+      "frequency": {
+        "jd_count": 53,
+        "total_mentions": 93,
+        "jd_percentage": 11.8
+      }
+    },
+    {
+      "canonical": "Project Management",
+      "vi": "Quản lý dự án",
+      "category": "Soft Skill",
+      "aliases": [
+        "quản lý dự án",
+        "project management",
+        "quản trị dự án"
+      ],
+      "frequency": {
+        "jd_count": 52,
+        "total_mentions": 96,
+        "jd_percentage": 11.6
+      }
+    },
+    {
+      "canonical": "AWS",
+      "vi": "Amazon Web Services",
+      "category": "Cloud Platform",
+      "aliases": [
+        "aws",
+        "amazon web services",
+        "amazon aws"
+      ],
+      "frequency": {
+        "jd_count": 50,
+        "total_mentions": 85,
+        "jd_percentage": 11.1
+      }
+    },
+    {
+      "canonical": "Leadership",
+      "vi": "Lãnh đạo",
+      "category": "Soft Skill",
+      "aliases": [
+        "leadership",
+        "lãnh đạo",
+        "kỹ năng lãnh đạo",
+        "dẫn dắt"
+      ],
+      "frequency": {
+        "jd_count": 50,
+        "total_mentions": 67,
+        "jd_percentage": 11.1
+      }
+    },
+    {
+      "canonical": "Cybersecurity",
+      "vi": "An ninh mạng",
+      "category": "Security",
+      "aliases": [
+        "cybersecurity",
+        "cyber security",
+        "an ninh mạng",
+        "bảo mật mạng",
+        "information security",
+        "infosec",
+        "bảo mật thông tin"
+      ],
+      "frequency": {
+        "jd_count": 45,
+        "total_mentions": 93,
+        "jd_percentage": 10.0
+      }
+    },
+    {
+      "canonical": "Creativity",
+      "vi": "Sáng tạo",
+      "category": "Soft Skill",
+      "aliases": [
+        "sáng tạo",
+        "creativity",
+        "creative",
+        "tư duy sáng tạo"
+      ],
+      "frequency": {
+        "jd_count": 44,
+        "total_mentions": 68,
+        "jd_percentage": 9.8
+      }
+    },
+    {
+      "canonical": "Microsoft Office",
+      "vi": "Tin học văn phòng",
+      "category": "Enterprise Software",
+      "aliases": [
+        "microsoft office",
+        "ms office",
+        "office 365",
+        "tin học văn phòng",
+        "vi tính văn phòng",
+        "word",
+        "excel",
+        "powerpoint"
+      ],
+      "frequency": {
+        "jd_count": 44,
+        "total_mentions": 85,
+        "jd_percentage": 9.8
+      }
+    },
+    {
+      "canonical": "PostgreSQL",
+      "vi": "PostgreSQL",
+      "category": "Database",
+      "aliases": [
+        "postgresql",
+        "postgres",
+        "postgre",
+        "pgsql"
+      ],
+      "frequency": {
+        "jd_count": 41,
+        "total_mentions": 59,
+        "jd_percentage": 9.1
+      }
+    },
+    {
+      "canonical": "Azure",
+      "vi": "Microsoft Azure",
+      "category": "Cloud Platform",
+      "aliases": [
+        "azure",
+        "microsoft azure",
+        "ms azure"
+      ],
+      "frequency": {
+        "jd_count": 41,
+        "total_mentions": 78,
+        "jd_percentage": 9.1
+      }
+    },
+    {
+      "canonical": "Jira",
+      "vi": "Jira",
+      "category": "Project Management Tool",
+      "aliases": [
+        "jira",
+        "atlassian jira"
+      ],
+      "frequency": {
+        "jd_count": 40,
+        "total_mentions": 54,
+        "jd_percentage": 8.9
+      }
+    },
+    {
+      "canonical": "React",
+      "vi": "React",
+      "category": "Frontend Framework",
+      "aliases": [
+        "react",
+        "reactjs",
+        "react.js",
+        "react js"
+      ],
+      "frequency": {
+        "jd_count": 39,
+        "total_mentions": 75,
+        "jd_percentage": 8.7
+      }
+    },
+    {
+      "canonical": "Kubernetes",
+      "vi": "Kubernetes",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "kubernetes",
+        "k8s",
+        "kube"
+      ],
+      "frequency": {
+        "jd_count": 39,
+        "total_mentions": 69,
+        "jd_percentage": 8.7
+      }
+    },
+    {
+      "canonical": "Microservices",
+      "vi": "Kiến trúc vi dịch vụ",
+      "category": "Architecture",
+      "aliases": [
+        "microservices",
+        "microservice",
+        "micro services",
+        "vi dịch vụ",
+        "kiến trúc microservice"
+      ],
+      "frequency": {
+        "jd_count": 37,
+        "total_mentions": 58,
+        "jd_percentage": 8.2
+      }
+    },
+    {
+      "canonical": "OOP",
+      "vi": "Lập trình hướng đối tượng",
+      "category": "Methodology",
+      "aliases": [
+        "oop",
+        "object oriented",
+        "object-oriented",
+        "hướng đối tượng",
+        "lập trình hướng đối tượng"
+      ],
+      "frequency": {
+        "jd_count": 37,
+        "total_mentions": 54,
+        "jd_percentage": 8.2
+      }
+    },
+    {
+      "canonical": "Google Cloud Platform",
+      "vi": "Google Cloud",
+      "category": "Cloud Platform",
+      "aliases": [
+        "gcp",
+        "google cloud",
+        "google cloud platform"
+      ],
+      "frequency": {
+        "jd_count": 36,
+        "total_mentions": 57,
+        "jd_percentage": 8.0
+      }
+    },
+    {
+      "canonical": "Pressure Resilience",
+      "vi": "Chịu áp lực",
+      "category": "Soft Skill",
+      "aliases": [
+        "chịu áp lực",
+        "chịu được áp lực",
+        "làm việc áp lực",
+        "chịu áp lực cao",
+        "áp lực công việc",
+        "work under pressure"
+      ],
+      "frequency": {
+        "jd_count": 36,
+        "total_mentions": 38,
+        "jd_percentage": 8.0
+      }
+    },
+    {
+      "canonical": "UI/UX Design",
+      "vi": "Thiết kế UI/UX",
+      "category": "Design",
+      "aliases": [
+        "ui/ux",
+        "ux/ui",
+        "ui ux",
+        "ux ui",
+        "thiết kế ui/ux",
+        "user experience",
+        "user interface",
+        "trải nghiệm người dùng"
+      ],
+      "frequency": {
+        "jd_count": 35,
+        "total_mentions": 56,
+        "jd_percentage": 7.8
+      }
+    },
+    {
+      "canonical": "Oracle Database",
+      "vi": "Oracle Database",
+      "category": "Database",
+      "aliases": [
+        "oracle",
+        "oracle db",
+        "oracle database",
+        "db oracle",
+        "oracle sql"
+      ],
+      "frequency": {
+        "jd_count": 34,
+        "total_mentions": 49,
+        "jd_percentage": 7.6
+      }
+    },
+    {
+      "canonical": "Time Management",
+      "vi": "Quản lý thời gian",
+      "category": "Soft Skill",
+      "aliases": [
+        "time management",
+        "quản lý thời gian"
+      ],
+      "frequency": {
+        "jd_count": 33,
+        "total_mentions": 37,
+        "jd_percentage": 7.3
+      }
+    },
+    {
+      "canonical": "MongoDB",
+      "vi": "MongoDB",
+      "category": "Database",
+      "aliases": [
+        "mongodb",
+        "mongo",
+        "mongo db"
+      ],
+      "frequency": {
+        "jd_count": 32,
+        "total_mentions": 48,
+        "jd_percentage": 7.1
+      }
+    },
+    {
+      "canonical": "Presentation",
+      "vi": "Thuyết trình",
+      "category": "Soft Skill",
+      "aliases": [
+        "presentation",
+        "thuyết trình",
+        "kỹ năng thuyết trình"
+      ],
+      "frequency": {
+        "jd_count": 32,
+        "total_mentions": 36,
+        "jd_percentage": 7.1
+      }
+    },
+    {
+      "canonical": "Firewall",
+      "vi": "Tường lửa",
+      "category": "Security",
+      "aliases": [
+        "firewall",
+        "tường lửa"
+      ],
+      "frequency": {
+        "jd_count": 31,
+        "total_mentions": 49,
+        "jd_percentage": 6.9
+      }
+    },
+    {
+      "canonical": "HTML",
+      "vi": "HTML",
+      "category": "Web Technology",
+      "aliases": [
+        "html",
+        "html5",
+        "html 5"
+      ],
+      "frequency": {
+        "jd_count": 30,
+        "total_mentions": 58,
+        "jd_percentage": 6.7
+      }
+    },
+    {
+      "canonical": "Code Review",
+      "vi": "Đánh giá mã nguồn",
+      "category": "Methodology",
+      "aliases": [
+        "code review",
+        "review code",
+        "đánh giá mã nguồn"
+      ],
+      "frequency": {
+        "jd_count": 30,
+        "total_mentions": 31,
+        "jd_percentage": 6.7
+      }
+    },
+    {
+      "canonical": "CSS",
+      "vi": "CSS",
+      "category": "Web Technology",
+      "aliases": [
+        "css",
+        "css3",
+        "css 3"
+      ],
+      "frequency": {
+        "jd_count": 29,
+        "total_mentions": 56,
+        "jd_percentage": 6.4
+      }
+    },
+    {
+      "canonical": "LLM",
+      "vi": "Mô hình ngôn ngữ lớn",
+      "category": "AI & Data Science",
+      "aliases": [
+        "llm",
+        "large language model",
+        "mô hình ngôn ngữ lớn",
+        "chatgpt",
+        "gpt"
+      ],
+      "frequency": {
+        "jd_count": 28,
+        "total_mentions": 73,
+        "jd_percentage": 6.2
+      }
+    },
+    {
+      "canonical": "Microsoft SQL Server",
+      "vi": "SQL Server",
+      "category": "Database",
+      "aliases": [
+        "sql server",
+        "mssql",
+        "ms sql",
+        "ms sql server",
+        "microsoft sql server"
+      ],
+      "frequency": {
+        "jd_count": 27,
+        "total_mentions": 42,
+        "jd_percentage": 6.0
+      }
+    },
+    {
+      "canonical": "Deep Learning",
+      "vi": "Học sâu",
+      "category": "AI & Data Science",
+      "aliases": [
+        "deep learning",
+        "dl",
+        "học sâu"
+      ],
+      "frequency": {
+        "jd_count": 26,
+        "total_mentions": 50,
+        "jd_percentage": 5.8
+      }
+    },
+    {
+      "canonical": "Spring",
+      "vi": "Spring",
+      "category": "Backend Framework",
+      "aliases": [
+        "spring",
+        "spring boot",
+        "springboot",
+        "spring framework",
+        "spring mvc",
+        "spring cloud"
+      ],
+      "frequency": {
+        "jd_count": 25,
+        "total_mentions": 69,
+        "jd_percentage": 5.6
+      }
+    },
+    {
+      "canonical": "PyTorch",
+      "vi": "PyTorch",
+      "category": "AI & Data Science",
+      "aliases": [
+        "pytorch",
+        "py torch"
+      ],
+      "frequency": {
+        "jd_count": 25,
+        "total_mentions": 32,
+        "jd_percentage": 5.6
+      }
+    },
+    {
+      "canonical": "Power BI",
+      "vi": "Power BI",
+      "category": "Data Visualization",
+      "aliases": [
+        "power bi",
+        "powerbi",
+        "power-bi"
+      ],
+      "frequency": {
+        "jd_count": 25,
+        "total_mentions": 40,
+        "jd_percentage": 5.6
+      }
+    },
+    {
+      "canonical": "E-commerce",
+      "vi": "Thương mại điện tử",
+      "category": "Domain Knowledge",
+      "aliases": [
+        "e-commerce",
+        "ecommerce",
+        "thương mại điện tử",
+        "tmđt"
+      ],
+      "frequency": {
+        "jd_count": 25,
+        "total_mentions": 37,
+        "jd_percentage": 5.6
+      }
+    },
+    {
+      "canonical": "Angular",
+      "vi": "Angular",
+      "category": "Frontend Framework",
+      "aliases": [
+        "angular",
+        "angularjs",
+        "angular.js",
+        "angular js",
+        "angular 2+"
+      ],
+      "frequency": {
+        "jd_count": 24,
+        "total_mentions": 37,
+        "jd_percentage": 5.3
+      }
+    },
+    {
+      "canonical": "TensorFlow",
+      "vi": "TensorFlow",
+      "category": "AI & Data Science",
+      "aliases": [
+        "tensorflow",
+        "tensor flow",
+        "tf"
+      ],
+      "frequency": {
+        "jd_count": 24,
+        "total_mentions": 32,
+        "jd_percentage": 5.3
+      }
+    },
+    {
+      "canonical": "Big Data",
+      "vi": "Dữ liệu lớn",
+      "category": "Data Engineering",
+      "aliases": [
+        "big data",
+        "dữ liệu lớn"
+      ],
+      "frequency": {
+        "jd_count": 24,
+        "total_mentions": 36,
+        "jd_percentage": 5.3
+      }
+    },
+    {
+      "canonical": "Automation Testing",
+      "vi": "Kiểm thử tự động",
+      "category": "Testing",
+      "aliases": [
+        "automation testing",
+        "automated testing",
+        "test automation",
+        "kiểm thử tự động",
+        "tự động hóa kiểm thử"
+      ],
+      "frequency": {
+        "jd_count": 24,
+        "total_mentions": 59,
+        "jd_percentage": 5.3
+      }
+    },
+    {
+      "canonical": "ERP",
+      "vi": "Hệ thống hoạch định nguồn lực doanh nghiệp",
+      "category": "Domain Knowledge",
+      "aliases": [
+        "erp",
+        "enterprise resource planning",
+        "sap erp"
+      ],
+      "frequency": {
+        "jd_count": 24,
+        "total_mentions": 52,
+        "jd_percentage": 5.3
+      }
+    },
+    {
+      "canonical": "Node.js",
+      "vi": "Node.js",
+      "category": "Backend Framework",
+      "aliases": [
+        "node.js",
+        "nodejs",
+        "node js",
+        "node"
+      ],
+      "frequency": {
+        "jd_count": 23,
+        "total_mentions": 38,
+        "jd_percentage": 5.1
+      }
+    },
+    {
+      "canonical": "Cisco",
+      "vi": "Cisco",
+      "category": "Networking",
+      "aliases": [
+        "cisco",
+        "cisco systems",
+        "ccna",
+        "ccnp"
+      ],
+      "frequency": {
+        "jd_count": 23,
+        "total_mentions": 49,
+        "jd_percentage": 5.1
+      }
+    },
+    {
+      "canonical": "TypeScript",
+      "vi": "TypeScript",
+      "category": "Programming Language",
+      "aliases": [
+        "typescript",
+        "ts"
+      ],
+      "frequency": {
+        "jd_count": 22,
+        "total_mentions": 36,
+        "jd_percentage": 4.9
+      }
+    },
+    {
+      "canonical": "Computer Vision",
+      "vi": "Thị giác máy tính",
+      "category": "AI & Data Science",
+      "aliases": [
+        "computer vision",
+        "cv",
+        "thị giác máy tính"
+      ],
+      "frequency": {
+        "jd_count": 22,
+        "total_mentions": 36,
+        "jd_percentage": 4.9
+      }
+    },
+    {
+      "canonical": "TCP/IP",
+      "vi": "TCP/IP",
+      "category": "Networking",
+      "aliases": [
+        "tcp/ip",
+        "tcp ip",
+        "giao thức tcp/ip"
+      ],
+      "frequency": {
+        "jd_count": 22,
+        "total_mentions": 31,
+        "jd_percentage": 4.9
+      }
+    },
+    {
+      "canonical": "PHP",
+      "vi": "PHP",
+      "category": "Programming Language",
+      "aliases": [
+        "php",
+        "php7",
+        "php8",
+        "lập trình php"
+      ],
+      "frequency": {
+        "jd_count": 21,
+        "total_mentions": 52,
+        "jd_percentage": 4.7
+      }
+    },
+    {
+      "canonical": "Unit Testing",
+      "vi": "Kiểm thử đơn vị",
+      "category": "Testing",
+      "aliases": [
+        "unit test",
+        "unit testing",
+        "kiểm thử đơn vị"
+      ],
+      "frequency": {
+        "jd_count": 21,
+        "total_mentions": 28,
+        "jd_percentage": 4.7
+      }
+    },
+    {
+      "canonical": "Vue.js",
+      "vi": "Vue.js",
+      "category": "Frontend Framework",
+      "aliases": [
+        "vue",
+        "vuejs",
+        "vue.js",
+        "vue js",
+        "vue 3",
+        "vue2",
+        "vue3"
+      ],
+      "frequency": {
+        "jd_count": 20,
+        "total_mentions": 36,
+        "jd_percentage": 4.4
+      }
+    },
+    {
+      "canonical": "Jenkins",
+      "vi": "Jenkins",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "jenkins"
+      ],
+      "frequency": {
+        "jd_count": 20,
+        "total_mentions": 30,
+        "jd_percentage": 4.4
+      }
+    },
+    {
+      "canonical": "Figma",
+      "vi": "Figma",
+      "category": "Design Tool",
+      "aliases": [
+        "figma"
+      ],
+      "frequency": {
+        "jd_count": 19,
+        "total_mentions": 24,
+        "jd_percentage": 4.2
+      }
+    },
+    {
+      "canonical": "Adobe Photoshop",
+      "vi": "Adobe Photoshop",
+      "category": "Design Tool",
+      "aliases": [
+        "photoshop",
+        "adobe photoshop",
+        "ps"
+      ],
+      "frequency": {
+        "jd_count": 19,
+        "total_mentions": 30,
+        "jd_percentage": 4.2
+      }
+    },
+    {
+      "canonical": "Customer Service",
+      "vi": "Chăm sóc khách hàng",
+      "category": "Soft Skill",
+      "aliases": [
+        "chăm sóc khách hàng",
+        "hỗ trợ khách hàng",
+        "customer service",
+        "customer support"
+      ],
+      "frequency": {
+        "jd_count": 19,
+        "total_mentions": 20,
+        "jd_percentage": 4.2
+      }
+    },
+    {
+      "canonical": "Redis",
+      "vi": "Redis",
+      "category": "Database",
+      "aliases": [
+        "redis"
+      ],
+      "frequency": {
+        "jd_count": 18,
+        "total_mentions": 26,
+        "jd_percentage": 4.0
+      }
+    },
+    {
+      "canonical": "Natural Language Processing",
+      "vi": "Xử lý ngôn ngữ tự nhiên",
+      "category": "AI & Data Science",
+      "aliases": [
+        "nlp",
+        "natural language processing",
+        "xử lý ngôn ngữ tự nhiên"
+      ],
+      "frequency": {
+        "jd_count": 18,
+        "total_mentions": 33,
+        "jd_percentage": 4.0
+      }
+    },
+    {
+      "canonical": "Tableau",
+      "vi": "Tableau",
+      "category": "Data Visualization",
+      "aliases": [
+        "tableau"
+      ],
+      "frequency": {
+        "jd_count": 18,
+        "total_mentions": 26,
+        "jd_percentage": 4.0
+      }
+    },
+    {
+      "canonical": "Postman",
+      "vi": "Postman",
+      "category": "API Tool",
+      "aliases": [
+        "postman"
+      ],
+      "frequency": {
+        "jd_count": 18,
+        "total_mentions": 25,
+        "jd_percentage": 4.0
+      }
+    },
+    {
+      "canonical": "Unity",
+      "vi": "Unity",
+      "category": "Game Engine",
+      "aliases": [
+        "unity",
+        "unity3d",
+        "unity 3d",
+        "game engine unity"
+      ],
+      "frequency": {
+        "jd_count": 18,
+        "total_mentions": 44,
+        "jd_percentage": 4.0
+      }
+    },
+    {
+      "canonical": "iOS Development",
+      "vi": "Phát triển iOS",
+      "category": "Mobile Development",
+      "aliases": [
+        "ios",
+        "ios development",
+        "phát triển ios",
+        "lập trình ios",
+        "xcode"
+      ],
+      "frequency": {
+        "jd_count": 18,
+        "total_mentions": 37,
+        "jd_percentage": 4.0
+      }
+    },
+    {
+      "canonical": "Shell/Bash",
+      "vi": "Shell/Bash",
+      "category": "Programming Language",
+      "aliases": [
+        "bash",
+        "shell",
+        "shell script",
+        "bash script",
+        "sh"
+      ],
+      "frequency": {
+        "jd_count": 17,
+        "total_mentions": 24,
+        "jd_percentage": 3.8
+      }
+    },
+    {
+      "canonical": "ETL",
+      "vi": "Trích xuất-Chuyển đổi-Nạp dữ liệu",
+      "category": "Data Engineering",
+      "aliases": [
+        "etl",
+        "extract transform load"
+      ],
+      "frequency": {
+        "jd_count": 17,
+        "total_mentions": 37,
+        "jd_percentage": 3.8
+      }
+    },
+    {
+      "canonical": "Data Warehouse",
+      "vi": "Kho dữ liệu",
+      "category": "Data Engineering",
+      "aliases": [
+        "data warehouse",
+        "data warehousing",
+        "kho dữ liệu",
+        "dwh"
+      ],
+      "frequency": {
+        "jd_count": 17,
+        "total_mentions": 37,
+        "jd_percentage": 3.8
+      }
+    },
+    {
+      "canonical": "Apache Kafka",
+      "vi": "Apache Kafka",
+      "category": "Data Engineering",
+      "aliases": [
+        "kafka",
+        "apache kafka"
+      ],
+      "frequency": {
+        "jd_count": 16,
+        "total_mentions": 19,
+        "jd_percentage": 3.6
+      }
+    },
+    {
+      "canonical": "SDLC",
+      "vi": "Vòng đời phát triển phần mềm",
+      "category": "Methodology",
+      "aliases": [
+        "sdlc",
+        "software development life cycle",
+        "vòng đời phát triển phần mềm"
+      ],
+      "frequency": {
+        "jd_count": 15,
+        "total_mentions": 19,
+        "jd_percentage": 3.3
+      }
+    },
+    {
+      "canonical": "VMware",
+      "vi": "VMware",
+      "category": "Virtualization",
+      "aliases": [
+        "vmware",
+        "vmware vsphere",
+        "vmware vsan",
+        "vmware cloud",
+        "vmware esxi"
+      ],
+      "frequency": {
+        "jd_count": 14,
+        "total_mentions": 29,
+        "jd_percentage": 3.1
+      }
+    },
+    {
+      "canonical": "Apache Spark",
+      "vi": "Apache Spark",
+      "category": "Data Engineering",
+      "aliases": [
+        "spark",
+        "apache spark",
+        "pyspark"
+      ],
+      "frequency": {
+        "jd_count": 14,
+        "total_mentions": 17,
+        "jd_percentage": 3.1
+      }
+    },
+    {
+      "canonical": "Design Patterns",
+      "vi": "Mẫu thiết kế",
+      "category": "Methodology",
+      "aliases": [
+        "design patterns",
+        "design pattern",
+        "mẫu thiết kế"
+      ],
+      "frequency": {
+        "jd_count": 14,
+        "total_mentions": 18,
+        "jd_percentage": 3.1
+      }
+    },
+    {
+      "canonical": "Japanese Proficiency",
+      "vi": "Tiếng Nhật",
+      "category": "Language Skill",
+      "aliases": [
+        "tiếng nhật",
+        "japanese",
+        "jlpt",
+        "n1",
+        "n2",
+        "n3"
+      ],
+      "frequency": {
+        "jd_count": 14,
+        "total_mentions": 34,
+        "jd_percentage": 3.1
+      }
+    },
+    {
+      "canonical": "CRM",
+      "vi": "Quản lý quan hệ khách hàng",
+      "category": "Domain Knowledge",
+      "aliases": [
+        "crm",
+        "customer relationship management",
+        "quản lý quan hệ khách hàng",
+        "salesforce"
+      ],
+      "frequency": {
+        "jd_count": 14,
+        "total_mentions": 20,
+        "jd_percentage": 3.1
+      }
+    },
+    {
+      "canonical": "MLOps",
+      "vi": "MLOps",
+      "category": "AI & Data Science",
+      "aliases": [
+        "mlops",
+        "ml ops"
+      ],
+      "frequency": {
+        "jd_count": 14,
+        "total_mentions": 19,
+        "jd_percentage": 3.1
+      }
+    },
+    {
+      "canonical": "VPN",
+      "vi": "VPN",
+      "category": "Security",
+      "aliases": [
+        "vpn",
+        "virtual private network"
+      ],
+      "frequency": {
+        "jd_count": 14,
+        "total_mentions": 17,
+        "jd_percentage": 3.1
+      }
+    },
+    {
+      "canonical": "Windows Server",
+      "vi": "Windows Server",
+      "category": "Operating System",
+      "aliases": [
+        "windows server",
+        "windows server 2019",
+        "windows server 2022"
+      ],
+      "frequency": {
+        "jd_count": 13,
+        "total_mentions": 20,
+        "jd_percentage": 2.9
+      }
+    },
+    {
+      "canonical": "Selenium",
+      "vi": "Selenium",
+      "category": "Testing",
+      "aliases": [
+        "selenium",
+        "selenium webdriver"
+      ],
+      "frequency": {
+        "jd_count": 13,
+        "total_mentions": 23,
+        "jd_percentage": 2.9
+      }
+    },
+    {
+      "canonical": "Android Development",
+      "vi": "Phát triển Android",
+      "category": "Mobile Development",
+      "aliases": [
+        "android",
+        "android development",
+        "phát triển android",
+        "lập trình android",
+        "android sdk"
+      ],
+      "frequency": {
+        "jd_count": 13,
+        "total_mentions": 24,
+        "jd_percentage": 2.9
+      }
+    },
+    {
+      "canonical": "Prometheus",
+      "vi": "Prometheus",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "prometheus"
+      ],
+      "frequency": {
+        "jd_count": 12,
+        "total_mentions": 16,
+        "jd_percentage": 2.7
+      }
+    },
+    {
+      "canonical": "Grafana",
+      "vi": "Grafana",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "grafana"
+      ],
+      "frequency": {
+        "jd_count": 12,
+        "total_mentions": 17,
+        "jd_percentage": 2.7
+      }
+    },
+    {
+      "canonical": "Data Pipeline",
+      "vi": "Đường ống dữ liệu",
+      "category": "Data Engineering",
+      "aliases": [
+        "data pipeline",
+        "đường ống dữ liệu",
+        "pipeline dữ liệu"
+      ],
+      "frequency": {
+        "jd_count": 12,
+        "total_mentions": 15,
+        "jd_percentage": 2.7
+      }
+    },
+    {
+      "canonical": "Ansible",
+      "vi": "Ansible",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "ansible"
+      ],
+      "frequency": {
+        "jd_count": 11,
+        "total_mentions": 14,
+        "jd_percentage": 2.4
+      }
+    },
+    {
+      "canonical": "Penetration Testing",
+      "vi": "Kiểm thử xâm nhập",
+      "category": "Security",
+      "aliases": [
+        "penetration testing",
+        "pentest",
+        "pen test",
+        "kiểm thử xâm nhập"
+      ],
+      "frequency": {
+        "jd_count": 11,
+        "total_mentions": 23,
+        "jd_percentage": 2.4
+      }
+    },
+    {
+      "canonical": "Go",
+      "vi": "Go",
+      "category": "Programming Language",
+      "aliases": [
+        "golang",
+        "go lang",
+        "ngôn ngữ go"
+      ],
+      "frequency": {
+        "jd_count": 10,
+        "total_mentions": 14,
+        "jd_percentage": 2.2
+      }
+    },
+    {
+      "canonical": ".NET",
+      "vi": ".NET",
+      "category": "Backend Framework",
+      "aliases": [
+        ".net",
+        "dotnet",
+        "dot net",
+        ".net core",
+        ".net framework",
+        "asp.net",
+        "asp net"
+      ],
+      "frequency": {
+        "jd_count": 10,
+        "total_mentions": 22,
+        "jd_percentage": 2.2
+      }
+    },
+    {
+      "canonical": "Hadoop",
+      "vi": "Hadoop",
+      "category": "Data Engineering",
+      "aliases": [
+        "hadoop",
+        "apache hadoop"
+      ],
+      "frequency": {
+        "jd_count": 10,
+        "total_mentions": 12,
+        "jd_percentage": 2.2
+      }
+    },
+    {
+      "canonical": "Confluence",
+      "vi": "Confluence",
+      "category": "Project Management Tool",
+      "aliases": [
+        "confluence"
+      ],
+      "frequency": {
+        "jd_count": 10,
+        "total_mentions": 14,
+        "jd_percentage": 2.2
+      }
+    },
+    {
+      "canonical": "Performance Testing",
+      "vi": "Kiểm thử hiệu năng",
+      "category": "Testing",
+      "aliases": [
+        "performance testing",
+        "kiểm thử hiệu năng",
+        "load testing",
+        "stress testing"
+      ],
+      "frequency": {
+        "jd_count": 10,
+        "total_mentions": 12,
+        "jd_percentage": 2.2
+      }
+    },
+    {
+      "canonical": "API Testing",
+      "vi": "Kiểm thử API",
+      "category": "Testing",
+      "aliases": [
+        "api testing",
+        "kiểm thử api"
+      ],
+      "frequency": {
+        "jd_count": 10,
+        "total_mentions": 13,
+        "jd_percentage": 2.2
+      }
+    },
+    {
+      "canonical": "Responsive Design",
+      "vi": "Thiết kế đáp ứng",
+      "category": "Design",
+      "aliases": [
+        "responsive",
+        "responsive design",
+        "responsive web",
+        "thiết kế responsive"
+      ],
+      "frequency": {
+        "jd_count": 10,
+        "total_mentions": 17,
+        "jd_percentage": 2.2
+      }
+    },
+    {
+      "canonical": "GitLab CI/CD",
+      "vi": "GitLab CI/CD",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "gitlab ci",
+        "gitlab ci/cd",
+        "gitlab-ci"
+      ],
+      "frequency": {
+        "jd_count": 10,
+        "total_mentions": 17,
+        "jd_percentage": 2.2
+      }
+    },
+    {
+      "canonical": "Waterfall",
+      "vi": "Thác nước",
+      "category": "Methodology",
+      "aliases": [
+        "waterfall",
+        "mô hình thác nước"
+      ],
+      "frequency": {
+        "jd_count": 10,
+        "total_mentions": 11,
+        "jd_percentage": 2.2
+      }
+    },
+    {
+      "canonical": "Terraform",
+      "vi": "Terraform",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "terraform"
+      ],
+      "frequency": {
+        "jd_count": 9,
+        "total_mentions": 14,
+        "jd_percentage": 2.0
+      }
+    },
+    {
+      "canonical": "Pandas",
+      "vi": "Pandas",
+      "category": "Data Engineering",
+      "aliases": [
+        "pandas"
+      ],
+      "frequency": {
+        "jd_count": 9,
+        "total_mentions": 11,
+        "jd_percentage": 2.0
+      }
+    },
+    {
+      "canonical": "ELK Stack",
+      "vi": "ELK Stack",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "elk",
+        "elk stack",
+        "logstash",
+        "kibana"
+      ],
+      "frequency": {
+        "jd_count": 9,
+        "total_mentions": 15,
+        "jd_percentage": 2.0
+      }
+    },
+    {
+      "canonical": "Hugging Face",
+      "vi": "Hugging Face",
+      "category": "AI & Data Science",
+      "aliases": [
+        "hugging face",
+        "huggingface",
+        "transformers"
+      ],
+      "frequency": {
+        "jd_count": 9,
+        "total_mentions": 16,
+        "jd_percentage": 2.0
+      }
+    },
+    {
+      "canonical": "Appium",
+      "vi": "Appium",
+      "category": "Testing",
+      "aliases": [
+        "appium"
+      ],
+      "frequency": {
+        "jd_count": 9,
+        "total_mentions": 15,
+        "jd_percentage": 2.0
+      }
+    },
+    {
+      "canonical": "JMeter",
+      "vi": "JMeter",
+      "category": "Testing",
+      "aliases": [
+        "jmeter",
+        "apache jmeter"
+      ],
+      "frequency": {
+        "jd_count": 9,
+        "total_mentions": 12,
+        "jd_percentage": 2.0
+      }
+    },
+    {
+      "canonical": "Negotiation",
+      "vi": "Đàm phán",
+      "category": "Soft Skill",
+      "aliases": [
+        "đàm phán",
+        "negotiation",
+        "thương lượng"
+      ],
+      "frequency": {
+        "jd_count": 9,
+        "total_mentions": 11,
+        "jd_percentage": 2.0
+      }
+    },
+    {
+      "canonical": "NestJS",
+      "vi": "NestJS",
+      "category": "Backend Framework",
+      "aliases": [
+        "nestjs",
+        "nest.js",
+        "nest js"
+      ],
+      "frequency": {
+        "jd_count": 8,
+        "total_mentions": 16,
+        "jd_percentage": 1.8
+      }
+    },
+    {
+      "canonical": "GraphQL",
+      "vi": "GraphQL",
+      "category": "Architecture",
+      "aliases": [
+        "graphql",
+        "graph ql"
+      ],
+      "frequency": {
+        "jd_count": 8,
+        "total_mentions": 14,
+        "jd_percentage": 1.8
+      }
+    },
+    {
+      "canonical": "Manual Testing",
+      "vi": "Kiểm thử thủ công",
+      "category": "Testing",
+      "aliases": [
+        "manual testing",
+        "kiểm thử thủ công",
+        "test thủ công"
+      ],
+      "frequency": {
+        "jd_count": 8,
+        "total_mentions": 9,
+        "jd_percentage": 1.8
+      }
+    },
+    {
+      "canonical": "SASS/SCSS",
+      "vi": "SASS/SCSS",
+      "category": "Frontend Library",
+      "aliases": [
+        "sass",
+        "scss",
+        "less"
+      ],
+      "frequency": {
+        "jd_count": 8,
+        "total_mentions": 10,
+        "jd_percentage": 1.8
+      }
+    },
+    {
+      "canonical": "OWASP",
+      "vi": "OWASP",
+      "category": "Security",
+      "aliases": [
+        "owasp",
+        "owasp top 10"
+      ],
+      "frequency": {
+        "jd_count": 8,
+        "total_mentions": 15,
+        "jd_percentage": 1.8
+      }
+    },
+    {
+      "canonical": "OAuth",
+      "vi": "OAuth",
+      "category": "Security",
+      "aliases": [
+        "oauth",
+        "oauth2",
+        "oauth 2.0"
+      ],
+      "frequency": {
+        "jd_count": 8,
+        "total_mentions": 12,
+        "jd_percentage": 1.8
+      }
+    },
+    {
+      "canonical": "Cypress",
+      "vi": "Cypress",
+      "category": "Testing",
+      "aliases": [
+        "cypress"
+      ],
+      "frequency": {
+        "jd_count": 8,
+        "total_mentions": 10,
+        "jd_percentage": 1.8
+      }
+    },
+    {
+      "canonical": "Swift",
+      "vi": "Swift",
+      "category": "Programming Language",
+      "aliases": [
+        "swift",
+        "ngôn ngữ swift"
+      ],
+      "frequency": {
+        "jd_count": 7,
+        "total_mentions": 13,
+        "jd_percentage": 1.6
+      }
+    },
+    {
+      "canonical": "Kotlin",
+      "vi": "Kotlin",
+      "category": "Programming Language",
+      "aliases": [
+        "kotlin"
+      ],
+      "frequency": {
+        "jd_count": 7,
+        "total_mentions": 10,
+        "jd_percentage": 1.6
+      }
+    },
+    {
+      "canonical": "Next.js",
+      "vi": "Next.js",
+      "category": "Frontend Framework",
+      "aliases": [
+        "next.js",
+        "nextjs",
+        "next js"
+      ],
+      "frequency": {
+        "jd_count": 7,
+        "total_mentions": 14,
+        "jd_percentage": 1.6
+      }
+    },
+    {
+      "canonical": "Laravel",
+      "vi": "Laravel",
+      "category": "Backend Framework",
+      "aliases": [
+        "laravel"
+      ],
+      "frequency": {
+        "jd_count": 7,
+        "total_mentions": 15,
+        "jd_percentage": 1.6
+      }
+    },
+    {
+      "canonical": "Elasticsearch",
+      "vi": "Elasticsearch",
+      "category": "Database",
+      "aliases": [
+        "elasticsearch",
+        "elastic search",
+        "elastic"
+      ],
+      "frequency": {
+        "jd_count": 7,
+        "total_mentions": 8,
+        "jd_percentage": 1.6
+      }
+    },
+    {
+      "canonical": "Firebase",
+      "vi": "Firebase",
+      "category": "Database",
+      "aliases": [
+        "firebase"
+      ],
+      "frequency": {
+        "jd_count": 7,
+        "total_mentions": 11,
+        "jd_percentage": 1.6
+      }
+    },
+    {
+      "canonical": "NumPy",
+      "vi": "NumPy",
+      "category": "Data Engineering",
+      "aliases": [
+        "numpy",
+        "num py"
+      ],
+      "frequency": {
+        "jd_count": 7,
+        "total_mentions": 9,
+        "jd_percentage": 1.6
+      }
+    },
+    {
+      "canonical": "JUnit",
+      "vi": "JUnit",
+      "category": "Testing",
+      "aliases": [
+        "junit"
+      ],
+      "frequency": {
+        "jd_count": 7,
+        "total_mentions": 8,
+        "jd_percentage": 1.6
+      }
+    },
+    {
+      "canonical": "Scala",
+      "vi": "Scala",
+      "category": "Programming Language",
+      "aliases": [
+        "scala"
+      ],
+      "frequency": {
+        "jd_count": 6,
+        "total_mentions": 7,
+        "jd_percentage": 1.3
+      }
+    },
+    {
+      "canonical": "Django",
+      "vi": "Django",
+      "category": "Backend Framework",
+      "aliases": [
+        "django"
+      ],
+      "frequency": {
+        "jd_count": 6,
+        "total_mentions": 8,
+        "jd_percentage": 1.3
+      }
+    },
+    {
+      "canonical": "Flask",
+      "vi": "Flask",
+      "category": "Backend Framework",
+      "aliases": [
+        "flask"
+      ],
+      "frequency": {
+        "jd_count": 6,
+        "total_mentions": 8,
+        "jd_percentage": 1.3
+      }
+    },
+    {
+      "canonical": "React Native",
+      "vi": "React Native",
+      "category": "Mobile Framework",
+      "aliases": [
+        "react native",
+        "react-native"
+      ],
+      "frequency": {
+        "jd_count": 6,
+        "total_mentions": 7,
+        "jd_percentage": 1.3
+      }
+    },
+    {
+      "canonical": "Flutter",
+      "vi": "Flutter",
+      "category": "Mobile Framework",
+      "aliases": [
+        "flutter"
+      ],
+      "frequency": {
+        "jd_count": 6,
+        "total_mentions": 10,
+        "jd_percentage": 1.3
+      }
+    },
+    {
+      "canonical": "jQuery",
+      "vi": "jQuery",
+      "category": "Frontend Library",
+      "aliases": [
+        "jquery",
+        "jquery"
+      ],
+      "frequency": {
+        "jd_count": 6,
+        "total_mentions": 12,
+        "jd_percentage": 1.3
+      }
+    },
+    {
+      "canonical": "Apache",
+      "vi": "Apache",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "apache",
+        "apache http",
+        "apache server"
+      ],
+      "frequency": {
+        "jd_count": 6,
+        "total_mentions": 12,
+        "jd_percentage": 1.3
+      }
+    },
+    {
+      "canonical": "RabbitMQ",
+      "vi": "RabbitMQ",
+      "category": "Message Queue",
+      "aliases": [
+        "rabbitmq",
+        "rabbit mq"
+      ],
+      "frequency": {
+        "jd_count": 6,
+        "total_mentions": 7,
+        "jd_percentage": 1.3
+      }
+    },
+    {
+      "canonical": "Fintech",
+      "vi": "Công nghệ tài chính",
+      "category": "Domain Knowledge",
+      "aliases": [
+        "fintech",
+        "financial technology",
+        "công nghệ tài chính"
+      ],
+      "frequency": {
+        "jd_count": 6,
+        "total_mentions": 9,
+        "jd_percentage": 1.3
+      }
+    },
+    {
+      "canonical": "SAP",
+      "vi": "SAP",
+      "category": "Enterprise Software",
+      "aliases": [
+        "sap",
+        "sap erp",
+        "sap hana",
+        "sap b1"
+      ],
+      "frequency": {
+        "jd_count": 6,
+        "total_mentions": 43,
+        "jd_percentage": 1.3
+      }
+    },
+    {
+      "canonical": "GitHub Actions",
+      "vi": "GitHub Actions",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "github actions",
+        "github action"
+      ],
+      "frequency": {
+        "jd_count": 6,
+        "total_mentions": 8,
+        "jd_percentage": 1.3
+      }
+    },
+    {
+      "canonical": "Data Lake",
+      "vi": "Hồ dữ liệu",
+      "category": "Data Engineering",
+      "aliases": [
+        "data lake",
+        "hồ dữ liệu",
+        "data lakehouse"
+      ],
+      "frequency": {
+        "jd_count": 6,
+        "total_mentions": 14,
+        "jd_percentage": 1.3
+      }
+    },
+    {
+      "canonical": "Looker",
+      "vi": "Looker",
+      "category": "Data Visualization",
+      "aliases": [
+        "looker",
+        "looker studio"
+      ],
+      "frequency": {
+        "jd_count": 6,
+        "total_mentions": 9,
+        "jd_percentage": 1.3
+      }
+    },
+    {
+      "canonical": "JWT",
+      "vi": "JWT",
+      "category": "Security",
+      "aliases": [
+        "jwt",
+        "json web token"
+      ],
+      "frequency": {
+        "jd_count": 6,
+        "total_mentions": 10,
+        "jd_percentage": 1.3
+      }
+    },
+    {
+      "canonical": "gRPC",
+      "vi": "gRPC",
+      "category": "Architecture",
+      "aliases": [
+        "grpc",
+        "g rpc"
+      ],
+      "frequency": {
+        "jd_count": 6,
+        "total_mentions": 8,
+        "jd_percentage": 1.3
+      }
+    },
+    {
+      "canonical": "PCI DSS",
+      "vi": "PCI DSS",
+      "category": "Domain Knowledge",
+      "aliases": [
+        "pci dss",
+        "pci"
+      ],
+      "frequency": {
+        "jd_count": 6,
+        "total_mentions": 12,
+        "jd_percentage": 1.3
+      }
+    },
+    {
+      "canonical": "Express.js",
+      "vi": "Express.js",
+      "category": "Backend Framework",
+      "aliases": [
+        "express",
+        "expressjs",
+        "express.js"
+      ],
+      "frequency": {
+        "jd_count": 5,
+        "total_mentions": 7,
+        "jd_percentage": 1.1
+      }
+    },
+    {
+      "canonical": "FastAPI",
+      "vi": "FastAPI",
+      "category": "Backend Framework",
+      "aliases": [
+        "fastapi",
+        "fast api"
+      ],
+      "frequency": {
+        "jd_count": 5,
+        "total_mentions": 7,
+        "jd_percentage": 1.1
+      }
+    },
+    {
+      "canonical": "Trello",
+      "vi": "Trello",
+      "category": "Project Management Tool",
+      "aliases": [
+        "trello"
+      ],
+      "frequency": {
+        "jd_count": 5,
+        "total_mentions": 7,
+        "jd_percentage": 1.1
+      }
+    },
+    {
+      "canonical": "IoT",
+      "vi": "Internet vạn vật",
+      "category": "Domain Knowledge",
+      "aliases": [
+        "iot",
+        "internet of things",
+        "internet vạn vật"
+      ],
+      "frequency": {
+        "jd_count": 5,
+        "total_mentions": 9,
+        "jd_percentage": 1.1
+      }
+    },
+    {
+      "canonical": "Helm",
+      "vi": "Helm",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "helm",
+        "helm chart"
+      ],
+      "frequency": {
+        "jd_count": 5,
+        "total_mentions": 5,
+        "jd_percentage": 1.1
+      }
+    },
+    {
+      "canonical": "Keras",
+      "vi": "Keras",
+      "category": "AI & Data Science",
+      "aliases": [
+        "keras"
+      ],
+      "frequency": {
+        "jd_count": 5,
+        "total_mentions": 7,
+        "jd_percentage": 1.1
+      }
+    },
+    {
+      "canonical": "Apache Airflow",
+      "vi": "Apache Airflow",
+      "category": "Data Engineering",
+      "aliases": [
+        "airflow",
+        "apache airflow"
+      ],
+      "frequency": {
+        "jd_count": 5,
+        "total_mentions": 10,
+        "jd_percentage": 1.1
+      }
+    },
+    {
+      "canonical": "WebSocket",
+      "vi": "WebSocket",
+      "category": "Architecture",
+      "aliases": [
+        "websocket",
+        "web socket",
+        "socket.io"
+      ],
+      "frequency": {
+        "jd_count": 5,
+        "total_mentions": 7,
+        "jd_percentage": 1.1
+      }
+    },
+    {
+      "canonical": "Message Queue",
+      "vi": "Hàng đợi tin nhắn",
+      "category": "Architecture",
+      "aliases": [
+        "message queue",
+        "hàng đợi",
+        "message broker"
+      ],
+      "frequency": {
+        "jd_count": 5,
+        "total_mentions": 6,
+        "jd_percentage": 1.1
+      }
+    },
+    {
+      "canonical": "Odoo",
+      "vi": "Odoo",
+      "category": "Enterprise Software",
+      "aliases": [
+        "odoo"
+      ],
+      "frequency": {
+        "jd_count": 5,
+        "total_mentions": 9,
+        "jd_percentage": 1.1
+      }
+    },
+    {
+      "canonical": "C",
+      "vi": "C",
+      "category": "Programming Language",
+      "aliases": [
+        "ngôn ngữ c",
+        "lập trình c"
+      ],
+      "frequency": {
+        "jd_count": 4,
+        "total_mentions": 4,
+        "jd_percentage": 0.9
+      }
+    },
+    {
+      "canonical": "Objective-C",
+      "vi": "Objective-C",
+      "category": "Programming Language",
+      "aliases": [
+        "objective-c",
+        "objective c",
+        "obj-c",
+        "objc"
+      ],
+      "frequency": {
+        "jd_count": 4,
+        "total_mentions": 6,
+        "jd_percentage": 0.9
+      }
+    },
+    {
+      "canonical": "Tailwind CSS",
+      "vi": "Tailwind CSS",
+      "category": "Frontend Library",
+      "aliases": [
+        "tailwind",
+        "tailwindcss",
+        "tailwind css"
+      ],
+      "frequency": {
+        "jd_count": 4,
+        "total_mentions": 6,
+        "jd_percentage": 0.9
+      }
+    },
+    {
+      "canonical": "Redux",
+      "vi": "Redux",
+      "category": "Frontend Library",
+      "aliases": [
+        "redux",
+        "redux toolkit"
+      ],
+      "frequency": {
+        "jd_count": 4,
+        "total_mentions": 6,
+        "jd_percentage": 0.9
+      }
+    },
+    {
+      "canonical": "MariaDB",
+      "vi": "MariaDB",
+      "category": "Database",
+      "aliases": [
+        "mariadb",
+        "maria db"
+      ],
+      "frequency": {
+        "jd_count": 4,
+        "total_mentions": 5,
+        "jd_percentage": 0.9
+      }
+    },
+    {
+      "canonical": "Nginx",
+      "vi": "Nginx",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "nginx"
+      ],
+      "frequency": {
+        "jd_count": 4,
+        "total_mentions": 6,
+        "jd_percentage": 0.9
+      }
+    },
+    {
+      "canonical": "Adobe Illustrator",
+      "vi": "Adobe Illustrator",
+      "category": "Design Tool",
+      "aliases": [
+        "illustrator",
+        "adobe illustrator",
+        "ai illustrator"
+      ],
+      "frequency": {
+        "jd_count": 4,
+        "total_mentions": 4,
+        "jd_percentage": 0.9
+      }
+    },
+    {
+      "canonical": "Blockchain",
+      "vi": "Chuỗi khối",
+      "category": "Domain Knowledge",
+      "aliases": [
+        "blockchain",
+        "block chain",
+        "chuỗi khối"
+      ],
+      "frequency": {
+        "jd_count": 4,
+        "total_mentions": 6,
+        "jd_percentage": 0.9
+      }
+    },
+    {
+      "canonical": "ArgoCD",
+      "vi": "ArgoCD",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "argocd",
+        "argo cd"
+      ],
+      "frequency": {
+        "jd_count": 4,
+        "total_mentions": 5,
+        "jd_percentage": 0.9
+      }
+    },
+    {
+      "canonical": "Load Balancer",
+      "vi": "Cân bằng tải",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "load balancer",
+        "load balancing",
+        "cân bằng tải"
+      ],
+      "frequency": {
+        "jd_count": 4,
+        "total_mentions": 6,
+        "jd_percentage": 0.9
+      }
+    },
+    {
+      "canonical": "AWS Lambda",
+      "vi": "AWS Lambda",
+      "category": "Cloud Platform",
+      "aliases": [
+        "lambda",
+        "aws lambda",
+        "serverless"
+      ],
+      "frequency": {
+        "jd_count": 4,
+        "total_mentions": 4,
+        "jd_percentage": 0.9
+      }
+    },
+    {
+      "canonical": "Scikit-learn",
+      "vi": "Scikit-learn",
+      "category": "AI & Data Science",
+      "aliases": [
+        "scikit-learn",
+        "sklearn",
+        "scikit learn"
+      ],
+      "frequency": {
+        "jd_count": 4,
+        "total_mentions": 5,
+        "jd_percentage": 0.9
+      }
+    },
+    {
+      "canonical": "TDD",
+      "vi": "Phát triển hướng kiểm thử",
+      "category": "Methodology",
+      "aliases": [
+        "tdd",
+        "test driven development",
+        "test-driven development"
+      ],
+      "frequency": {
+        "jd_count": 4,
+        "total_mentions": 5,
+        "jd_percentage": 0.9
+      }
+    },
+    {
+      "canonical": "SLA",
+      "vi": "Thỏa thuận mức dịch vụ",
+      "category": "Domain Knowledge",
+      "aliases": [
+        "sla",
+        "service level agreement"
+      ],
+      "frequency": {
+        "jd_count": 4,
+        "total_mentions": 5,
+        "jd_percentage": 0.9
+      }
+    },
+    {
+      "canonical": "Bootstrap",
+      "vi": "Bootstrap",
+      "category": "Frontend Library",
+      "aliases": [
+        "bootstrap"
+      ],
+      "frequency": {
+        "jd_count": 3,
+        "total_mentions": 5,
+        "jd_percentage": 0.7
+      }
+    },
+    {
+      "canonical": "Cassandra",
+      "vi": "Cassandra",
+      "category": "Database",
+      "aliases": [
+        "cassandra",
+        "apache cassandra"
+      ],
+      "frequency": {
+        "jd_count": 3,
+        "total_mentions": 5,
+        "jd_percentage": 0.7
+      }
+    },
+    {
+      "canonical": "Swagger",
+      "vi": "Swagger",
+      "category": "API Tool",
+      "aliases": [
+        "swagger",
+        "openapi"
+      ],
+      "frequency": {
+        "jd_count": 3,
+        "total_mentions": 8,
+        "jd_percentage": 0.7
+      }
+    },
+    {
+      "canonical": "Unreal Engine",
+      "vi": "Unreal Engine",
+      "category": "Game Engine",
+      "aliases": [
+        "unreal",
+        "unreal engine",
+        "ue4",
+        "ue5"
+      ],
+      "frequency": {
+        "jd_count": 3,
+        "total_mentions": 4,
+        "jd_percentage": 0.7
+      }
+    },
+    {
+      "canonical": "Symfony",
+      "vi": "Symfony",
+      "category": "Backend Framework",
+      "aliases": [
+        "symfony"
+      ],
+      "frequency": {
+        "jd_count": 3,
+        "total_mentions": 4,
+        "jd_percentage": 0.7
+      }
+    },
+    {
+      "canonical": "OpenCV",
+      "vi": "OpenCV",
+      "category": "AI & Data Science",
+      "aliases": [
+        "opencv",
+        "open cv"
+      ],
+      "frequency": {
+        "jd_count": 3,
+        "total_mentions": 3,
+        "jd_percentage": 0.7
+      }
+    },
+    {
+      "canonical": "Clean Architecture",
+      "vi": "Kiến trúc sạch",
+      "category": "Architecture",
+      "aliases": [
+        "clean architecture",
+        "kiến trúc sạch"
+      ],
+      "frequency": {
+        "jd_count": 3,
+        "total_mentions": 4,
+        "jd_percentage": 0.7
+      }
+    },
+    {
+      "canonical": "ITIL",
+      "vi": "ITIL",
+      "category": "Domain Knowledge",
+      "aliases": [
+        "itil",
+        "it infrastructure library"
+      ],
+      "frequency": {
+        "jd_count": 3,
+        "total_mentions": 5,
+        "jd_percentage": 0.7
+      }
+    },
+    {
+      "canonical": "Rust",
+      "vi": "Rust",
+      "category": "Programming Language",
+      "aliases": [
+        "rust",
+        "ngôn ngữ rust"
+      ],
+      "frequency": {
+        "jd_count": 2,
+        "total_mentions": 2,
+        "jd_percentage": 0.4
+      }
+    },
+    {
+      "canonical": "Dart",
+      "vi": "Dart",
+      "category": "Programming Language",
+      "aliases": [
+        "dart",
+        "ngôn ngữ dart"
+      ],
+      "frequency": {
+        "jd_count": 2,
+        "total_mentions": 3,
+        "jd_percentage": 0.4
+      }
+    },
+    {
+      "canonical": "Webpack",
+      "vi": "Webpack",
+      "category": "Build Tool",
+      "aliases": [
+        "webpack"
+      ],
+      "frequency": {
+        "jd_count": 2,
+        "total_mentions": 3,
+        "jd_percentage": 0.4
+      }
+    },
+    {
+      "canonical": "DynamoDB",
+      "vi": "DynamoDB",
+      "category": "Database",
+      "aliases": [
+        "dynamodb",
+        "dynamo db",
+        "amazon dynamodb"
+      ],
+      "frequency": {
+        "jd_count": 2,
+        "total_mentions": 2,
+        "jd_percentage": 0.4
+      }
+    },
+    {
+      "canonical": "SQLite",
+      "vi": "SQLite",
+      "category": "Database",
+      "aliases": [
+        "sqlite",
+        "sqlite3"
+      ],
+      "frequency": {
+        "jd_count": 2,
+        "total_mentions": 4,
+        "jd_percentage": 0.4
+      }
+    },
+    {
+      "canonical": "Jest",
+      "vi": "Jest",
+      "category": "Testing",
+      "aliases": [
+        "jest"
+      ],
+      "frequency": {
+        "jd_count": 2,
+        "total_mentions": 2,
+        "jd_percentage": 0.4
+      }
+    },
+    {
+      "canonical": "Salesforce",
+      "vi": "Salesforce",
+      "category": "Enterprise Software",
+      "aliases": [
+        "salesforce"
+      ],
+      "frequency": {
+        "jd_count": 2,
+        "total_mentions": 2,
+        "jd_percentage": 0.4
+      }
+    },
+    {
+      "canonical": "SharePoint",
+      "vi": "SharePoint",
+      "category": "Enterprise Software",
+      "aliases": [
+        "sharepoint",
+        "microsoft sharepoint",
+        "ms sharepoint"
+      ],
+      "frequency": {
+        "jd_count": 2,
+        "total_mentions": 2,
+        "jd_percentage": 0.4
+      }
+    },
+    {
+      "canonical": "Solidity",
+      "vi": "Solidity",
+      "category": "Programming Language",
+      "aliases": [
+        "solidity"
+      ],
+      "frequency": {
+        "jd_count": 2,
+        "total_mentions": 3,
+        "jd_percentage": 0.4
+      }
+    },
+    {
+      "canonical": "CodeIgniter",
+      "vi": "CodeIgniter",
+      "category": "Backend Framework",
+      "aliases": [
+        "codeigniter",
+        "code igniter"
+      ],
+      "frequency": {
+        "jd_count": 2,
+        "total_mentions": 4,
+        "jd_percentage": 0.4
+      }
+    },
+    {
+      "canonical": "Material UI",
+      "vi": "Material UI",
+      "category": "Frontend Library",
+      "aliases": [
+        "material ui",
+        "material-ui",
+        "mui"
+      ],
+      "frequency": {
+        "jd_count": 2,
+        "total_mentions": 3,
+        "jd_percentage": 0.4
+      }
+    },
+    {
+      "canonical": "Docker Compose",
+      "vi": "Docker Compose",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "docker compose",
+        "docker-compose"
+      ],
+      "frequency": {
+        "jd_count": 2,
+        "total_mentions": 3,
+        "jd_percentage": 0.4
+      }
+    },
+    {
+      "canonical": "dbt",
+      "vi": "dbt",
+      "category": "Data Engineering",
+      "aliases": [
+        "dbt",
+        "data build tool"
+      ],
+      "frequency": {
+        "jd_count": 2,
+        "total_mentions": 5,
+        "jd_percentage": 0.4
+      }
+    },
+    {
+      "canonical": "SSL/TLS",
+      "vi": "SSL/TLS",
+      "category": "Security",
+      "aliases": [
+        "ssl",
+        "tls",
+        "ssl/tls",
+        "https"
+      ],
+      "frequency": {
+        "jd_count": 2,
+        "total_mentions": 4,
+        "jd_percentage": 0.4
+      }
+    },
+    {
+      "canonical": "TestNG",
+      "vi": "TestNG",
+      "category": "Testing",
+      "aliases": [
+        "testng",
+        "test ng"
+      ],
+      "frequency": {
+        "jd_count": 2,
+        "total_mentions": 3,
+        "jd_percentage": 0.4
+      }
+    },
+    {
+      "canonical": "Kanban",
+      "vi": "Kanban",
+      "category": "Methodology",
+      "aliases": [
+        "kanban"
+      ],
+      "frequency": {
+        "jd_count": 2,
+        "total_mentions": 2,
+        "jd_percentage": 0.4
+      }
+    },
+    {
+      "canonical": "Zeplin",
+      "vi": "Zeplin",
+      "category": "Design Tool",
+      "aliases": [
+        "zeplin"
+      ],
+      "frequency": {
+        "jd_count": 2,
+        "total_mentions": 2,
+        "jd_percentage": 0.4
+      }
+    },
+    {
+      "canonical": "After Effects",
+      "vi": "After Effects",
+      "category": "Design Tool",
+      "aliases": [
+        "after effects",
+        "adobe after effects",
+        "ae"
+      ],
+      "frequency": {
+        "jd_count": 2,
+        "total_mentions": 2,
+        "jd_percentage": 0.4
+      }
+    },
+    {
+      "canonical": "C++",
+      "vi": "C++",
+      "category": "Programming Language",
+      "aliases": [
+        "c++",
+        "cpp",
+        "c plus plus",
+        "lập trình c++"
+      ],
+      "frequency": {
+        "jd_count": 1,
+        "total_mentions": 1,
+        "jd_percentage": 0.2
+      }
+    },
+    {
+      "canonical": "Ruby",
+      "vi": "Ruby",
+      "category": "Programming Language",
+      "aliases": [
+        "ruby",
+        "ngôn ngữ ruby"
+      ],
+      "frequency": {
+        "jd_count": 1,
+        "total_mentions": 1,
+        "jd_percentage": 0.2
+      }
+    },
+    {
+      "canonical": "SOLID",
+      "vi": "Nguyên tắc SOLID",
+      "category": "Methodology",
+      "aliases": [
+        "solid principles",
+        "nguyên tắc solid"
+      ],
+      "frequency": {
+        "jd_count": 1,
+        "total_mentions": 1,
+        "jd_percentage": 0.2
+      }
+    },
+    {
+      "canonical": "Perl",
+      "vi": "Perl",
+      "category": "Programming Language",
+      "aliases": [
+        "perl"
+      ],
+      "frequency": {
+        "jd_count": 1,
+        "total_mentions": 1,
+        "jd_percentage": 0.2
+      }
+    },
+    {
+      "canonical": "Gin",
+      "vi": "Gin",
+      "category": "Backend Framework",
+      "aliases": [
+        "gin",
+        "gin-gonic"
+      ],
+      "frequency": {
+        "jd_count": 1,
+        "total_mentions": 1,
+        "jd_percentage": 0.2
+      }
+    },
+    {
+      "canonical": "Fiber",
+      "vi": "Fiber",
+      "category": "Backend Framework",
+      "aliases": [
+        "fiber",
+        "gofiber"
+      ],
+      "frequency": {
+        "jd_count": 1,
+        "total_mentions": 1,
+        "jd_percentage": 0.2
+      }
+    },
+    {
+      "canonical": "Yii",
+      "vi": "Yii",
+      "category": "Backend Framework",
+      "aliases": [
+        "yii",
+        "yii2",
+        "yii framework"
+      ],
+      "frequency": {
+        "jd_count": 1,
+        "total_mentions": 1,
+        "jd_percentage": 0.2
+      }
+    },
+    {
+      "canonical": "Ant Design",
+      "vi": "Ant Design",
+      "category": "Frontend Library",
+      "aliases": [
+        "ant design",
+        "antd",
+        "ant-design"
+      ],
+      "frequency": {
+        "jd_count": 1,
+        "total_mentions": 2,
+        "jd_percentage": 0.2
+      }
+    },
+    {
+      "canonical": "InfluxDB",
+      "vi": "InfluxDB",
+      "category": "Database",
+      "aliases": [
+        "influxdb",
+        "influx db"
+      ],
+      "frequency": {
+        "jd_count": 1,
+        "total_mentions": 1,
+        "jd_percentage": 0.2
+      }
+    },
+    {
+      "canonical": "HAProxy",
+      "vi": "HAProxy",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "haproxy",
+        "ha proxy"
+      ],
+      "frequency": {
+        "jd_count": 1,
+        "total_mentions": 1,
+        "jd_percentage": 0.2
+      }
+    },
+    {
+      "canonical": "AWS S3",
+      "vi": "AWS S3",
+      "category": "Cloud Platform",
+      "aliases": [
+        "s3",
+        "aws s3",
+        "amazon s3"
+      ],
+      "frequency": {
+        "jd_count": 1,
+        "total_mentions": 1,
+        "jd_percentage": 0.2
+      }
+    },
+    {
+      "canonical": "Metabase",
+      "vi": "Metabase",
+      "category": "Data Visualization",
+      "aliases": [
+        "metabase"
+      ],
+      "frequency": {
+        "jd_count": 1,
+        "total_mentions": 2,
+        "jd_percentage": 0.2
+      }
+    },
+    {
+      "canonical": "Event-Driven Architecture",
+      "vi": "Kiến trúc hướng sự kiện",
+      "category": "Architecture",
+      "aliases": [
+        "event-driven",
+        "event driven",
+        "kiến trúc hướng sự kiện"
+      ],
+      "frequency": {
+        "jd_count": 1,
+        "total_mentions": 1,
+        "jd_percentage": 0.2
+      }
+    },
+    {
+      "canonical": "CQRS",
+      "vi": "CQRS",
+      "category": "Architecture",
+      "aliases": [
+        "cqrs"
+      ],
+      "frequency": {
+        "jd_count": 1,
+        "total_mentions": 1,
+        "jd_percentage": 0.2
+      }
+    },
+    {
+      "canonical": "C#",
+      "vi": "C#",
+      "category": "Programming Language",
+      "aliases": [
+        "c#",
+        "csharp",
+        "c sharp",
+        "lập trình c#"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "R",
+      "vi": "R",
+      "category": "Programming Language",
+      "aliases": [
+        "ngôn ngữ r",
+        "r programming"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "Ruby on Rails",
+      "vi": "Ruby on Rails",
+      "category": "Backend Framework",
+      "aliases": [
+        "rails",
+        "ruby on rails",
+        "ror"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "Lua",
+      "vi": "Lua",
+      "category": "Programming Language",
+      "aliases": [
+        "lua",
+        "ngôn ngữ lua"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "VBA",
+      "vi": "VBA",
+      "category": "Programming Language",
+      "aliases": [
+        "vba",
+        "visual basic",
+        "visual basic for applications"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "MATLAB",
+      "vi": "MATLAB",
+      "category": "Programming Language",
+      "aliases": [
+        "matlab"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "Nuxt.js",
+      "vi": "Nuxt.js",
+      "category": "Frontend Framework",
+      "aliases": [
+        "nuxt",
+        "nuxtjs",
+        "nuxt.js"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "Svelte",
+      "vi": "Svelte",
+      "category": "Frontend Framework",
+      "aliases": [
+        "svelte",
+        "sveltekit"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "ClickHouse",
+      "vi": "ClickHouse",
+      "category": "Database",
+      "aliases": [
+        "clickhouse",
+        "click house"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "Neo4j",
+      "vi": "Neo4j",
+      "category": "Database",
+      "aliases": [
+        "neo4j"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "CouchDB",
+      "vi": "CouchDB",
+      "category": "Database",
+      "aliases": [
+        "couchdb",
+        "couch db"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "Memcached",
+      "vi": "Memcached",
+      "category": "Database",
+      "aliases": [
+        "memcached",
+        "memcache"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "CDN",
+      "vi": "Mạng phân phối nội dung",
+      "category": "DevOps & Infrastructure",
+      "aliases": [
+        "cdn",
+        "cloudflare",
+        "content delivery network"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "AWS EC2",
+      "vi": "AWS EC2",
+      "category": "Cloud Platform",
+      "aliases": [
+        "ec2",
+        "aws ec2",
+        "amazon ec2"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "Heroku",
+      "vi": "Heroku",
+      "category": "Cloud Platform",
+      "aliases": [
+        "heroku"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "DigitalOcean",
+      "vi": "DigitalOcean",
+      "category": "Cloud Platform",
+      "aliases": [
+        "digitalocean",
+        "digital ocean"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "Apache Flink",
+      "vi": "Apache Flink",
+      "category": "Data Engineering",
+      "aliases": [
+        "flink",
+        "apache flink"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "Google Analytics",
+      "vi": "Google Analytics",
+      "category": "Data Visualization",
+      "aliases": [
+        "google analytics",
+        "ga",
+        "ga4"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "pytest",
+      "vi": "pytest",
+      "category": "Testing",
+      "aliases": [
+        "pytest"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "Domain-Driven Design",
+      "vi": "Thiết kế hướng miền",
+      "category": "Architecture",
+      "aliases": [
+        "ddd",
+        "domain-driven design",
+        "domain driven design"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "Sketch",
+      "vi": "Sketch",
+      "category": "Design Tool",
+      "aliases": [
+        "sketch"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "Adobe XD",
+      "vi": "Adobe XD",
+      "category": "Design Tool",
+      "aliases": [
+        "adobe xd",
+        "xd"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "InVision",
+      "vi": "InVision",
+      "category": "Design Tool",
+      "aliases": [
+        "invision"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    },
+    {
+      "canonical": "ServiceNow",
+      "vi": "ServiceNow",
+      "category": "Enterprise Software",
+      "aliases": [
+        "servicenow",
+        "service now"
+      ],
+      "frequency": {
+        "jd_count": 0,
+        "total_mentions": 0,
+        "jd_percentage": 0.0
+      }
+    }
+  ]
+}
