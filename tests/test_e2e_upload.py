@@ -4,7 +4,6 @@ Chay voi mode=rule (deterministic, khong goi LLM). Can: Neon DB co 450 JD + embe
     python -m pytest tests/test_e2e_upload.py -q
 """
 
-import os
 from pathlib import Path
 
 import pytest
