@@ -144,35 +144,68 @@ JD:
 {jd}"""
 
 
+def _extract_json(text: str | None) -> dict | None:
+    """Parse JSON tu content; chiu duoc ca tra loi khong dung response_format."""
+    if not text:
+        return None
+    try:
+        return json.loads(text)
+    except (json.JSONDecodeError, TypeError):
+        m = re.search(r"\{[^{}]*\}", text, re.DOTALL)
+        if m:
+            try:
+                return json.loads(m.group(0))
+            except json.JSONDecodeError:
+                return None
+    return None
+
+
 def score_llm_only(inp: PairInput) -> dict:
-    """LLM cham truc tiep. Loi -> score_total = None (loai khoi thong ke, khong doan)."""
+    """LLM cham truc tiep. Loi -> score_total = None (loai khoi thong ke, khong doan).
+
+    Chuoi retry (pilot 10 cap: 4/10 loi content=None khi OpenRouter dinh tuyen sang
+    provider khong ho tro response_format):
+      1) model chinh + response_format json_object
+      2) model chinh, khong response_format, regex trich JSON
+      3) model fallback + response_format
+    """
     from openai import OpenAI
 
     from app.config import settings
 
     client = inp.client or OpenAI(base_url=settings.llm_base_url, api_key=settings.llm_api_key)
-    model = inp.model or settings.llm_model
-    try:
-        resp = client.chat.completions.create(
-            model=model,
-            messages=[{"role": "user", "content": _LLM_JUDGE_PROMPT.format(
-                cv=inp.cv_text[:4000], jd=inp.jd_text[:4000])}],
-            response_format={"type": "json_object"},
-            temperature=0,
-            timeout=120,
-        )
-        data = json.loads(resp.choices[0].message.content)
-        score = max(0.0, min(100.0, float(data["score"])))
-        return {
-            "variant": "llm_only",
-            "score_total": round(score, 1),
-            "breakdown": {"llm_judge": {"score": round(score, 1), "weight": 1.0}},
-            "evidence": {"llm_reason": data.get("reason", "")},
-        }
-    except Exception as e:  # noqa: BLE001 — ablation: loi LLM thi bo qua cap nay
-        log.warning("llm_only failed: %s", e)
-        return {"variant": "llm_only", "score_total": None,
-                "breakdown": {}, "evidence": {"error": str(e)}}
+    prompt = _LLM_JUDGE_PROMPT.format(cv=inp.cv_text[:4000], jd=inp.jd_text[:4000])
+    attempts = [
+        (inp.model or settings.llm_model, True),
+        (inp.model or settings.llm_model, False),
+        (settings.llm_fallback_model, True),
+    ]
+    last_err = None
+    for model, use_format in attempts:
+        try:
+            kwargs: dict = {"model": model,
+                            "messages": [{"role": "user", "content": prompt}],
+                            "temperature": 0, "timeout": 120}
+            if use_format:
+                kwargs["response_format"] = {"type": "json_object"}
+            resp = client.chat.completions.create(**kwargs)
+            data = _extract_json(resp.choices[0].message.content)
+            if data is None:
+                last_err = f"content rong/khong parse duoc (model={model}, fmt={use_format})"
+                continue
+            score = max(0.0, min(100.0, float(data["score"])))
+            return {
+                "variant": "llm_only",
+                "score_total": round(score, 1),
+                "breakdown": {"llm_judge": {"score": round(score, 1), "weight": 1.0}},
+                "evidence": {"llm_reason": data.get("reason", ""), "llm_model": model},
+            }
+        except Exception as e:  # noqa: BLE001 — thu phuong an tiep theo
+            last_err = str(e)
+            log.warning("llm_only attempt failed (model=%s, fmt=%s): %s", model, use_format, e)
+    log.warning("llm_only failed sau 3 lan thu: %s", last_err)
+    return {"variant": "llm_only", "score_total": None,
+            "breakdown": {}, "evidence": {"error": str(last_err)}}
 
 
 VARIANTS = {

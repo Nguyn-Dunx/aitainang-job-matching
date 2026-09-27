@@ -1,4 +1,4 @@
-# Hồ sơ Mẫu 3 — Nháp mục 3 & mục 7
+# Hồ sơ Mẫu 3 — Nháp (mục 3, 4, 5, 6, 7, 9, 10)
 
 > **Lưu ý**: Số liệu đã chốt (D1/D4). Mục 9 (baseline/ablation) viết sau khi có kết quả D3 + scoring.
 
@@ -125,6 +125,76 @@ Writing 42,9%, English 40,2%…) chứ không phải kỹ năng cứng → scori
 
 ---
 
+## Mục 4 — Quy trình tiền xử lý dữ liệu
+
+### 4.1. JD (D1)
+
+1. **Lọc lĩnh vực**: từ 606.878 dòng gốc, lọc 450 JD thuộc nhóm CNTT/Data theo
+   `industry_group` (Software Engineering, Data/AI/ML, Infra/DevOps, Game Dev...).
+2. **Làm sạch**: loại HTML thừa, chuẩn hóa xuống dòng, bỏ JD rỗng/trùng.
+3. **Chuẩn hóa trường lọc** (migration 002): `level_normalized` (Intern/Fresher/Junior/
+   Senior/Lead), `location_normalized` (Hà Nội 279, Hồ Chí Minh 146, Bình Dương 5,
+   Đà Nẵng 4, Khác 3), `industry_group` — kèm index để lọc trước khi xếp hạng.
+4. **Trích xuất kỹ năng (Tầng 2)**: LLM (OpenRouter, model `moonshotai/kimi-k3`,
+   fallback `nvidia/nemotron-3-ultra-550b-a55b`) trích skill theo taxonomy D4, kèm
+   `evidence_snippet` trích nguyên văn JD; JD nào LLM lỗi/timeout thì fallback rule
+   (regex alias). Kết quả thực tế: **LLM 320/450 (72,2%), rule 125/450 (27,8%)**.
+5. **Embedding (Tầng 3)**: toàn bộ 450 JD embed bằng BGE-M3 (1024-dim), lưu
+   `jds_embeddings.npy` + cột `vector(1024)` trong Neon pgvector.
+
+### 4.2. CV (D2)
+
+1. **Parse (Tầng 1)**: `pymupdf` đọc PDF/DOCX, tách section (kinh nghiệm, kỹ năng,
+   học vấn) theo heading; CV ảnh scan phát hiện và cảnh báo (OCR ngoài phạm vi).
+2. **Trích xuất (Tầng 2)**: cùng cơ chế LLM + rule fallback như JD, cùng taxonomy D4
+   → CV và JD nằm trên cùng một không gian kỹ năng chuẩn hóa.
+3. **Ẩn danh**: CV thật thu thập có đồng ý, loại bỏ thông tin định danh trước khi xử lý.
+
+---
+
+## Mục 5 — Thuật toán, mô hình và công cụ AI
+
+| Thành phần | Lựa chọn | Vai trò |
+|-----------|----------|---------|
+| Embedding | **BGE-M3** (`BAAI/bge-m3`, sentence-transformers 6.1.0), 1024-dim, đa ngôn ngữ (tốt cho tiếng Việt) | Biểu diễn ngữ nghĩa CV/JD cho semantic score + vector search |
+| LLM trích xuất | `moonshotai/kimi-k3` qua OpenRouter (fallback `nvidia/nemotron-3-ultra-550b-a55b`), structured JSON output, temperature=0 | Trích skill từ văn bản tự do về canonical name trong taxonomy |
+| Rule fallback | Regex trên 690 alias của taxonomy D4 | Đảm bảo pipeline không chết khi LLM lỗi (27,8% JD thực tế) |
+| Scoring | Công thức hybrid V2 deterministic (mục 7) | Điểm phù hợp minh bạch, có breakdown |
+| Vector DB | PostgreSQL + **pgvector 0.8.6** (Neon, ap-southeast-1) | Lưu + tìm kiếm láng giềng gần nhất trên 450 embedding |
+| Backend | **FastAPI** (Python 3.12) | API upload CV + matching cho frontend React |
+
+**Kiểm chứng trước khi chọn BGE-M3** (de-risk): cosine(cùng JD) = 0,784 > 0,7;
+cosine(JD khác lĩnh vực) = 0,466 < 0,5 → đủ độ tách biệt cho Tầng 3.
+
+---
+
+## Mục 6 — Quy trình tích hợp mô hình
+
+Pipeline 4 tầng, mỗi tầng kiểm chứng độc lập:
+
+```
+CV (PDF) ──Tầng 1──> text + sections ──Tầng 2──> skills chuẩn hóa (LLM/rule)
+                                              │
+JD (450) ──Tầng 1──> text ──Tầng 2──> skills chuẩn hóa ──┤
+                                                          ▼
+                              Tầng 3: BGE-M3 embed CV + JD (1024-dim)
+                                                          ▼
+              Tầng 4: lọc cứng (level/location/industry) -> pgvector top-K
+                      -> hybrid scoring V2 -> breakdown + evidence -> API
+```
+
+- **Tích hợp LLM**: gọi qua OpenRouter API, prompt ép JSON schema, parse lỗi thì
+  chuyển model fallback, cả hai lỗi thì chuyển rule — không bao giờ trả lỗi trần.
+- **Tích hợp embedding**: service singleton lazy-load (threading.Lock), model chỉ
+  tải 1 lần; ~0,8–1,0 s/JD trên CPU.
+- **Tích hợp DB**: migration Alembic-style (001 bảng, 002 cột chuẩn hóa + index);
+  import 450/450 JD, 450/450 embedding, 0 dòng thiếu cột lọc.
+- **API**: `POST /api/cv/upload` (multipart PDF) → parse + extract + embed + match
+  trong 1 request; `GET` kèm filter `industry_group`, `location`, `level`.
+  E2E test thật: upload PDF → nhận danh sách JD xếp hạng kèm breakdown (24,7 s).
+
+---
+
 ## Mục 7 — Chỉ số đánh giá (phương pháp)
 
 > **Lưu ý**: Mục này trình bày **phương pháp** đánh giá. Kết quả D3 chính thức sẽ điền sau
@@ -204,7 +274,10 @@ Scoring breakdown theo 4 chiều (mỗi chiều có sub-score riêng):
 
 ### 7.6. Baseline / Ablation (mục 9 hồ sơ)
 
-> *(Đã có số liệu PILOT kiểm chứng pipeline — xem bảng dưới; số D3 chính thức sẽ thay thế)*
+> **CẢNH BÁO — KHÔNG XOÁ cho tới khi có số liệu D3 thật**: Số liệu dưới đây là kết quả
+> trên bộ **pilot 10 cặp** (3 CV synthetic × JD thật, chấm bằng **cơ chế** để kiểm chứng
+> pipeline đo lường) — **KHÔNG phải kết quả đánh giá chính thức**. Bảng chính thức sẽ
+> thay bằng D3 thật (20–30+ cặp, chấm tay độc lập bởi 3 thành viên) khi có đủ CV từ C.
 
 So sánh 4 biến thể trên cùng bộ D3:
 
@@ -223,11 +296,13 @@ Bảng kết quả (template — chưa có số):
 |----------|-------------|---------|-------------|-----|
 | (a) Keyword-only | 0.400 | 0.979 | 0.296 | 3.261 |
 | (b) Embedding-only | 0.400 | 0.969 | -0.105 | 1.426 |
-| (c) LLM-only | — (chờ chạy) | — | — | — |
+| (c) LLM-only | 0.400 | 0.985 | 0.155 | 2.110 |
 | **(d) Hybrid V2** | **0.400** | **0.968** | **0.148** | **2.423** |
 
 *Cảnh báo diễn giải: nhãn pilot sinh cơ học từ difficulty_hint nên các chỉ số KHÔNG phản ánh
-chất lượng thật; giá trị duy nhất của bảng này là chứng minh pipeline đo được đầu-cuối.
+chất lượng thật; giá trị duy nhất của bảng này là chứng minh pipeline đo được đầu-cuối
+(đủ 4/4 biến thể, gồm cả LLM-only qua OpenRouter — 10/10 cặp chấm thành công sau khi vá
+retry cho lỗi provider trả content rỗng).
 Công thức hybrid V2: 0.5 × hard_skill + 0.1 × soft_skill + 0.4 × semantic (xem README).*
 
 **Số liệu D3 chính thức (điền sau khi chấm tay):**
@@ -238,3 +313,39 @@ Công thức hybrid V2: 0.5 × hard_skill + 0.1 × soft_skill + 0.4 × semantic 
 | (b) Embedding-only | — | — | — | — |
 | (c) LLM-only | — | — | — | — |
 | **(d) Full hybrid** | **—** | **—** | **—** | **—** |
+
+---
+
+## Mục 10 — Kiến trúc hệ thống & phương án triển khai
+
+### 10.1. Kiến trúc hiện tại (đã chạy thật)
+
+```
+[React frontend] --HTTP--> [FastAPI backend] --SQL/vector--> [Neon Postgres + pgvector]
+                                  |
+                                  +--> [BGE-M3 local, CPU] (embedding)
+                                  +--> [OpenRouter API] (LLM extraction)
+```
+
+- **Frontend**: React (thành viên C), gọi `POST /api/cv/upload`.
+- **Backend**: FastAPI, module hóa theo tầng (`services/cv_parser`, `cv_extraction`,
+  `embedding`, `scoring`, `jd_extraction`), router riêng `routers/cv.py`.
+- **Database**: Neon Postgres serverless (ap-southeast-1), pgvector 0.8.6,
+  bảng `jds` (450 dòng) + cột `embedding vector(1024)` + index lọc.
+- **Bảo mật**: khóa API và mật khẩu DB chỉ nằm trong `.env` (đã xác nhận không
+  được git track; repo chỉ có `.env.example`).
+
+### 10.2. Phương án triển khai demo
+
+| Hạng mục | Phương án |
+|----------|-----------|
+| Backend | Container Docker (Python 3.12 + model BGE-M3 bake sẵn hoặc tải lần đầu), deploy VPS/Render |
+| Database | Tiếp tục Neon serverless (free tier đủ cho 450 JD + demo) |
+| Frontend | Build tĩnh (Vite) → Vercel/Netlify, proxy `/api` về backend |
+| Dự phòng | Nếu mất mạng/OpenRouter lỗi: rule fallback vẫn cho kết quả matching đầy đủ (đã kiểm chứng 27,8% JD chạy rule) |
+
+### 10.3. Giới hạn đã biết
+
+- CV ảnh scan chưa OCR (chỉ cảnh báo).
+- `score_llm` (LLM đánh giá trách nhiệm/độ khớp sâu) chưa tích hợp vào hybrid — bản sau.
+- Quy mô 450 JD phù hợp demo; production cần pipeline crawl + index lại định kỳ.
