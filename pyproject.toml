@@ -1,0 +1,4 @@
+[tool.pytest.ini_options]
+# Chi thu thap test trong tests/ — scripts/ la tien ich chay thu cong (can API key that),
+# khong bao gio cho pytest tu dong quet (sua loi CI collect nham scripts/test_*.py).
+testpaths = ["tests"]

@@ -1,10 +1,15 @@
-"""Script kiểm tra kết nối API NVIDIA NIM (Kimi-K3 và Nemotron fallback)."""
+"""Script kiểm tra kết nối LLM thủ công (Kimi-K3 chính + Nemotron fallback qua OpenRouter/NIM).
+
+KHÔNG phải test tự động — cần LLM_API_KEY thật trong .env, gọi API tốn phí.
+Chạy thủ công:  python scripts/check_llm_api.py
+(Tên file cố tình không bắt đầu "test_" để pytest không thu thập — xem pyproject.toml.)
+"""
 
 import sys
 from openai import OpenAI
 from app.config import settings
 
-def test_api():
+def check_api():
     print(f"Base URL: {settings.llm_base_url}")
     print(f"Primary model: {settings.llm_model}")
     print(f"Fallback model: {settings.llm_fallback_model}")
@@ -45,4 +50,4 @@ def test_api():
         print(f"=> ERROR fallback: {e}")
 
 if __name__ == "__main__":
-    test_api()
+    check_api()

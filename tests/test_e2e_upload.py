@@ -4,6 +4,7 @@ Chay voi mode=rule (deterministic, khong goi LLM). Can: Neon DB co 450 JD + embe
     python -m pytest tests/test_e2e_upload.py -q
 """
 
+import os
 from pathlib import Path
 
 import pytest
@@ -12,6 +13,14 @@ from fastapi.testclient import TestClient
 from app.main import app
 
 FIXTURES = Path(__file__).parent / "fixtures"
+
+# E2E can Neon DB that (450 JD + embedding) — CI khong co secret thi skip,
+# khong de CI do vi thieu credential. Local: dat DATABASE_URL trong .env.
+# Dieu kien: skip khi database_url van la default localhost (tuc khong co .env/env that).
+from app.config import settings
+
+pytestmark = pytest.mark.skipif("localhost" in settings.database_url,
+                                reason="Can DATABASE_URL that (Neon) — CI khong co secret")
 
 
 @pytest.fixture(scope="module")
