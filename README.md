@@ -87,17 +87,18 @@ A, B, C đều dùng chung `DATABASE_URL` trong `.env` — **KHÔNG tự dựng 
   `python scripts/import_jds_json.py` (chỉ 1 người chạy, các máy khác dùng chung dữ liệu).
 - `docker-compose.yml` chỉ còn là phương án dự phòng offline.
 
-## Tầng 4 — Công thức chấm điểm V1 (công khai, không hộp đen)
+## Tầng 4 — Công thức chấm điểm V2 (công khai, không hộp đen)
 
-    score_total = 0.6 × score_skill + 0.4 × score_semantic
+    score_total = 0.5 × score_hard_skill + 0.1 × score_soft_skill + 0.4 × score_semantic
 
-- `score_skill` = |skills CV ∩ skills JD| / |skills JD| × 100 — cả hai phía đều là
-  canonical name trong taxonomy 235 skill (data/taxonomy/skills_taxonomy.json)
+- `score_hard_skill` = |hard skills CV ∩ JD| / |hard skills JD| × 100 — canonical name
+  trong taxonomy 235 skill, LOẠI nhóm mềm ("Soft Skill", "Language Skill")
+- `score_soft_skill` = overlap riêng trên nhóm mềm — trọng số nhỏ (0.1), hiển thị riêng
 - `score_semantic` = cosine(embedding CV, embedding JD) × 100 — BGE-M3, 1024-dim
-- Mọi điểm trả về kèm breakdown 2 chiều + evidence (skill khớp + trích đoạn JD)
-- V1 chưa có score_llm (LLM đánh giá trách nhiệm) — bổ sung bản sau
-
-API: `POST /api/cv/upload` (multipart file PDF/DOCX; params: mode=llm|rule, top_k,
-location, level, industry_group) → parsed_cv (schema Tầng 2) + matches có giải thích.
+- Lý do tách (sửa từ V1): V1 cộng dồn mọi skill ngang nhau → match "Teamwork" được
+  điểm ngang match "Python", làm phình điểm. V2: hard skill là tín hiệu chính.
+- Mọi điểm kèm breakdown 3 chiều + evidence (skill khớp + trích đoạn JD)
+- Ablation (mục 9): hybrid_v2 / keyword_only / embedding_only / llm_only — cùng
+  interface trong app/services/scoring.py; chưa có score_llm trong hybrid (bản sau)
 
 Minh bạch Tầng 2 JD (mục 9 hồ sơ): 450 JD — LLM thật 325 (72.2%), rule fallback 125 (27.8%).

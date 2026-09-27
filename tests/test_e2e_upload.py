@@ -43,8 +43,8 @@ def test_upload_cv_backend_tim_dung_nganh(client):
     for key in ["id", "title", "score", "breakdown", "evidence", "industry_group"]:
         assert key in top, f"match thieu truong: {key}"
     assert 0 <= top["score"] <= 100
-    assert set(top["breakdown"].keys()) == {"skill", "semantic"}
-    assert top["breakdown"]["skill"]["weight"] == 0.6  # cong thuc cong khai
+    assert set(top["breakdown"].keys()) == {"hard_skill", "soft_skill", "semantic"}
+    assert top["breakdown"]["hard_skill"]["weight"] == 0.5  # cong thuc cong khai V2
 
     # CV backend Python/Django -> top-5 phai nghieng ve Software Engineering
     groups = [m["industry_group"] for m in data["matches"]]
