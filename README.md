@@ -86,3 +86,18 @@ A, B, C đều dùng chung `DATABASE_URL` trong `.env` — **KHÔNG tự dựng 
 - Lần đầu setup: `python scripts/migrate_002_jd_filter_columns.py` rồi
   `python scripts/import_jds_json.py` (chỉ 1 người chạy, các máy khác dùng chung dữ liệu).
 - `docker-compose.yml` chỉ còn là phương án dự phòng offline.
+
+## Tầng 4 — Công thức chấm điểm V1 (công khai, không hộp đen)
+
+    score_total = 0.6 × score_skill + 0.4 × score_semantic
+
+- `score_skill` = |skills CV ∩ skills JD| / |skills JD| × 100 — cả hai phía đều là
+  canonical name trong taxonomy 235 skill (data/taxonomy/skills_taxonomy.json)
+- `score_semantic` = cosine(embedding CV, embedding JD) × 100 — BGE-M3, 1024-dim
+- Mọi điểm trả về kèm breakdown 2 chiều + evidence (skill khớp + trích đoạn JD)
+- V1 chưa có score_llm (LLM đánh giá trách nhiệm) — bổ sung bản sau
+
+API: `POST /api/cv/upload` (multipart file PDF/DOCX; params: mode=llm|rule, top_k,
+location, level, industry_group) → parsed_cv (schema Tầng 2) + matches có giải thích.
+
+Minh bạch Tầng 2 JD (mục 9 hồ sơ): 450 JD — LLM thật 325 (72.2%), rule fallback 125 (27.8%).

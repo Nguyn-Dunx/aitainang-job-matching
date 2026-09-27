@@ -2,7 +2,7 @@
 
 from fastapi import FastAPI
 
-from app.routers import health
+from app.routers import cv, health
 
 app = FastAPI(
     title="aitainang API",
@@ -11,3 +11,4 @@ app = FastAPI(
 )
 
 app.include_router(health.router)
+app.include_router(cv.router)
