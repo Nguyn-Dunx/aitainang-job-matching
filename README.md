@@ -74,3 +74,15 @@ full hybrid) và ghi trực tiếp trong module scoring.
 - [ ] Bộ JD `data/processed/jds.json` sẽ được A cập nhật (bổ sung JD nhóm Data/AI) —
   Tầng 3 (embedding) và Tầng 2 phía JD chỉ chạy SAU khi có bản mới, tránh làm lại.
 - [x] Tầng 1+2 cho CV (D2): parser + extraction + rule fallback — xong, 14/14 test pass.
+
+## Database dùng chung (Neon)
+
+DB production/dev của cả đội là **1 instance Neon duy nhất** (Postgres managed, có pgvector).
+A, B, C đều dùng chung `DATABASE_URL` trong `.env` — **KHÔNG tự dựng Postgres local/Docker riêng**
+để tránh lệch dữ liệu giữa 3 máy.
+
+- Lấy connection string từ nhóm trưởng, điền vào `.env` (file này đã nằm trong `.gitignore`,
+  TUYỆT ĐỐI không commit — lộ ra là ai cũng đọc/ghi được DB thật).
+- Lần đầu setup: `python scripts/migrate_002_jd_filter_columns.py` rồi
+  `python scripts/import_jds_json.py` (chỉ 1 người chạy, các máy khác dùng chung dữ liệu).
+- `docker-compose.yml` chỉ còn là phương án dự phòng offline.

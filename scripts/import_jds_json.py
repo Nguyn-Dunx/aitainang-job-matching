@@ -28,14 +28,16 @@ def main() -> None:
         deleted = db.execute(text("DELETE FROM jds")).rowcount
         print(f"Da xoa {deleted} JD cu")
 
-        for it in items:
+        for i, it in enumerate(items):
             raw_text = "\n\n".join(
                 p for p in [it.get("title", ""), it.get("responsibilities", ""), it.get("requirements", "")] if p
             )
             db.add(JD(
                 title=it.get("title", ""),
                 raw_text=raw_text,
-                parsed={"level": it.get("level"), "location": it.get("location"), "metadata": it.get("metadata")},
+                # idx = khoa ghep on dinh voi jds.json/jds_embeddings.npy (title bi trung)
+                parsed={"idx": i, "level": it.get("level"), "location": it.get("location"),
+                        "metadata": it.get("metadata")},
                 location_normalized=it.get("location_normalized"),
                 level_normalized=it.get("level_normalized"),
                 industry_group=it.get("industry_group"),

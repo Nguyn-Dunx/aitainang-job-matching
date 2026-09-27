@@ -46,18 +46,19 @@ def main() -> None:
         from app.db import SessionLocal
 
         with SessionLocal() as db:
-            titles = [it["title"] for it in items]
+            # Ghep theo parsed->>'idx' (title bi trung giua cac JD)
             rows = db.execute(text(
-                "SELECT id, title FROM jds WHERE title = ANY(:titles)"),
-                {"titles": titles}).all()
-            by_title = {r.title: r.id for r in rows}
-            for it, vec in zip(items, emb):
-                jd_id = by_title.get(it["title"])
+                "SELECT id, (parsed->>'idx')::int AS idx FROM jds")).all()
+            by_idx = {r.idx: r.id for r in rows}
+            updated = 0
+            for i, vec in enumerate(emb):
+                jd_id = by_idx.get(i)
                 if jd_id:
                     db.execute(text("UPDATE jds SET embedding = :v WHERE id = :id"),
                                {"v": vec.tolist(), "id": jd_id})
+                    updated += 1
             db.commit()
-            print(f"Da ghi embedding vao DB cho {len(by_title)}/{len(items)} JD")
+            print(f"Da ghi embedding vao DB cho {updated}/{len(items)} JD")
 
 
 if __name__ == "__main__":
