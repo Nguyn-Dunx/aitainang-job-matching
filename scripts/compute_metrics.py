@@ -68,23 +68,27 @@ def main() -> None:
     from app.services.embedding import embed_query
     from app.services.scoring import VARIANTS, PairInput
 
-    jds = json.load(open(ROOT / "data/processed/jds.json", encoding="utf-8"))
-    skills = json.load(open(ROOT / "data/processed/jds_skills.json", encoding="utf-8"))
+    with open(ROOT / "data/processed/jds.json", encoding="utf-8") as f:
+        jds = json.load(f)
+    with open(ROOT / "data/processed/jds_skills.json", encoding="utf-8") as f:
+        skills = json.load(f)
     embeddings = np.load(ROOT / "data/processed/jds_embeddings.npy")
 
     labels = {}
-    for row in csv.DictReader(open(args.labels, encoding="utf-8")):
-        labels[(row["cv_id"], row["jd_id"])] = float(row["score_mean"])
+    with open(args.labels, encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            labels[(row["cv_id"], row["jd_id"])] = float(row["score_mean"])
 
-    pairs = [r for r in csv.DictReader(open(args.pairs, encoding="utf-8"))
-             if (r["cv_id"], r["jd_id"]) in labels]
+    with open(args.pairs, encoding="utf-8") as f:
+        pairs = [r for r in csv.DictReader(f) if (r["cv_id"], r["jd_id"]) in labels]
 
     # Load CV pilot (json da parse) + embed 1 lan
     cv_cache: dict[str, dict] = {}
     for p in pairs:
         cid = p["cv_id"]
         if cid not in cv_cache:
-            rec = json.load(open(ROOT / "data/processed/cvs_pilot" / f"{cid}.json", encoding="utf-8"))
+            with open(ROOT / "data/processed/cvs_pilot" / f"{cid}.json", encoding="utf-8") as f:
+                rec = json.load(f)
             cv_text = " ".join(rec.get("skills", [])) + " " + str(rec.get("target_industry", ""))
             cv_cache[cid] = {"skills": rec.get("skills", []), "text": cv_text,
                              "vec": embed_query(cv_text)}

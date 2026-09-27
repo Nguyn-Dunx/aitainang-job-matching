@@ -1,7 +1,12 @@
 """Test Tang 4: scoring V2 (tach hard/soft) + bo ablation cung interface."""
 
-from app.services.scoring import (PairInput, score_embedding_only, score_hybrid_v2,
-                                  score_keyword_only, split_hard_soft)
+from app.services.scoring import (
+    PairInput,
+    score_embedding_only,
+    score_hybrid_v2,
+    score_keyword_only,
+    split_hard_soft,
+)
 
 
 def test_tach_hard_soft_skill():
