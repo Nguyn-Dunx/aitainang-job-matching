@@ -1,6 +1,7 @@
 # Hồ sơ Mẫu 3 — Nháp (mục 3, 4, 5, 6, 7, 9, 10)
 
-> **Lưu ý**: Số liệu đã chốt (D1/D4). Mục 9 (baseline/ablation) viết sau khi có kết quả D3 + scoring.
+> **Lưu ý**: Số liệu D1/D4 đã chốt. Mục 9 đã có số liệu PILOT kiểm chứng pipeline (rõ ràng
+> đánh dấu không phải D3 chính thức); số D3 thật điền sau khi có CV từ C + chấm tay.
 
 ---
 
@@ -190,7 +191,7 @@ JD (450) ──Tầng 1──> text ──Tầng 2──> skills chuẩn hóa �
 - **Tích hợp DB**: migration Alembic-style (001 bảng, 002 cột chuẩn hóa + index);
   import 450/450 JD, 450/450 embedding, 0 dòng thiếu cột lọc.
 - **API**: `POST /api/cv/upload` (multipart PDF) → parse + extract + embed + match
-  trong 1 request; `GET` kèm filter `industry_group`, `location`, `level`.
+  trong 1 request; filter `industry_group`, `location`, `level` truyền qua query params.
   E2E test thật: upload PDF → nhận danh sách JD xếp hạng kèm breakdown (24,7 s).
 
 ---
@@ -219,7 +220,7 @@ Hệ thống đánh giá 3 tầng:
 
 ### 7.2. Ground truth — D3
 
-- **Bộ nhãn**: 50-100 cặp (CV, JD), ghép phân tầng từ D1 x D2 (đảm bảo đủ easy/medium/hard).
+- **Bộ nhãn**: tối thiểu 20–30 cặp, mục tiêu 50–100 cặp (CV, JD), ghép phân tầng từ D1 × D2 (đảm bảo đủ easy/medium/hard).
 - **Người chấm**: 3 thành viên nhóm, chấm **độc lập** thang 1-5.
 - **Ghi chú lý do**: Bắt buộc — mỗi điểm kèm 1-2 câu giải thích.
 - **Đo đồng thuận**: Fleiss' kappa hoặc Krippendorff's alpha. Nếu kappa < 0,6 → rà soát lại
@@ -232,7 +233,7 @@ Hệ thống đánh giá 3 tầng:
 
 | Metric | Ý nghĩa | Cách tính |
 |--------|---------|-----------|
-| **Precision@5** | Trong 5 JD trả về, bao nhiêu thực sự phù hợp (score >= 3)? | \|relevant ∩ top-5\| / 5 |
+| **Precision@5** | Trong 5 JD trả về, bao nhiêu thực sự phù hợp (score >= 4)? | \|relevant ∩ top-5\| / 5 |
 | **nDCG@10** | JD phù hợp có được xếp ở vị trí cao không? | Normalized Discounted Cumulative Gain, dùng score 1-5 làm relevance grade |
 
 Baseline: so sánh giữa (a) keyword matching, (b) embedding-only, (c) LLM-only, (d) full hybrid.
@@ -246,11 +247,13 @@ Baseline: so sánh giữa (a) keyword matching, (b) embedding-only, (c) LLM-only
 | **Spearman rho** | Thứ tự xếp hạng của hệ thống có khớp với thứ tự chấm tay? | Spearman rank correlation giữa `score_total` (hệ thống) và trung bình score D3 |
 | **MAE** | Sai lệch trung bình giữa điểm hệ thống và điểm chấm tay | Mean Absolute Error, thang 1-5 |
 
-Scoring breakdown theo 4 chiều (mỗi chiều có sub-score riêng):
-1. **Hard skills match** — skill overlap chuẩn hóa alias theo taxonomy D4
-2. **Soft skills match** — tách riêng, weight thấp hơn hard skills (0,3-0,5x)
-3. **Experience match** — so sánh years of experience
-4. **Education match** — so sánh education level
+Scoring breakdown V2 hiện tại gồm 3 thành phần (đã implement, công thức công khai):
+1. **Hard skills match** (weight 0,5) — skill overlap chuẩn hóa alias theo taxonomy D4,
+   LOẠI nhóm mềm (Soft Skill, Language Skill)
+2. **Soft skills match** (weight 0,1) — tách riêng, trọng số nhỏ hơn hẳn hard skills
+3. **Semantic match** (weight 0,4) — cosine similarity embedding BGE-M3
+
+*Experience match và Education match là hướng mở rộng đã lên kế hoạch, chưa đưa vào V2.*
 
 > **Phát hiện từ D4**: Top skills phổ biến nhất trong JD phần lớn là kỹ năng mềm (Communication
 > 48,7%, Report Writing 42,9%…). Nếu cho trọng số ngang bằng, soft skills sẽ chi phối scoring
@@ -283,12 +286,10 @@ So sánh 4 biến thể trên cùng bộ D3:
 
 | Biến thể | Mô tả |
 |----------|-------|
-| (a) Keyword matching | Overlap từ khóa thuần túy (TF-IDF / Jaccard) |
+| (a) Keyword-only | Đếm overlap thô trên tên canonical, KHÔNG chuẩn hóa alias |
 | (b) Embedding-only | Cosine similarity giữa embedding CV và JD (BGE-M3) |
 | (c) LLM-only | LLM chấm trực tiếp (structured output, không có pipeline) |
-| (d) **Full hybrid** | Deterministic (skill/exp/edu) + semantic (embedding) + LLM — bản chính thức |
-
-Bảng kết quả (template — chưa có số):
+| (d) **Hybrid V2** | 0,5 × hard_skill + 0,1 × soft_skill + 0,4 × semantic — bản chính thức |
 
 **Số liệu PILOT (10 cặp, CV synthetic, nhãn cơ chế — CHƯA PHẢI D3 CHÍNH THỨC):**
 
@@ -303,7 +304,13 @@ Bảng kết quả (template — chưa có số):
 chất lượng thật; giá trị duy nhất của bảng này là chứng minh pipeline đo được đầu-cuối
 (đủ 4/4 biến thể, gồm cả LLM-only qua OpenRouter — 10/10 cặp chấm thành công sau khi vá
 retry cho lỗi provider trả content rỗng).
-Công thức hybrid V2: 0.5 × hard_skill + 0.1 × soft_skill + 0.4 × semantic (xem README).*
+
+*Ghi chú theo dõi: ở pilot, keyword_only có Spearman cao nhất (0.296) so với hybrid_v2 (0.148)
+và llm_only (0.155). KHÔNG kết luận gì ở cỡ mẫu n=10 chấm cơ chế (nhiễu thống kê rất lớn) —
+cần theo dõi lại pattern này khi có D3 thật (20–30+ cặp, chấm tay); nếu hybrid vẫn thua
+keyword ở quy mô đó mới là tín hiệu cần debug công thức.*
+
+*Công thức hybrid V2: 0,5 × hard_skill + 0,1 × soft_skill + 0,4 × semantic (xem README).*
 
 **Số liệu D3 chính thức (điền sau khi chấm tay):**
 
@@ -336,6 +343,10 @@ Công thức hybrid V2: 0.5 × hard_skill + 0.1 × soft_skill + 0.4 × semantic 
   được git track; repo chỉ có `.env.example`).
 
 ### 10.2. Phương án triển khai demo
+
+> Theo thể lệ Bảng C, đợt nộp này **không bắt buộc** link deploy công khai (chỉ bắt buộc
+> ở Vòng Chung kết) — phương án dưới đây chuẩn bị sẵn cho giai đoạn Vòng Khu vực.
+
 
 | Hạng mục | Phương án |
 |----------|-----------|

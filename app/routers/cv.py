@@ -92,7 +92,7 @@ async def upload_cv(
             ORDER BY embedding <=> CAST(:q AS vector) LIMIT :k
         """), params).all()
 
-    # Tang 4: hybrid scoring V1
+    # Tang 4: hybrid scoring V2 (0.5 hard_skill + 0.1 soft_skill + 0.4 semantic)
     matches = []
     for r in rows:
         p = r.parsed or {}
