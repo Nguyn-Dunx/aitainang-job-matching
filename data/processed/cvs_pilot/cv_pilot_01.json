@@ -1,0 +1,20 @@
+{
+ "id": "cv_pilot_01",
+ "target_industry": "Software Engineering",
+ "skills": [
+  "Django",
+  "Docker",
+  "English Proficiency",
+  "Git",
+  "JavaScript",
+  "Linux",
+  "PostgreSQL",
+  "Python",
+  "RESTful API",
+  "React",
+  "Redis",
+  "SQL"
+ ],
+ "years_of_experience": null,
+ "source": "synthetic (tests/fixtures)"
+}

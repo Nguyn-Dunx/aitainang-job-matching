@@ -1,0 +1,13 @@
+{
+ "id": "cv_pilot_03",
+ "target_industry": "Data/AI/ML",
+ "skills": [
+  "Microsoft Office",
+  "Pandas",
+  "Power BI",
+  "Python",
+  "SQL"
+ ],
+ "years_of_experience": null,
+ "source": "synthetic (tests/fixtures)"
+}

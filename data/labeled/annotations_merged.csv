@@ -1,0 +1,11 @@
+cv_id,jd_id,score_pilot,score_pilot,score_pilot,score_mean,score_std,disagreement_flag
+cv_pilot_01,jd_0069,4,4,4,4.0,0.00,
+cv_pilot_01,jd_0111,3,3,3,3.0,0.00,
+cv_pilot_01,jd_0150,3,3,3,3.0,0.00,
+cv_pilot_01,jd_0301,4,5,4,4.3,0.47,
+cv_pilot_02,jd_0059,4,5,4,4.3,0.47,
+cv_pilot_02,jd_0072,3,4,3,3.3,0.47,
+cv_pilot_02,jd_0307,3,3,2,2.7,0.47,
+cv_pilot_02,jd_0376,4,5,4,4.3,0.47,
+cv_pilot_03,jd_0025,4,4,4,4.0,0.00,
+cv_pilot_03,jd_0052,5,5,4,4.7,0.47,

@@ -1,0 +1,17 @@
+{
+ "id": "cv_pilot_02",
+ "target_industry": "Software Engineering",
+ "skills": [
+  "AWS",
+  "Apache Kafka",
+  "Docker",
+  "Java",
+  "Kubernetes",
+  "Microservices",
+  "MongoDB",
+  "MySQL",
+  "Spring"
+ ],
+ "years_of_experience": null,
+ "source": "synthetic (tests/fixtures)"
+}

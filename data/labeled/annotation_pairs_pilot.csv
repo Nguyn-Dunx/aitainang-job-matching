@@ -1,0 +1,11 @@
+cv_id,jd_id,difficulty_hint,cv_industry,jd_industry
+cv_pilot_01,jd_0301,easy,Software Engineering,Software Engineering
+cv_pilot_01,jd_0069,easy,Software Engineering,Software Engineering
+cv_pilot_01,jd_0111,medium,Software Engineering,Infra/DevOps
+cv_pilot_01,jd_0150,medium,Software Engineering,Game Dev
+cv_pilot_02,jd_0376,easy,Software Engineering,Software Engineering
+cv_pilot_02,jd_0059,easy,Software Engineering,Software Engineering
+cv_pilot_02,jd_0072,medium,Software Engineering,Game Dev
+cv_pilot_02,jd_0307,medium,Software Engineering,Testing/QA
+cv_pilot_03,jd_0052,easy,Data/AI/ML,Data/AI/ML
+cv_pilot_03,jd_0025,easy,Data/AI/ML,Data/AI/ML
