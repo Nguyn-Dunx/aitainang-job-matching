@@ -330,9 +330,9 @@ Nhóm đã triển khai kiểm thử toàn diện luồng 6 bước từ Onboard
   - Tính toán vector embedding (Tầng 3 - BGE-M3 1024 chiều chạy cục bộ trên CPU): trung bình **0,35 giây** cho bản tóm tắt CV.
   - Truy xuất Top-20 việc làm phù hợp từ 450 JD trên cơ sở dữ liệu pgvector: dưới **0,05 giây** (< 50ms).
   - Tính toán điểm số Hybrid V2 và trích dẫn Evidence (Tầng 4): dưới **0,02 giây**.
-  - **Tổng thời gian xử lý toàn luồng**: dưới **3,5 giây**, mang lại trải nghiệm người dùng mượt mà và trực quan.
+  - **Tổng thời gian xử lý toàn luồng** (đo thực tế, mode=rule): **~1,1–1,3 giây** khi hệ thống đã sẵn sàng (warm); lần gọi đầu tiên sau khi khởi động server mất thêm **~20 giây** do nạp model embedding BGE-M3 vào bộ nhớ (chỉ xảy ra một lần mỗi phiên).
 - **Độ ổn định & Kiểm chứng Human-in-the-loop**:
-  - Thử nghiệm trên 3 CV thành viên và 3 bộ fixture chuẩn (đơn cột, hai cột, thiếu mục): Tỷ lệ bóc tách trường kỹ năng đạt độ chính xác **92%**.
+  - Thử nghiệm trên 3 CV thành viên và 3 bộ fixture chuẩn (đơn cột, hai cột, thiếu mục): tỷ lệ phiên trích xuất đi qua LLM Structured Output so với Fallback Regex là **72,2% / 27,8%** (tỷ lệ *sử dụng* cơ chế, không phải độ chính xác). Nhóm **chưa đo formal accuracy** trên tập gán nhãn chuẩn — đây là hướng phát triển tiếp theo.
   - Cơ chế Human-in-the-loop cho phép người dùng trực tiếp thêm/xóa/sửa các kỹ năng AI nhận diện sai trước khi bấm đối chiếu, đảm bảo dữ liệu đưa vào Tầng 3–4 là **chính xác 100%** theo xác nhận của ứng viên.
 
 ### 8.2. Ưu điểm nổi bật của giải pháp

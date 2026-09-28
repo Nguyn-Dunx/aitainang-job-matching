@@ -12,11 +12,17 @@ Query params:
 import tempfile
 from pathlib import Path
 
-from fastapi import APIRouter, Query, UploadFile
+from fastapi import APIRouter, HTTPException, Query, UploadFile
+from pydantic import BaseModel
 from sqlalchemy import text
 
 from app.db import SessionLocal
 from app.services.cv_extraction import extract_cv
+from app.services.cv_improve import (
+    compute_gap,
+    generate_suggestions,
+    rescore_with_skills,
+)
 from app.services.cv_parser import parse_cv
 from app.services.embedding import embed_query
 from app.services.scoring import score_pair
@@ -127,4 +133,81 @@ async def upload_cv(
         "parse_warnings": parsed_file.warnings,
         "extraction_mode": mode,
         "matches": matches,
+    }
+
+
+class SuggestImprovementRequest(BaseModel):
+    """Input Tầng 5: CV đã parse (không cần re-parse) + job_id của 1 JD."""
+
+    job_id: str  # UUID của JD trong bảng jds
+    cv_skills: list[str]
+    cv_experience: list[str] = []  # các bullet mô tả kinh nghiệm hiện có
+    cv_text: str = ""  # optional: embed để có cosine_sim thật; bỏ trống -> semantic = 0 cả 2 lần
+    accepted_skills: list[str] | None = None  # None = chấp nhận tất cả skill trong gợi ý
+
+
+@router.post("/suggest-improvement")
+def suggest_improvement(req: SuggestImprovementRequest):
+    """Tầng 5: gợi ý sửa CV theo gap thật của 1 JD + chấm lại điểm (delta thật).
+
+    - Gap lấy từ scoring hiện có (missing hard/soft skills), không tính lại từ đầu.
+    - LLM chỉ gợi ý dựa trên missing skills; gợi ý lệch danh sách bị loại (chống bịa).
+    - Delta = score_hybrid_v2(CV + accepted) - score_hybrid_v2(CV gốc), cùng cosine_sim
+      -> delta thuần túy từ thành phần skill; semantic giữ nguyên.
+    """
+    with SessionLocal() as db:
+        row = db.execute(text(
+            "SELECT id, title, parsed, embedding FROM jds WHERE id = :id"
+        ), {"id": req.job_id}).first()
+    if row is None:
+        raise HTTPException(status_code=404, detail=f"Không tìm thấy JD id={req.job_id}")
+
+    p = row.parsed or {}
+    skills_info = p.get("skills_info") or {}
+    jd_skills = skills_info.get("skills", [])
+    jd_evidence = skills_info.get("evidence_snippet", "")
+
+    gap = compute_gap(req.cv_skills, jd_skills)
+    missing_all = gap["missing_hard"] + gap["missing_soft"]
+
+    suggestions = generate_suggestions(
+        job_title=row.title,
+        missing_skills=missing_all,
+        experience_texts=req.cv_experience,
+    )
+
+    accepted = req.accepted_skills
+    if accepted is None:
+        accepted = sorted({s["skill"] for s in suggestions})
+    else:
+        # Chi cho phep skill nam trong gap that - chan client tu them skill ngoai
+        accepted = [s for s in accepted if s.lower() in {m.lower() for m in missing_all}]
+
+    cosine_sim = 0.0
+    if req.cv_text:
+        cv_vec = embed_query(req.cv_text)
+        with SessionLocal() as db:
+            sim_row = db.execute(text(
+                "SELECT 1 - (embedding <=> CAST(:q AS vector)) AS sim FROM jds WHERE id = :id"
+            ), {"q": str(cv_vec), "id": req.job_id}).first()
+        cosine_sim = sim_row.sim if sim_row and sim_row.sim is not None else 0.0
+
+    scores = rescore_with_skills(
+        cv_skills=req.cv_skills,
+        accepted_skills=accepted,
+        jd_skills=jd_skills,
+        cosine_sim=cosine_sim,
+        jd_evidence=jd_evidence,
+        cv_text=req.cv_text,
+    )
+
+    return {
+        "job_id": row.id,
+        "job_title": row.title,
+        "gap": gap,
+        "suggestions": suggestions,
+        "accepted_skills": accepted,
+        **scores,
+        "note": ("delta chi den tu thanh phan skill overlap; semantic giu nguyen "
+                 "(khong re-embed CV sau khi sua). Goi y dang dieu kien, khong bia kinh nghiem."),
     }

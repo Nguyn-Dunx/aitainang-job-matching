@@ -91,3 +91,48 @@ semantic = cosine BGE-M3 × 100)
 CV nằm trong `data.parsed_cv`, danh sách JD trong `data.matches`. Kiểm tra
 `data.extraction_mode === 'rule'` để hiển thị badge "chế độ dự phòng" nếu LLM lỗi. Nhớ gửi kèm query params
 filter nếu UI có chọn location/level/industry.
+
+---
+
+## POST /api/cv/suggest-improvement — Tầng 5: gợi ý sửa CV + delta score
+
+Input: CV **đã parse** (không cần upload lại file) + `job_id` của 1 JD trong danh sách match.
+
+```json
+{
+  "job_id": "f356d908-...",            // UUID JD (trường id trong matches của /upload)
+  "cv_skills": ["Python", "FastAPI", "..."],
+  "cv_experience": ["Thiết kế RESTful API...", "..."],  // bullet kinh nghiệm hiện có
+  "cv_text": "Backend Engineer | ... (bản tóm tắt CV)",   // optional: để tính cosine_sim thật
+  "accepted_skills": null              // null = chấp nhận tất cả skill trong gợi ý
+}
+```
+
+Response (đo thật, CV `cv_member_01_backend` × JD "Kỹ Sư Quản Trị Hệ Thống"):
+
+```json
+{
+  "job_id": "...", "job_title": "Kỹ Sư Quản Trị Hệ Thống",
+  "gap": {
+    "matched_hard": ["Linux", "Docker"], "missing_hard": ["Firewall", "Load Balancer", "Networking", "Windows Server"],
+    "matched_soft": ["Teamwork"], "missing_soft": ["Communication", "Time Management"]
+  },
+  "suggestions": [
+    {"skill": "Networking", "text": "Nếu bạn đã cấu hình mạng cho container Docker (bridge network, port mapping)..."}
+  ],
+  "accepted_skills": ["Communication", "Firewall", "Load Balancer", "Networking"],
+  "score_before": 13.3, "score_after": 46.7, "delta": 33.4,
+  "breakdown_before": {"...": "..."}, "breakdown_after": {"...": "..."},
+  "note": "delta chi den tu thanh phan skill overlap; semantic giu nguyen (khong re-embed CV sau khi sua). Goi y dang dieu kien, khong bia kinh nghiem."
+}
+```
+
+**Ràng buộc chống bịa:**
+- Gap lấy từ đúng hàm scoring hiện có (`split_hard_soft` + `_overlap_score`), không tính lại từ đầu.
+- LLM chỉ được gợi ý cho skill nằm trong `missing_*`; gợi ý lệch danh sách bị loại bỏ phía server.
+- Prompt bắt buộc viết gợi ý dạng điều kiện ("Nếu bạn đã từng...") — không bịa kinh nghiệm CV không có.
+- `accepted_skills` từ client cũng bị lọc lại theo gap thật.
+- Delta = `score_hybrid_v2(CV + accepted) − score_hybrid_v2(CV gốc)`, cùng cosine_sim → delta chỉ đến từ skill overlap; semantic giữ nguyên.
+
+**Lỗi**: 404 nếu `job_id` không tồn tại; 200 với `suggestions: []` nếu LLM lỗi cả 3 lần thử
+(model chính ×2 + fallback) — khi đó `delta` vẫn tính được nếu client gửi `accepted_skills` riêng.
