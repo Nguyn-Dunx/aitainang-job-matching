@@ -49,31 +49,35 @@ Kiểm tra: `ruff check app tests` và `pytest -q` (giống CI).
 - `match_results` — điểm từng thành phần (skill/semantic/llm/total) + gaps + explanation
   JSONB: mọi điểm số đều kèm breakdown, không hộp đen
 
-## Công thức chấm điểm (sẽ chốt ở T3)
+## Công thức chấm điểm (đã chốt ở T3)
 
 `score_total = w_skill * score_skill + w_semantic * score_semantic + w_llm * score_llm`
 
-Trọng số `w_*` sẽ được chốt sau ablation (4 biến thể: keyword / embedding-only / LLM-only /
+Trọng số `w_*` đã được chốt sau ablation (4 biến thể: keyword / embedding-only / LLM-only /
 full hybrid) và ghi trực tiếp trong module scoring.
 
-## Lộ trình
+## Lộ trình (đã hoàn tất)
 
 - **T1** (xong): repo, skeleton FastAPI, schema DB, CI lint+test
-- **T2**: Tầng 1+2 — parsing + extraction, parse đúng ≥90% trên 30 CV mẫu
-- **T3**: Tầng 3+4 — embedding + pgvector retrieval + hybrid scoring, baseline/ablation
-- **T4**: Tầng 5 + deploy Docker Compose có health-check, URL public
+- **T2** (xong): Tầng 1+2 — parsing + extraction, LLM structured output + rule fallback
+- **T3** (xong): Tầng 3+4 — embedding + pgvector retrieval + hybrid scoring V2, ablation 4 biến thể
+- **T4** (xong): deploy Docker Compose có health-check
+- **T5** (xong): Tầng 5 — CV improvement + delta score, endpoint `POST /api/cv/suggest-improvement`
 
 ---
 
-## Trạng thái & Blockers (cập nhật 2026-09-26)
+## Trạng thái hiện tại (cập nhật 2026-09-29)
 
-- [ ] **LLM extraction (Tầng 2) đang bị chặn**: cần `LLM_API_KEY` trong `.env`
-  (mặc định NVIDIA NIM, xem `.env.example`). **Việc này do con người quyết định** —
-  chọn nhà cung cấp, tạo key, điền vào `.env` (KHÔNG commit `.env`). Sau khi có key,
-  kiểm tra bằng `python scripts/test_llm_api.py`.
-- [ ] Bộ JD `data/processed/jds.json` sẽ được A cập nhật (bổ sung JD nhóm Data/AI) —
-  Tầng 3 (embedding) và Tầng 2 phía JD chỉ chạy SAU khi có bản mới, tránh làm lại.
-- [x] Tầng 1+2 cho CV (D2): parser + extraction + rule fallback — xong, 14/14 test pass.
+- [x] **Tầng 1–5 đã xong**: parsing → extraction → retrieval → scoring → CV improvement.
+- [x] **Ablation 4 biến thể** (hybrid_v2 / keyword_only / embedding_only / llm_only) —
+  cùng interface trong `app/services/scoring.py`, kết quả trong `docs/mau3_draft.md` (mục 9).
+- [x] **`docs/FACT_AUDIT.md`** — đối chiếu số liệu hồ sơ với dữ liệu thật, sửa mục 3–7/9/10.
+- [x] **PDF hồ sơ Mẫu 3** đã xuất: `mau3_draft.pdf` (13 trang, hạn 20).
+- [x] LLM extraction chạy thật qua NVIDIA NIM (key trong `.env`, KHÔNG commit).
+- [x] Bộ JD đã cập nhật: 450 JD — LLM thật 325 (72.2%), rule fallback 125 (27.8%).
+
+Tra cứu nhanh: [`docs/API.md`](docs/API.md) (endpoint + ví dụ) ·
+[`docs/FACT_AUDIT.md`](docs/FACT_AUDIT.md) (đối chiếu số liệu).
 
 ## Database dùng chung (Neon)
 
