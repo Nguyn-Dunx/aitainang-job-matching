@@ -38,16 +38,25 @@ sai tên provider (chúng chỉ nói "chờ xác nhận API key provider" / "LLM
 không có dòng Prompt Log nào cần đính chính cho lỗi E1; các dòng cũ được **giữ nguyên**, errata này
 là bản ghi bổ sung.
 
-## E2 — Nguyên nhân lỗi `content=None` (chưa xác định)
+## E2 — Nguyên nhân lỗi `content=None` (suy luận có căn cứ, cập nhật 29/09/2026)
 
-**Mô tả.** Trong pilot 10 cặp, 4/10 lần gọi LLM-only trả `content=None`. Trước đây comment trong
-`app/services/scoring.py` khẳng định nguyên nhân là "OpenRouter định tuyến sang provider không hỗ
-trợ `response_format`".
+**Mô tả.** Trong pilot 10 cặp, 4/10 lần gọi LLM-only trả `content=None`. Bản errata đầu tiên ghi
+nguyên nhân là "chưa xác định". Sau khi kiểm tra lại (29/09/2026), có thêm căn cứ.
 
-**Nội dung đúng.** **Nguyên nhân chưa được xác định.** Giả thuyết "provider không hỗ trợ
-`response_format`" chỉ là suy đoán, chưa có bằng chứng. Cơ chế retry 3 bước (model chính +
-`response_format` → model chính không `response_format` + regex → model fallback) vẫn giữ nguyên vì
-nó xử lý được triệu chứng, nhưng **không** được trình bày như đã tìm ra gốc rễ.
+**Cập nhật.** Cấu hình cũ dùng `moonshotai/kimi-k3` làm model chính. Khi gọi trực tiếp model này qua
+NVIDIA NIM, API trả **HTTP 404** (`Function id '...' Not Found`) — tài khoản **không có quyền truy
+cập** model đó (model có tên trong danh sách catalog `/v1/models` nhưng không gọi được). Vì vậy
+**rất có thể** các lần `content=None` trước đây là do gọi nhầm một model không dùng được, chứ không
+phải lỗi định tuyến (routing) không xác định như bản đầu ghi.
+
+**Mức độ chắc chắn.** Đây là **suy luận có căn cứ**, KHÔNG phải bằng chứng tuyệt đối cho *mọi* lần
+lỗi `content=None` trước đó: log cũ không lưu mã lỗi HTTP của từng lần, nên không loại trừ được các
+nguyên nhân khác (timeout, provider quá tải, `response_format` không hỗ trợ). Kết luận chắc chắn duy
+nhất: **kimi-k3 không dùng được trên tài khoản NIM hiện tại (404)**.
+
+**Hành động.** Đã bỏ `moonshotai/kimi-k3` khỏi cấu hình. Model chính = `nvidia/nemotron-3-ultra-550b-a55b`
+(đo 1,4s), fallback = `nvidia/nemotron-3-super-120b-a12b` (đo 2,7s) — cả hai đều gọi được thật trên
+NVIDIA NIM. Cơ chế retry 3 bước trong `app/services/scoring.py` giữ nguyên (xử lý triệu chứng).
 
 ## E3 — Các con số đã đính chính (tham chiếu FACT_AUDIT)
 
