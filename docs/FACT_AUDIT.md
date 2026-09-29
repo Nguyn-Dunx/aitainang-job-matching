@@ -110,3 +110,8 @@
   - **Super (model chính, budget 45 s)**: 3/3 lần OK — min 21,3 s / median 24,0 s / max 42,8 s. Lần max 42,8 s đã sát ngưỡng 45 s.
   - **Ultra (fallback, budget 15 s trong code)**: đo qua đường fallback thật của endpoint — 3/3 lần THẤT BẠI (2 lần 503 "Service temporarily overloaded" từ NVIDIA sau 1–4 s, 1 lần timeout đúng 15 s). Khi tạm nâng cap lên 120 s để lấy số thật: 64,7 s và 90,3 s (median 77,5 s) — ultra KHÔNG THỂ thành công trong budget 15 s hiện tại, thậm chí vượt cả 45 s của model chính.
   - Kết luận: fallback hiện tại chỉ là "cứ thử rồi báo timeout" — không mang lại gợi ý thật. Cần quyết định của người dùng (xem SUBMISSION_CHECKLIST / báo cáo BƯỚC 0).
+- **CẬP NHẬT 29/09/2026 — đổi vai trò model theo quyết định người dùng**: model chính = `nvidia/nemotron-3-ultra-550b-a55b` (`LLM_TIMEOUT_S=110`), fallback = `nvidia/nemotron-3-super-120b-a12b` (`LLM_FALLBACK_TIMEOUT_S=50`). Đo lại thật qua endpoint (CV `cv_member_01_backend.json` × top-1 match thật, `use_cache=false`):
+  - 3 lần gọi: **32,7 s** (Ultra lỗi 503 → Super trả lời), **121,3 s** (Ultra vượt timeout 110 s → Super trả lời), **80,6 s** (Ultra tự trả lời).
+  - **Ultra với budget 110 s KHÔNG đạt ổn định 3/3**: chỉ 1/3 lần Ultra tự trả lời; 2/3 lần phải rơi về Super (1 do 503, 1 do vượt 110 s). Lần vượt ngưỡng: tổng endpoint 121,3 s (Ultra chạm trần 110 s rồi fallback).
+  - **Không tự nâng timeout** — chờ người dùng quyết định (xem SUBMISSION_CHECKLIST).
+  - **Cache demo**: cặp CV demo × JD top-match đã có cache hợp lệ bằng Ultra (`data/demo_cache/488958d63147c91e.json`, `generated_at` 29/09 14:27 UTC); `?use_cache=true` trả `cached=true` trong 0,04 s → dùng cho video demo để tránh chờ 65–120 s.

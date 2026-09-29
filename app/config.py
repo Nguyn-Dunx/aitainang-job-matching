@@ -8,13 +8,14 @@ class Settings(BaseSettings):
 
     database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5432/aitainang"
 
-    # LLM cho Tầng 2 & Tầng 5 — Mặc định dùng NVIDIA NIM (Kimi-K3 + Nemotron fallback)
+    # LLM cho Tầng 2 & Tầng 5 — NVIDIA NIM (Nemotron Ultra chính + Super fallback)
     llm_provider: str = "openai"  # OpenAI client tương thích NVIDIA NIM
     llm_base_url: str = "https://integrate.api.nvidia.com/v1"
     llm_api_key: str = ""
     llm_model: str = "moonshotai/kimi-k3"
     llm_fallback_model: str = "nvidia/nemotron-3-ultra-550b-a55b"
-    llm_timeout_s: int = 30  # timeout moi lan goi LLM; chuoi retry Tầng 5 toi da 2 lan = ~60s
+    llm_timeout_s: int = 30  # timeout moi lan goi LLM (model chinh); chuoi retry Tầng 5 toi da 2 lan
+    llm_fallback_timeout_s: int = 50  # timeout rieng cho model fallback (nhe hon, khong cap theo model chinh)
 
 
 settings = Settings()

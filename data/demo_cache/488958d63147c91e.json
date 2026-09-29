@@ -1,0 +1,142 @@
+{
+  "job_id": "45fa55b0-f0ea-4331-a46a-33a031e41f98",
+  "job_title": "Backend Developer (Node.JS/PHP) | Kinh Nghiệm 3 Năm | Đi Làm Ngay Tại Vạn Phúc City Thủ Đức Hồ Chí Minh",
+  "gap": {
+    "matched_hard": [
+      "Docker",
+      "Git",
+      "PostgreSQL",
+      "Python",
+      "RESTful API",
+      "Redis"
+    ],
+    "missing_hard": [
+      "Java",
+      "Kubernetes",
+      "Laravel",
+      "Microsoft SQL Server",
+      "MongoDB",
+      "MySQL",
+      "NestJS",
+      "Node.js",
+      "PHP"
+    ],
+    "matched_soft": [
+      "Problem Solving",
+      "Teamwork"
+    ],
+    "missing_soft": [
+      "Attention to Detail",
+      "Communication",
+      "English Proficiency",
+      "Self-Learning"
+    ]
+  },
+  "suggestions": [
+    {
+      "skill": "MySQL",
+      "text": "Nếu bạn thành thạo PostgreSQL, hãy thêm bullet: 'Áp dụng kỹ năng tối ưu hóa truy vấn, phân tích Execution Plan và thiết kế chỉ mục (indexing) từ PostgreSQL sang MySQL để đảm bảo hiệu năng database tương đương.'"
+    },
+    {
+      "skill": "Node.js",
+      "text": "Nếu bạn có dự án cá nhân hoặc tự học Node.js/NestJS, hãy thêm bullet: 'Phát triển RESTful API với Node.js (Express/NestJS) áp dụng kiến trúc modular, Dependency Injection và Validation pipe tương tự pattern đã triển khai với FastAPI.'"
+    },
+    {
+      "skill": "Communication",
+      "text": "Tận dụng kinh nghiệm trợ giảng: 'Hướng dẫn và code review cho >80 sinh viên năm 2 về thuật toán/lập trình, chuyển ngữ kỹ thuật phức tạp thành ngôn ngữ dễ hiểu, hỗ trợ debug và nâng cao tư duy giải quyết vấn đề.'"
+    },
+    {
+      "skill": "Kubernetes",
+      "text": "Nếu bạn đã tự học/triển khai lab K8s (minikube/kind), hãy thêm bullet: 'Container hóa ứng dụng FastAPI bằng Docker và điều phối trên Kubernetes: viết manifest Deployment/Service/Ingress, cấu hình HPA, ConfigMap/Secret và health check (liveness/readiness probe).'"
+    }
+  ],
+  "accepted_skills": [
+    "Communication",
+    "Kubernetes",
+    "MySQL",
+    "Node.js"
+  ],
+  "score_before": 51.3,
+  "score_after": 63.0,
+  "delta": 11.7,
+  "breakdown_before": {
+    "hard_skill": {
+      "score": 40.0,
+      "weight": 0.5,
+      "matched": [
+        "Docker",
+        "Git",
+        "PostgreSQL",
+        "Python",
+        "RESTful API",
+        "Redis"
+      ],
+      "missing": [
+        "Java",
+        "Kubernetes",
+        "Laravel",
+        "Microsoft SQL Server",
+        "MongoDB",
+        "MySQL",
+        "NestJS",
+        "Node.js",
+        "PHP"
+      ]
+    },
+    "soft_skill": {
+      "score": 33.3,
+      "weight": 0.1,
+      "matched": [
+        "Problem Solving",
+        "Teamwork"
+      ]
+    },
+    "semantic": {
+      "score": 69.9,
+      "weight": 0.4
+    }
+  },
+  "breakdown_after": {
+    "hard_skill": {
+      "score": 60.0,
+      "weight": 0.5,
+      "matched": [
+        "Docker",
+        "Git",
+        "Kubernetes",
+        "MySQL",
+        "Node.js",
+        "PostgreSQL",
+        "Python",
+        "RESTful API",
+        "Redis"
+      ],
+      "missing": [
+        "Java",
+        "Laravel",
+        "Microsoft SQL Server",
+        "MongoDB",
+        "NestJS",
+        "PHP"
+      ]
+    },
+    "soft_skill": {
+      "score": 50.0,
+      "weight": 0.1,
+      "matched": [
+        "Communication",
+        "Problem Solving",
+        "Teamwork"
+      ]
+    },
+    "semantic": {
+      "score": 69.9,
+      "weight": 0.4
+    }
+  },
+  "llm_status": "ok",
+  "model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "message": "Gợi ý dạng điều kiện dựa trên kỹ năng còn thiếu; điểm dự kiến nếu bạn bổ sung kinh nghiệm này.",
+  "generated_at": "2026-09-29T14:27:08.900090+00:00",
+  "note": "delta chi den tu thanh phan skill overlap; semantic giu nguyen (khong re-embed CV sau khi sua). Goi y dang dieu kien, khong bia kinh nghiem."
+}

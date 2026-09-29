@@ -146,6 +146,20 @@ Response (đo thật, CV `cv_member_01_backend` × JD "Kỹ Sư Quản Trị H�
 **Cache (`data/demo_cache/`):** chỉ lưu khi có kết quả THẬT (`llm_status="ok"` + có gợi ý), kèm
 `generated_at` và `model`. `?use_cache=true` trả bản đã lưu với `cached: true` + `generated_at`.
 
+**Cấu hình LLM (Tầng 5, đọc từ `.env`):**
+
+| Biến | Giá trị hiện tại | Ý nghĩa |
+|---|---|---|
+| `LLM_MODEL` | `nvidia/nemotron-3-ultra-550b-a55b` | Model chính |
+| `LLM_FALLBACK_MODEL` | `nvidia/nemotron-3-super-120b-a12b` | Model dự phòng (nhẹ hơn) |
+| `LLM_TIMEOUT_S` | `110` | Timeout mỗi lượt gọi model chính |
+| `LLM_FALLBACK_TIMEOUT_S` | `50` | Timeout riêng cho lượt fallback |
+
+Chuỗi gọi: model chính (timeout `LLM_TIMEOUT_S`) → nếu lỗi/timeout thì fallback (timeout
+`LLM_FALLBACK_TIMEOUT_S`). Số đo thật 29/09/2026: Ultra 64,7–90,3 s khi dịch vụ khỏe (đôi khi trả
+503 "overloaded"); Super 21,3–42,8 s. Vì Ultra chậm và không ổn định, endpoint có thể mất tới ~110 s
+trước khi trả kết quả — **video demo nên dùng `?use_cache=true`** với cache đã tạo trước.
+
 **Ràng buộc chống bịa:**
 - Gap lấy từ đúng hàm scoring hiện có (`split_hard_soft` + `_overlap_score`), không tính lại từ đầu.
 - LLM chỉ được gợi ý cho skill nằm trong `missing_*`; gợi ý lệch danh sách bị loại bỏ phía server.

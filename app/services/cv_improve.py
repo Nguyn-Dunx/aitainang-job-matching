@@ -84,8 +84,8 @@ def generate_suggestions(
     "model": str|None}. Trạng thái trung thực để endpoint KHÔNG trả delta 0 như thể
     là kết quả khi LLM lỗi.
 
-    Chuỗi retry 2 lượt: model chính (timeout đầy đủ) -> fallback (timeout rút ngắn
-    15s) -> tổng tối đa ~60s cho endpoint. Gợi ý có skill ngoài danh sách missing
+    Chuỗi retry 2 lượt: model chính (timeout đầy đủ) -> fallback (timeout riêng
+    llm_fallback_timeout_s). Gợi ý có skill ngoài danh sách missing
     bị loại bỏ (chống bịa).
     """
     from openai import OpenAI
@@ -105,7 +105,7 @@ def generate_suggestions(
     )
     attempts = [
         (model or settings.llm_model, True, settings.llm_timeout_s),
-        (settings.llm_fallback_model, True, min(settings.llm_timeout_s, 15)),
+        (settings.llm_fallback_model, True, settings.llm_fallback_timeout_s),
     ]
     last_status = "unavailable"
     for m, use_format, tmo in attempts:

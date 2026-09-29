@@ -2,13 +2,13 @@
 
 ## Thông tin thí sinh
 
-> *Điền tay thông tin cá nhân thật của 3 thành viên (bảng để trống có chủ đích).*
+> *Điền tay thông tin cá nhân thật của 3 thành viên (các ô còn lại bổ sung sau).*
 
 | # | Họ và tên | Ngày sinh | Lớp / Ngành / Khoa / Trường | Xã/Phường – Tỉnh/Thành phố | Điện thoại | Email |
 |---|---|---|---|---|---|---|
-| 1 |  |  |  |  |  |  |
-| 2 |  |  |  |  |  |  |
-| 3 |  |  |  |  |  |  |
+| 1 | Nguyễn Tuấn Dũng |  |  |  |  |  |
+| 2 | Trần Hữu Đạt |  |  |  |  |  |
+| 3 | Nguyễn Quang Huy |  |  |  |  |  |
 
 ---
 
