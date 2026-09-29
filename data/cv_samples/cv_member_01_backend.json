@@ -1,0 +1,44 @@
+{
+  "id": "cv_member_01",
+  "candidate_name": "Ứng viên #AIT-01 (Ẩn danh - Thành viên B)",
+  "target_role": "Backend Engineer / Python Developer",
+  "target_industry": "Software Engineering",
+  "years_of_experience": 1.0,
+  "education": [
+    {
+      "institution": "Đại học Bách Khoa (ĐHQG)",
+      "degree": "Kỹ sư Công nghệ Thông tin",
+      "year": 2025,
+      "gpa": "3.5 / 4.0"
+    }
+  ],
+  "skills": [
+    "Python",
+    "FastAPI",
+    "PostgreSQL",
+    "SQL",
+    "Docker",
+    "Git",
+    "RESTful API",
+    "Redis",
+    "Linux",
+    "Problem Solving",
+    "Teamwork"
+  ],
+  "experience": [
+    {
+      "title": "Backend Developer (Dự án thực tập / Nghiên cứu)",
+      "company": "Trung tâm R&D Công nghệ thông tin",
+      "duration": "06/2024 – 12/2024 (6 tháng)",
+      "description": "Thiết kế kiến trúc RESTful API bằng FastAPI, tối ưu hóa câu truy vấn cơ sở dữ liệu PostgreSQL và tích hợp pgvector cho tác vụ tìm kiếm tương đồng ngữ nghĩa. Triển khai container hóa với Docker."
+    },
+    {
+      "title": "Trợ giảng Lập trình Python & Cấu trúc dữ liệu",
+      "company": "Khoa CNTT - Trường Đại học",
+      "duration": "01/2024 – 05/2024 (5 tháng)",
+      "description": "Hỗ trợ giảng dạy thực hành thuật toán, chấm bài tự động và giải đáp thắc mắc cho hơn 80 sinh viên năm 2."
+    }
+  ],
+  "source": "Thành viên B (Đã ký cam kết đồng ý văn bản & ẩn danh hóa 100%)",
+  "consent_verified": true
+}

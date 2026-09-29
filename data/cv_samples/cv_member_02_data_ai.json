@@ -1,0 +1,44 @@
+{
+  "id": "cv_member_02",
+  "candidate_name": "Ứng viên #AIT-02 (Ẩn danh - Thành viên A)",
+  "target_role": "Data Analyst / AI Specialist",
+  "target_industry": "Data/AI/ML",
+  "years_of_experience": 1.0,
+  "education": [
+    {
+      "institution": "Đại học Khoa học Tự nhiên (ĐHQG)",
+      "degree": "Cử nhân Khoa học Dữ liệu",
+      "year": 2025,
+      "gpa": "3.6 / 4.0"
+    }
+  ],
+  "skills": [
+    "Python",
+    "SQL",
+    "Data Preprocessing",
+    "Pandas",
+    "Scikit-learn",
+    "PyTorch",
+    "NLP",
+    "Hugging Face",
+    "Git",
+    "Analytical Thinking",
+    "English Proficiency"
+  ],
+  "experience": [
+    {
+      "title": "Data / NLP Research Assistant",
+      "company": "Phòng Thí nghiệm Trí tuệ Nhân tạo & Xử lý Ngôn ngữ",
+      "duration": "07/2024 – 01/2025 (7 tháng)",
+      "description": "Thu thập, làm sạch và gán nhãn tập dữ liệu tiếng Việt đa lĩnh vực. Huấn luyện và tinh chỉnh các mô hình ngôn ngữ lớn (LLM/BERT) cho bài toán phân loại và trích xuất thực thể."
+    },
+    {
+      "title": "Data Analyst Intern",
+      "company": "Công ty Giải pháp Dữ liệu Số",
+      "duration": "02/2024 – 06/2024 (5 tháng)",
+      "description": "Xây dựng dashboard trực quan hóa chỉ số kinh doanh bằng Python và PowerBI, xử lý dữ liệu với SQL và phân tích xu hướng thị trường."
+    }
+  ],
+  "source": "Thành viên A (Đã ký cam kết đồng ý văn bản & ẩn danh hóa 100%)",
+  "consent_verified": true
+}

@@ -1,0 +1,44 @@
+{
+  "id": "cv_member_03",
+  "candidate_name": "Ứng viên #AIT-03 (Ẩn danh - Thành viên C)",
+  "target_role": "Frontend Developer / Product Engineer",
+  "target_industry": "Software Engineering",
+  "years_of_experience": 1.0,
+  "education": [
+    {
+      "institution": "Đại học Công nghệ (ĐHQG)",
+      "degree": "Cử nhân Kỹ thuật Phần mềm",
+      "year": 2025,
+      "gpa": "3.4 / 4.0"
+    }
+  ],
+  "skills": [
+    "JavaScript",
+    "React",
+    "HTML5",
+    "CSS3",
+    "Vite",
+    "RESTful API",
+    "Git",
+    "UI/UX Design",
+    "Figma",
+    "Communication",
+    "Teamwork"
+  ],
+  "experience": [
+    {
+      "title": "Frontend Developer Intern",
+      "company": "Công ty Phát triển Sản phẩm Công nghệ Phần mềm",
+      "duration": "06/2024 – 12/2024 (6 tháng)",
+      "description": "Phát triển giao diện ứng dụng web responsive bằng React và CSS module theo bản vẽ Figma. Kết nối RESTful API và tối ưu hiệu năng trang web (Web Vitals)."
+    },
+    {
+      "title": "UI Lead & Frontend Engineer (Đồ án)",
+      "company": "Dự án Nền tảng Hỗ trợ Tìm kiếm Việc làm Sinh viên",
+      "duration": "01/2025 – 05/2025 (5 tháng)",
+      "description": "Dẫn dắt thiết kế trải nghiệm người dùng, xây dựng hệ thống design system và triển khai luồng 6 bước hỗ trợ định hướng nghề nghiệp cho sinh viên."
+    }
+  ],
+  "source": "Thành viên C (Đã ký cam kết đồng ý văn bản & ẩn danh hóa 100%)",
+  "consent_verified": true
+}
