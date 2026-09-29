@@ -30,6 +30,9 @@ t5_*.txt
 mau3_draft.html
 gitleaks.zip
 
+# Prompt log raw (chua che - co the chua secret; ban da che nam o submission/prompt_log/)
+submission/prompt_log_raw/
+
 # OS / editor
 .DS_Store
 Thumbs.db
