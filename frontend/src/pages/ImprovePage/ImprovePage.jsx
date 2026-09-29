@@ -177,7 +177,7 @@ export default function ImprovePage() {
         ...prev,
         llm_status: 'timeout',
         suggestions: [],
-        score_before: prev?.score_before || (selectedJob?.score || 28.4),
+        score_before: prev?.score_before ?? selectedJob?.score ?? null,
         score_after: null,
         delta: null,
         message: 'Máy chủ gợi ý AI phản hồi quá lâu nên tạm thời chưa có gợi ý. Vui lòng thử lại sau ít phút.',
@@ -189,7 +189,7 @@ export default function ImprovePage() {
         ...prev,
         llm_status: 'unavailable',
         suggestions: [],
-        score_before: prev?.score_before || (selectedJob?.score || 28.4),
+        score_before: prev?.score_before ?? selectedJob?.score ?? null,
         score_after: null,
         delta: null,
         message: 'Dịch vụ gợi ý AI hiện không khả dụng nên chưa tạo được gợi ý. Vui lòng thử lại sau.',
@@ -205,7 +205,7 @@ export default function ImprovePage() {
   // Điểm số trước và sau
   const scoreBefore = result?.score_before !== null && result?.score_before !== undefined
     ? Number(result.score_before).toFixed(1)
-    : selectedJob?.score ? Number(selectedJob.score).toFixed(1) : '28.4'
+    : selectedJob?.score ? Number(selectedJob.score).toFixed(1) : '—'
 
   const scoreAfter = result?.score_after !== null && result?.score_after !== undefined
     ? Number(result.score_after).toFixed(1)
