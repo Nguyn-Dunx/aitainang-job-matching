@@ -9,7 +9,9 @@ Query params:
 - location / level / industry_group: loc metadata truoc khi xep hang (Tang 3)
 """
 
+import logging
 import tempfile
+import uuid
 from pathlib import Path
 
 from fastapi import APIRouter, HTTPException, Query, UploadFile
@@ -17,6 +19,7 @@ from pydantic import BaseModel
 from sqlalchemy import text
 
 from app.db import SessionLocal
+from app.models import CV, MatchResult
 from app.services.cv_extraction import extract_cv
 from app.services.cv_improve import (
     cache_key,
@@ -32,6 +35,8 @@ from app.services.embedding import embed_query
 from app.services.scoring import score_pair
 
 router = APIRouter(prefix="/api/cv", tags=["cv"])
+
+log = logging.getLogger(__name__)
 
 
 def _to_ui_shape(parsed, filename: str) -> dict:
@@ -132,17 +137,123 @@ async def upload_cv(
     matches.sort(key=lambda m: m["score"], reverse=True)
     matches = matches[:top_k]
 
+    # Tang 6: luu phien cham THAT (CV + match_results) de Dashboard doc lai.
+    # Loi luu khong duoc lam hong ket qua upload -> bat exception, chi log.
+    session_id = None
+    try:
+        with SessionLocal() as db:
+            cv_row = CV(
+                filename=file.filename or "cv.pdf",
+                raw_text=parsed_file.text,
+                parsed=cv.model_dump(),
+                embedding=cv_vec,
+            )
+            db.add(cv_row)
+            db.flush()
+            for m in matches:
+                bd = m.get("breakdown") or {}
+                db.add(MatchResult(
+                    cv_id=cv_row.id,
+                    jd_id=uuid.UUID(m["id"]),
+                    score_skill=(bd.get("hard_skill") or {}).get("score"),
+                    score_semantic=(bd.get("semantic") or {}).get("score"),
+                    score_llm=None,
+                    score_total=m["score"],
+                    gaps={"missing_hard": (bd.get("hard_skill") or {}).get("missing", [])},
+                    explanation=m.get("evidence") or {},
+                ))
+            db.commit()
+            session_id = str(cv_row.id)
+    except Exception as e:  # noqa: BLE001
+        log.warning("Khong luu duoc phien cham vao DB: %s", e)
+
     return {
         "parsed_cv": _to_ui_shape(cv, file.filename),
         "parse_warnings": parsed_file.warnings,
         "extraction_mode": mode,
+        "session_id": session_id,
         "matches": matches,
     }
 
 
+@router.get("/history")
+def get_history(limit: int = Query(5, ge=1, le=20)):
+    """Tang 6: lich su phien cham THAT tu DB (khong mock).
+
+    Tra ve danh sach CV da upload (moi nhat truoc) + top match cua phien gan nhat.
+    Dashboard doc truc tiep tu day de khong hien ten cong ty/diem gia.
+    """
+    with SessionLocal() as db:
+        cv_rows = db.execute(text("""
+            SELECT c.id, c.filename, c.parsed, c.created_at,
+                   count(m.id) AS jobs_matched,
+                   max(m.score_total) AS top_score
+            FROM cvs c
+            LEFT JOIN match_results m ON m.cv_id = c.id
+            GROUP BY c.id
+            ORDER BY c.created_at DESC
+            LIMIT :limit
+        """), {"limit": limit}).all()
+
+        sessions = []
+        for r in cv_rows:
+            p = r.parsed or {}
+            sessions.append({
+                "cv_id": str(r.id),
+                "filename": r.filename,
+                "candidate_id": p.get("full_name") or "Ứng viên (Ẩn danh)",
+                "target_title": p.get("target_role") or "",
+                "created_at": r.created_at.isoformat() if r.created_at else None,
+                "jobs_matched": int(r.jobs_matched or 0),
+                "top_score": round(float(r.top_score), 1) if r.top_score is not None else None,
+            })
+
+        latest = None
+        if sessions:
+            latest_id = sessions[0]["cv_id"]
+            mrows = db.execute(text("""
+                SELECT m.id, m.score_total, m.gaps, j.title, j.parsed,
+                       j.location_normalized, j.level_normalized, j.industry_group
+                FROM match_results m
+                JOIN jds j ON j.id = m.jd_id
+                WHERE m.cv_id = :cid
+                ORDER BY m.score_total DESC NULLS LAST
+            """), {"cid": latest_id}).all()
+            matches = []
+            for m in mrows:
+                meta = (m.parsed or {}).get("metadata") or {}
+                matches.append({
+                    "id": str(m.id),
+                    "title": m.title,
+                    "company": meta.get("company_name", "Đơn vị tuyển dụng"),
+                    "score": round(float(m.score_total), 1) if m.score_total is not None else None,
+                    "industry_group": m.industry_group,
+                    "location": m.location_normalized,
+                    "level": m.level_normalized,
+                })
+            gap_skills = (mrows[0].gaps or {}).get("missing_hard", []) if mrows else []
+            latest = {
+                "cv_id": latest_id,
+                "filename": sessions[0]["filename"],
+                "created_at": sessions[0]["created_at"],
+                "matches": matches,
+                "gap_skills": gap_skills,
+            }
+
+        top_scores = [s["top_score"] for s in sessions if s["top_score"] is not None]
+        return {
+            "sessions": sessions,
+            "latest": latest,
+            "stats": {
+                "sessions": len(sessions),
+                "jobs_matched": sum(s["jobs_matched"] for s in sessions),
+                "top_score": max(top_scores) if top_scores else None,
+            },
+        }
+
+
 class SuggestImprovementRequest(BaseModel):
     """Input Tầng 5: CV đã parse (không cần re-parse) + job_id của 1 JD."""
-
     job_id: str  # UUID của JD trong bảng jds
     cv_skills: list[str]
     cv_experience: list[str] = []  # các bullet mô tả kinh nghiệm hiện có

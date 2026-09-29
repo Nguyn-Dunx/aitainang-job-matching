@@ -44,6 +44,28 @@ export async function uploadCVApi(file, options = {}) {
 }
 
 /**
+ * Tầng 6: Lịch sử phiên chấm THẬT từ DB (không mock).
+ * Endpoint: GET /api/cv/history
+ * @param {number} limit - số phiên gần nhất
+ */
+export async function getHistoryApi(limit = 5) {
+  const url = `/api/cv/history?limit=${limit}`
+
+  try {
+    const res = await fetch(url)
+    if (!res.ok) {
+      const errText = await res.text()
+      throw new Error(`Backend trả lỗi ${res.status}: ${errText.slice(0, 200)}`)
+    }
+    const data = await res.json()
+    return { success: true, data }
+  } catch (err) {
+    console.error('Lỗi gọi API /api/cv/history:', err)
+    return { success: false, error: err.message }
+  }
+}
+
+/**
  * Tầng 5: Gợi ý cải thiện CV theo gap thật của 1 JD + delta score thật.
  * Endpoint: POST /api/cv/suggest-improvement
  * @param {Object} payload - { job_id, cv_skills, cv_experience, cv_text, accepted_skills, cv_id }

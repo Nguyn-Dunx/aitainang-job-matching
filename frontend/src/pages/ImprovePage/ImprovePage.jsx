@@ -331,7 +331,7 @@ export default function ImprovePage() {
                 kết quả từ lần chạy thật lúc {result.generated_at ? new Date(result.generated_at).toLocaleString('vi-VN') : 'trước đó'}
               </div>
               <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-secondary)' }}>
-                Mô hình đã ghi nhận: <strong>{result.model || 'nvidia/nemotron-3-ultra-550b-a55b'}</strong> • Tốc độ phản hồi: &lt;50ms (Cache Hit)
+                Mô hình đã ghi nhận: <strong>{result.model || 'nvidia/nemotron-3-ultra-550b-a55b'}</strong> • Lấy từ cache (không gọi lại LLM)
               </div>
             </div>
           </div>

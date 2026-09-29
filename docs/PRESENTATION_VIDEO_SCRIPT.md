@@ -53,7 +53,7 @@
   - Bộ Taxonomy kỹ năng song ngữ Việt – Anh (235 canonical + 690 alias).
   - Cơ chế Human-in-the-loop: Cho phép người dùng chỉnh sửa dữ liệu trích xuất, giảm thiểu hallucination.
 - **Lời thuyết minh**:  
-  *"Về mặt kỹ thuật, điểm đột phá của aitainang nằm ở ba yếu tố: Thứ nhất, công thức chấm điểm Hybrid V2 công khai và minh bạch, kết hợp giữa độ phủ kỹ năng cứng, ngữ nghĩa ngữ cảnh sâu sắc và kỹ năng mềm. Thứ hai, bộ Taxonomy kỹ năng song ngữ giải quyết triệt để sự phân mảnh thuật ngữ Việt – Anh. Thứ ba, cơ chế Human-in-the-loop đảm bảo sinh viên luôn là người làm chủ thông tin, loại bỏ hoàn toàn nguy cơ AI bịa đặt dữ liệu."*
+  *"Về mặt kỹ thuật, điểm đột phá của aitainang nằm ở ba yếu tố: Thứ nhất, công thức chấm điểm Hybrid V2 công khai và minh bạch, kết hợp giữa độ phủ kỹ năng cứng, ngữ nghĩa ngữ cảnh sâu sắc và kỹ năng mềm. Thứ hai, bộ Taxonomy kỹ năng song ngữ giải quyết triệt để sự phân mảnh thuật ngữ Việt – Anh. Thứ ba, cơ chế Human-in-the-loop đảm bảo sinh viên luôn là người làm chủ thông tin, giảm thiểu nguy cơ AI bịa đặt dữ liệu (kết hợp schema validation, prompt ràng buộc và server lọc gợi ý ngoài gap thật — không đảm bảo tuyệt đối)."*
 
 ### Slide 5: Dữ liệu Hợp lệ & Kết quả Thực nghiệm (2:40 – 3:30)
 - **Visual trên Slide**:

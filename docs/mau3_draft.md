@@ -1,5 +1,15 @@
 # Hồ sơ Mẫu 3 — aitainang: Trợ lý nghề nghiệp cá nhân hóa cho người trẻ Việt Nam
 
+## Thông tin thí sinh
+
+> *Điền tay thông tin cá nhân thật của 3 thành viên (bảng để trống có chủ đích).*
+
+| # | Họ và tên | Ngày sinh | Lớp / Ngành / Khoa / Trường | Xã/Phường – Tỉnh/Thành phố | Điện thoại | Email |
+|---|---|---|---|---|---|---|
+| 1 |  |  |  |  |  |  |
+| 2 |  |  |  |  |  |  |
+| 3 |  |  |  |  |  |  |
+
 ---
 
 ## Mục 1 — Bối cảnh & Bài toán thực tế
@@ -448,7 +458,7 @@ chấm tay 20–30+ cặp — hiện chưa có, không trình bày số giả.
 - **Bảo vệ dữ liệu người dùng tại phiên làm việc**: Khi người dùng tải CV lên giao diện Web, hệ thống chỉ xử lý dữ liệu trong bộ nhớ tạm (in-memory) và lưu trữ cục bộ tại trình duyệt (localStorage của client). Hệ thống không lưu trữ lâu dài bản CV gốc của người dùng trên máy chủ, tránh nguy cơ rò rỉ dữ liệu.
 
 ### 11.3. Kiểm soát sai lệch mô hình (Bias) & Ngăn ngừa ảo tưởng (Hallucination)
-- **Cơ chế Human-in-the-loop**: Nhóm áp dụng cơ chế xác nhận có sự tham gia của con người tại Bước 2. Sau khi AI bóc tách thông tin, người dùng có toàn quyền xem xét, bổ sung hoặc loại bỏ các kỹ năng/kinh nghiệm bị nhận diện sai. Điều này triệt tiêu hoàn toàn rủi ro sai sót tích lũy sang các bước tính điểm tiếp theo.
+- **Cơ chế Human-in-the-loop**: Nhóm áp dụng cơ chế xác nhận có sự tham gia của con người tại Bước 2. Sau khi AI bóc tách thông tin, người dùng có toàn quyền xem xét, bổ sung hoặc loại bỏ các kỹ năng/kinh nghiệm bị nhận diện sai. Điều này giảm thiểu đáng kể rủi ro sai sót tích lũy sang các bước tính điểm tiếp theo (không đảm bảo tuyệt đối — người dùng vẫn có thể bỏ sót).
 - **Schema Validation & Fallback Deterministic**: Bắt buộc xác thực cấu trúc đầu ra (JSON Schema Validation) đối với mọi phản hồi từ mô hình ngôn ngữ lớn. Khi xảy ra lỗi định dạng hoặc đứt gãy kết nối API, hệ thống kích hoạt chuỗi fallback sang bộ trích xuất quy tắc (Regex Extractor), ngăn ngừa việc AI tự bịa thông tin.
 - **Prompt ràng buộc nghiêm ngặt ở Bước 5 (Cải thiện CV)**: Prompt hướng dẫn AI chỉ được phép đưa ra khuyến nghị dựa trên các khoảng trống kỹ năng thực tế đã trích xuất từ JD, tuyệt đối không xúi giục hoặc tự động "chế tạo" kinh nghiệm giả mạo cho ứng viên.
 
