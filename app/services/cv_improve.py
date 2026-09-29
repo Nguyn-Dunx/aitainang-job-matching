@@ -34,6 +34,7 @@ Hãy đề xuất 2-4 gợi ý CỤ THỂ để cải thiện CV cho JD này. QU
 - KHÔNG được bịa kinh nghiệm/dự án CV không có. Viết dạng điều kiện, ví dụ:
   "Nếu bạn đã từng dùng Docker trong đồ án, hãy thêm bullet: 'Container hóa ứng dụng bằng Docker...'".
 - Gợi ý phải là bullet cụ thể đưa vào phần mô tả công việc, không nói chung chung.
+- Mỗi gợi ý tối đa 2 câu, ngắn gọn.
 
 Chỉ trả về JSON: {{"suggestions": [{{"skill": string, "text": string}}]}}"""
 
@@ -76,8 +77,9 @@ def generate_suggestions(
 ) -> list[dict]:
     """LLM sinh 2-4 gợi ý, ràng buộc chỉ dùng missing_skills thật.
 
-    Chuỗi retry giống score_llm_only (model chính + json_object -> không format -> fallback).
-    Gợi ý có skill ngoài danh sách missing bị loại bỏ (chống bịa).
+    Chuỗi retry 2 lượt: model chính (timeout đầy đủ) -> fallback (timeout rút ngắn
+    15s) -> tổng tối đa ~60s cho endpoint. Gợi ý có skill ngoài danh sách missing
+    bị loại bỏ (chống bịa).
     """
     from openai import OpenAI
 
@@ -91,18 +93,17 @@ def generate_suggestions(
     prompt = _SUGGEST_PROMPT.format(
         job_title=job_title,
         missing_skills="\n".join(f"- {s}" for s in missing_skills),
-        experience="\n".join(f"- {t}" for t in experience_texts[:6]) or "(chưa có mô tả)",
+        experience="\n".join(f"- {t}" for t in experience_texts[:3]) or "(chưa có mô tả)",
     )
     attempts = [
-        (model or settings.llm_model, True),
-        (model or settings.llm_model, False),
-        (settings.llm_fallback_model, True),
+        (model or settings.llm_model, True, settings.llm_timeout_s),
+        (settings.llm_fallback_model, True, min(settings.llm_timeout_s, 15)),
     ]
-    for m, use_format in attempts:
+    for m, use_format, tmo in attempts:
         try:
             kwargs: dict = {"model": m,
                             "messages": [{"role": "user", "content": prompt}],
-                            "temperature": 0, "timeout": 120}
+                            "temperature": 0, "timeout": tmo}
             if use_format:
                 kwargs["response_format"] = {"type": "json_object"}
             resp = client.chat.completions.create(**kwargs)

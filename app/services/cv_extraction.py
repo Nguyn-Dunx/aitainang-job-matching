@@ -90,7 +90,8 @@ def extract_cv_llm(text: str, client=None, model: str | None = None) -> CVSchema
 
     from app.config import settings
 
-    client = client or OpenAI(base_url=settings.llm_base_url, api_key=settings.llm_api_key)
+    client = client or OpenAI(base_url=settings.llm_base_url, api_key=settings.llm_api_key,
+                             max_retries=0)
     model = model or settings.llm_model
     payload = _LLM_INSTRUCTION.format(text=text[:MAX_CV_CHARS])
 
@@ -105,6 +106,7 @@ def extract_cv_llm(text: str, client=None, model: str | None = None) -> CVSchema
                 ],
                 response_format={"type": "json_object"},
                 temperature=0,
+                timeout=settings.llm_timeout_s,
             )
             data = json.loads(resp.choices[0].message.content)
             return CVSchema.model_validate(data)

@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     llm_api_key: str = ""
     llm_model: str = "moonshotai/kimi-k3"
     llm_fallback_model: str = "nvidia/nemotron-3-ultra-550b-a55b"
+    llm_timeout_s: int = 30  # timeout moi lan goi LLM; chuoi retry Tầng 5 toi da 2 lan = ~60s
 
 
 settings = Settings()
