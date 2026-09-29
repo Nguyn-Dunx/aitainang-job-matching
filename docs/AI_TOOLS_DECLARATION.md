@@ -14,7 +14,7 @@
 
 | Thành phần | Mô hình / dịch vụ | Vai trò trong hệ thống |
 |-----------|-------------------|------------------------|
-| LLM trích xuất kỹ năng | `moonshotai/kimi-k3` qua **OpenRouter** (fallback `nvidia/nemotron-3-ultra-550b-a55b`), temperature=0, structured JSON | Tầng 2: trích skill từ CV/JD về canonical name trong taxonomy; lỗi thì fallback rule (regex alias) |
+| LLM trích xuất kỹ năng | `moonshotai/kimi-k3` qua **NVIDIA NIM** (`https://integrate.api.nvidia.com/v1`) (fallback `nvidia/nemotron-3-ultra-550b-a55b`), temperature=0, structured JSON | Tầng 2: trích skill từ CV/JD về canonical name trong taxonomy; lỗi thì fallback rule (regex alias) |
 | Embedding | **BGE-M3** (`BAAI/bge-m3`, sentence-transformers 6.1.0), 1024 chiều, chạy local CPU | Tầng 3: biểu diễn ngữ nghĩa CV/JD cho semantic score + vector search |
 | Chấm điểm | **Công thức deterministic do đội tự thiết kế** (0,5 hard_skill + 0,1 soft_skill + 0,4 semantic) | Tầng 4 — KHÔNG dùng LLM trong công thức chính, đảm bảo minh bạch/tái lập |
 

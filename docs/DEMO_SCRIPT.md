@@ -8,7 +8,7 @@
 - **Tầng 1 — Đọc CV**: hệ thống dùng thư viện `pymupdf` tách text và các mục
   (kinh nghiệm, kỹ năng, học vấn) từ file PDF. Nếu CV là ảnh scan, hệ thống phát hiện
   và cảnh báo thay vì đoán sai.
-- **Tầng 2 — Hiểu kỹ năng**: một LLM (Kimi-K3 qua OpenRouter) đọc CV và trích kỹ năng
+- **Tầng 2 — Hiểu kỹ năng**: một LLM (Kimi-K3 qua NVIDIA NIM) đọc CV và trích kỹ năng
   về **tên chuẩn** trong taxonomy song ngữ 235 kỹ năng / 690 alias do nhóm tự xây —
   ví dụ "py", "Python3" đều quy về `Python`. Nếu LLM lỗi, hệ thống tự chuyển sang
   chế độ rule (regex trên alias) nên pipeline không bao giờ chết — thực tế 27,8% JD

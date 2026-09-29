@@ -163,8 +163,8 @@ def _extract_json(text: str | None) -> dict | None:
 def score_llm_only(inp: PairInput) -> dict:
     """LLM cham truc tiep. Loi -> score_total = None (loai khoi thong ke, khong doan).
 
-    Chuoi retry (pilot 10 cap: 4/10 loi content=None khi OpenRouter dinh tuyen sang
-    provider khong ho tro response_format):
+    Chuoi retry (pilot 10 cap: 4/10 loi content=None; NGUYEN NHAN CHUA XAC DINH —
+    nghi do provider khong ho tro response_format, chua co bang chung):
       1) model chinh + response_format json_object
       2) model chinh, khong response_format, regex trich JSON
       3) model fallback + response_format

@@ -181,7 +181,7 @@ Writing 42,9%, English 40,2%…) chứ không phải kỹ năng cứng → scori
    Senior/Lead), `location_normalized` (Hà Nội 279, Hồ Chí Minh 146, 25 JD còn lại rải ở
    Bình Dương 5, Đà Nẵng 4 và 9 tỉnh/thành khác — tổng đủ 450), `industry_group` —
    kèm index để lọc trước khi xếp hạng.
-4. **Trích xuất kỹ năng (Tầng 2)**: LLM (OpenRouter, model `moonshotai/kimi-k3`,
+4. **Trích xuất kỹ năng (Tầng 2)**: LLM (NVIDIA NIM, model `moonshotai/kimi-k3`,
    fallback `nvidia/nemotron-3-ultra-550b-a55b`) trích skill theo taxonomy D4, kèm
    `evidence_snippet` trích nguyên văn JD; JD nào LLM lỗi/timeout thì fallback rule
    (regex alias). Kết quả thực tế: **LLM 325/450 (72,2%), rule 125/450 (27,8%)**.
@@ -203,7 +203,7 @@ Writing 42,9%, English 40,2%…) chứ không phải kỹ năng cứng → scori
 | Thành phần | Lựa chọn | Vai trò |
 |-----------|----------|---------|
 | Embedding | **BGE-M3** (`BAAI/bge-m3`, sentence-transformers 6.1.0), 1024-dim, đa ngôn ngữ (tốt cho tiếng Việt) | Biểu diễn ngữ nghĩa CV/JD cho semantic score + vector search |
-| LLM trích xuất | `moonshotai/kimi-k3` qua OpenRouter (fallback `nvidia/nemotron-3-ultra-550b-a55b`), structured JSON output, temperature=0 | Trích skill từ văn bản tự do về canonical name trong taxonomy |
+| LLM trích xuất | `moonshotai/kimi-k3` qua NVIDIA NIM (`https://integrate.api.nvidia.com/v1`) (fallback `nvidia/nemotron-3-ultra-550b-a55b`), structured JSON output, temperature=0 | Trích skill từ văn bản tự do về canonical name trong taxonomy |
 | Rule fallback | Regex trên 690 alias của taxonomy D4 | Đảm bảo pipeline không chết khi LLM lỗi (27,8% JD thực tế) |
 | Scoring | Công thức hybrid V2 deterministic (mục 7) | Điểm phù hợp minh bạch, có breakdown |
 | Vector DB | PostgreSQL + **pgvector 0.8.6** (Neon, ap-southeast-1) | Lưu + tìm kiếm láng giềng gần nhất trên 450 embedding |
@@ -229,7 +229,7 @@ JD (450) ──Tầng 1──> text ──Tầng 2──> skills chuẩn hóa �
                       -> hybrid scoring V2 -> breakdown + evidence -> API
 ```
 
-- **Tích hợp LLM**: gọi qua OpenRouter API, prompt ép JSON schema, parse lỗi thì
+- **Tích hợp LLM**: gọi qua NVIDIA NIM API, prompt ép JSON schema, parse lỗi thì
   chuyển model fallback, cả hai lỗi thì chuyển rule — không bao giờ trả lỗi trần.
 - **Tích hợp embedding**: service singleton lazy-load (threading.Lock), model chỉ
   tải 1 lần; đo warm 82–127 ms/câu ngắn trên CPU (28/09); JD dài hơn ước ~0,8–1 s/JD
@@ -329,7 +329,7 @@ Scoring breakdown V2 hiện tại gồm 3 thành phần (đã implement, công t
 Nhóm đã triển khai kiểm thử toàn diện luồng 6 bước từ Onboarding đến Dashboard trên cả giao diện Web React và hệ thống Backend FastAPI với các kết quả định lượng cụ thể:
 - **Hiệu năng & Thời gian đáp ứng**:
   - Trích xuất nội dung văn bản thô (Tầng 1 - PyMuPDF): trung bình **0,15 – 0,25 giây** cho tài liệu PDF chuẩn 1–2 trang.
-  - Trích xuất thực thể có cấu trúc (Tầng 2 - LLM Structured Output): trung bình **1,8 – 2,5 giây** qua OpenRouter API. Khi kích hoạt chế độ Fallback Regex, thời gian trích xuất chỉ mất **0,08 giây**.
+  - Trích xuất thực thể có cấu trúc (Tầng 2 - LLM Structured Output): trung bình **1,8 – 2,5 giây** qua NVIDIA NIM API. Khi kích hoạt chế độ Fallback Regex, thời gian trích xuất chỉ mất **0,08 giây**.
   - Tính toán vector embedding (Tầng 3 - BGE-M3 1024 chiều chạy cục bộ trên CPU): trung bình **0,35 giây** cho bản tóm tắt CV.
   - Truy xuất Top-20 việc làm phù hợp từ 450 JD trên cơ sở dữ liệu pgvector: dưới **0,05 giây** (< 50ms).
   - Tính toán điểm số Hybrid V2 và trích dẫn Evidence (Tầng 4): dưới **0,02 giây**.
@@ -390,7 +390,7 @@ So sánh 4 biến thể trên cùng bộ D3:
 
 *Cảnh báo diễn giải: nhãn pilot sinh cơ học từ difficulty_hint nên các chỉ số KHÔNG phản ánh
 chất lượng thật; giá trị duy nhất của bảng này là chứng minh pipeline đo được đầu-cuối
-(đủ 4/4 biến thể, gồm cả LLM-only qua OpenRouter — 10/10 cặp chấm thành công sau khi vá
+(đủ 4/4 biến thể, gồm cả LLM-only qua NVIDIA NIM — 10/10 cặp chấm thành công sau khi vá
 retry cho lỗi provider trả content rỗng). Log đo lưu đầy đủ cho LLM-only
 (`data/labeled/metrics_llm_only_pilot.log`); các biến thể còn lại đo cùng phiên 27/09,
 chưa lưu log riêng — sẽ lưu lại khi chạy D3 thật.
@@ -421,7 +421,7 @@ keyword ở quy mô đó mới là tín hiệu cần debug công thức.*
 [React frontend] --HTTP--> [FastAPI backend] --SQL/vector--> [Neon Postgres + pgvector]
                                   |
                                   +--> [BGE-M3 local, CPU] (embedding)
-                                  +--> [OpenRouter API] (LLM extraction)
+                                  +--> [NVIDIA NIM API] (LLM extraction)
 ```
 
 - **Frontend**: React (thành viên C), gọi `POST /api/cv/upload`.
@@ -443,7 +443,7 @@ keyword ở quy mô đó mới là tín hiệu cần debug công thức.*
 | Backend | Container Docker (Python 3.12 + model BGE-M3 bake sẵn hoặc tải lần đầu), deploy VPS/Render |
 | Database | Tiếp tục Neon serverless (free tier đủ cho 450 JD + demo) |
 | Frontend | Build tĩnh (Vite) → Vercel/Netlify, proxy `/api` về backend |
-| Dự phòng | Nếu mất mạng/OpenRouter lỗi: rule fallback vẫn cho kết quả matching đầy đủ (đã kiểm chứng 27,8% JD chạy rule) |
+| Dự phòng | Nếu mất mạng/NVIDIA NIM lỗi: rule fallback vẫn cho kết quả matching đầy đủ (đã kiểm chứng 27,8% JD chạy rule) |
 
 ### 10.3. Giới hạn đã biết
 
@@ -462,7 +462,7 @@ keyword ở quy mô đó mới là tín hiệu cần debug công thức.*
 - **Tính hợp lệ của dữ liệu JD**: 450 JD được khai thác từ dataset công khai `tinixai/vietnamese-job-descriptions` trên HuggingFace dưới giấy phép CC BY-NC 4.0, chỉ phục vụ mục đích nghiên cứu học thuật phi thương mại và ghi công đầy đủ nguồn.
 
 ### 11.2. An toàn bảo mật & Quản lý thông tin xác thực
-- **Bảo mật mã nguồn**: Khóa API (OpenRouter, Gemini) và chuỗi kết nối cơ sở dữ liệu (Neon Postgres) được cô lập hoàn toàn trong biến môi trường `.env`. Tệp `.env` được cấu hình chặt chẽ trong `.gitignore` và không bao giờ xuất hiện trong lịch sử commit của Git (kho lưu trữ chỉ cung cấp `.env.example`).
+- **Bảo mật mã nguồn**: Khóa API (NVIDIA NIM, Gemini) và chuỗi kết nối cơ sở dữ liệu (Neon Postgres) được cô lập hoàn toàn trong biến môi trường `.env`. Tệp `.env` được cấu hình chặt chẽ trong `.gitignore` và không bao giờ xuất hiện trong lịch sử commit của Git (kho lưu trữ chỉ cung cấp `.env.example`).
 - **Bảo vệ dữ liệu người dùng tại phiên làm việc**: Khi người dùng tải CV lên giao diện Web, hệ thống chỉ xử lý dữ liệu trong bộ nhớ tạm (in-memory) và lưu trữ cục bộ tại trình duyệt (localStorage của client). Hệ thống không lưu trữ lâu dài bản CV gốc của người dùng trên máy chủ, tránh nguy cơ rò rỉ dữ liệu.
 
 ### 11.3. Kiểm soát sai lệch mô hình (Bias) & Ngăn ngừa ảo tưởng (Hallucination)

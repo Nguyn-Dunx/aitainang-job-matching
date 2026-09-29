@@ -1,4 +1,4 @@
-"""Script kiểm tra kết nối LLM thủ công (Kimi-K3 chính + Nemotron fallback qua OpenRouter/NIM).
+"""Script kiểm tra kết nối LLM thủ công (Kimi-K3 chính + Nemotron fallback qua NVIDIA NIM).
 
 KHÔNG phải test tự động — cần LLM_API_KEY thật trong .env, gọi API tốn phí.
 Chạy thủ công:  python scripts/check_llm_api.py
