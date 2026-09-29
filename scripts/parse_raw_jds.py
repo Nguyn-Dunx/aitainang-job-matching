@@ -29,7 +29,6 @@ Schema mỗi JD:
 
 import argparse
 import json
-import os
 import re
 import sys
 from datetime import date
@@ -378,7 +377,7 @@ def main():
 
     # Summary
     print(f"\n{'='*50}")
-    print(f"📋 Tổng kết parse JD")
+    print("📋 Tổng kết parse JD")
     print(f"{'='*50}")
     print(f"  File đầu vào : {input_path}")
     print(f"  Số JD mới    : {len(new_jds)}")

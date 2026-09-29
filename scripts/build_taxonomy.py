@@ -893,14 +893,14 @@ def main():
     # Coverage stats
     jds_with_skills = sum(1 for s in skill_by_jd if len(s) > 0)
     avg_skills = sum(len(s) for s in skill_by_jd) / len(skill_by_jd)
-    print(f"\n📊 Thống kê trích xuất:")
+    print("\n📊 Thống kê trích xuất:")
     print(f"  - JD có ít nhất 1 skill: {jds_with_skills}/{len(jds)} "
           f"({jds_with_skills*100//len(jds)}%)")
     print(f"  - Trung bình skill/JD: {avg_skills:.1f}")
     print(f"  - Số skill unique tìm thấy: {len(global_counter)}")
 
     # Top skills
-    print(f"\n🏆 Top 30 kỹ năng phổ biến nhất (theo số JD đề cập):")
+    print("\n🏆 Top 30 kỹ năng phổ biến nhất (theo số JD đề cập):")
     for i, (skill, count) in enumerate(skill_jd_count.most_common(30), 1):
         cat = SEED_TAXONOMY[skill]["category"]
         pct = count * 100 / len(jds)
@@ -946,7 +946,7 @@ def main():
         categories[entry["category"]].append(entry)
 
     # Category summary
-    print(f"\n📊 Phân bố theo nhóm:")
+    print("\n📊 Phân bố theo nhóm:")
     cat_summary = []
     for cat, entries in sorted(categories.items()):
         active = sum(1 for e in entries if e["frequency"]["jd_count"] > 0)
@@ -1003,13 +1003,13 @@ def main():
     print(f"💾 Đã lưu summary tại: {summary_path}")
 
     print("\n✅ Hoàn tất bước 7!")
-    print(f"\n📌 Lưu ý:")
+    print("\n📌 Lưu ý:")
     print(f"   - Taxonomy hiện có {taxonomy_output['metadata']['total_skills']} mục "
           f"(mục tiêu D4: 200-500)")
     if taxonomy_output['metadata']['total_skills'] < 200:
-        print(f"   - Cần bổ sung thêm để đạt mục tiêu tối thiểu 200 mục")
-    print(f"   - Nên review thủ công các alias, bổ sung domain-specific skills")
-    print(f"   - Có thể dùng LLM để phát hiện thêm skill từ text tự do")
+        print("   - Cần bổ sung thêm để đạt mục tiêu tối thiểu 200 mục")
+    print("   - Nên review thủ công các alias, bổ sung domain-specific skills")
+    print("   - Có thể dùng LLM để phát hiện thêm skill từ text tự do")
 
 
 if __name__ == "__main__":

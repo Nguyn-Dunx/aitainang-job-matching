@@ -13,7 +13,7 @@ from pathlib import Path
 
 from sqlalchemy import text
 
-from app.db import SessionLocal, engine
+from app.db import SessionLocal
 from app.models import JD
 
 JDS_PATH = Path(__file__).resolve().parent.parent / "data" / "processed" / "jds.json"

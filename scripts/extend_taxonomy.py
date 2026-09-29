@@ -10,9 +10,9 @@ Usage:
 """
 
 import json
+import re
 from collections import Counter
 from pathlib import Path
-import re
 
 # ============================================================================
 # BỔ SUNG SKILLS (60+ mục mới)
@@ -633,13 +633,13 @@ def main():
         json.dump(taxonomy, f, ensure_ascii=False, indent=2)
 
     print(f"\n✅ Đã thêm {added} skills mới")
-    print(f"📊 Taxonomy cập nhật:")
+    print("📊 Taxonomy cập nhật:")
     print(f"   - Tổng skills: {taxonomy['metadata']['total_skills']}")
     print(f"   - Active in JDs: {taxonomy['metadata']['total_active_skills']}")
     print(f"   - Tổng aliases: {taxonomy['metadata']['total_aliases']}")
 
     # Show new skills found in JDs
-    print(f"\n🆕 Skills mới xuất hiện trong JD:")
+    print("\n🆕 Skills mới xuất hiện trong JD:")
     new_found = [(canonical, jd_counter[canonical])
                   for canonical in EXTRA_SKILLS
                   if canonical not in existing_canonicals and jd_counter.get(canonical, 0) > 0]

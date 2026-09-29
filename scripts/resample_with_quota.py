@@ -9,15 +9,14 @@ Lấy gần hết JD Data/AI có sẵn, phần còn lại phân tầng từ các
 Usage:
     python scripts/resample_with_quota.py
 """
-import json
-import re
 import hashlib
+import json
 import random
+import re
 from collections import Counter, defaultdict
 from pathlib import Path
 
 from datasets import load_dataset
-
 
 # ========== Lọc IT (giữ nguyên logic cũ) ==========
 IT_EXACT_INDUSTRIES = {
@@ -300,7 +299,7 @@ def main():
         else:
             other_pool.append((jd, group))
 
-    print(f"\n📊 Pool phân loại:")
+    print("\n📊 Pool phân loại:")
     print(f"   Data/AI/ML: {len(data_ai_pool)}")
     print(f"   Other IT: {len(other_pool)}")
 
@@ -372,21 +371,21 @@ def main():
     print("\n📊 Phân bố mẫu mới:")
 
     group_counts = Counter(group for _, group in all_sampled)
-    print(f"\n  Nhóm ngành:")
+    print("\n  Nhóm ngành:")
     for group, count in group_counts.most_common():
         pct = count * 100 / len(all_sampled)
         print(f"    {group:<30} {count:>4} ({pct:.1f}%)")
 
     exp_counts = Counter(normalize_experience(jd.get("experience_level"))
                           for jd, _ in all_sampled)
-    print(f"\n  Experience:")
+    print("\n  Experience:")
     for cat, count in sorted(exp_counts.items()):
         pct = count * 100 / len(all_sampled)
         print(f"    {cat:<25} {count:>4} ({pct:.1f}%)")
 
     loc_counts = Counter(normalize_location(jd.get("location"))
                           for jd, _ in all_sampled)
-    print(f"\n  Location (top 10):")
+    print("\n  Location (top 10):")
     for loc, count in loc_counts.most_common(10):
         pct = count * 100 / len(all_sampled)
         print(f"    {loc:<25} {count:>4} ({pct:.1f}%)")
@@ -426,7 +425,7 @@ def main():
         print(f"   → CHƯA ĐẠT 12% (có {data_ai_pct:.1f}%)")
 
     # Sample Data/AI titles for verification
-    print(f"\n--- Mẫu 10 JD Data/AI/ML ---")
+    print("\n--- Mẫu 10 JD Data/AI/ML ---")
     data_ai_jds = [j for j in output_jds if j["industry_group"] == "Data/AI/ML"]
     for i, jd in enumerate(data_ai_jds[:10]):
         print(f"  {i+1:>2}. {jd['title']}")

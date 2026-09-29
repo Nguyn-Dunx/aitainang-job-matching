@@ -256,7 +256,7 @@ def print_stats(dataset, filtered_rows: list, all_industries: bool):
     industries = Counter(
         row.get("job_industry", "N/A") for row in filtered_rows
     )
-    print(f"\n  Top ngành nghề (sau lọc):")
+    print("\n  Top ngành nghề (sau lọc):")
     for ind, count in industries.most_common(15):
         print(f"    {ind:40s} : {count:,}")
 
@@ -264,7 +264,7 @@ def print_stats(dataset, filtered_rows: list, all_industries: bool):
     levels = Counter(
         row.get("experience_level", "N/A") for row in filtered_rows
     )
-    print(f"\n  Phân bố experience_level:")
+    print("\n  Phân bố experience_level:")
     for lv, count in levels.most_common(10):
         print(f"    {lv:30s} : {count:,}")
 
@@ -272,13 +272,13 @@ def print_stats(dataset, filtered_rows: list, all_industries: bool):
     locations = Counter(
         row.get("location", "N/A") for row in filtered_rows
     )
-    print(f"\n  Top địa điểm:")
+    print("\n  Top địa điểm:")
     for loc, count in locations.most_common(10):
         print(f"    {loc:40s} : {count:,}")
 
     # Year distribution
     years = Counter(row.get("year", "N/A") for row in filtered_rows)
-    print(f"\n  Phân bố năm:")
+    print("\n  Phân bố năm:")
     for yr, count in sorted(years.items()):
         print(f"    {yr} : {count:,}")
 
@@ -377,7 +377,7 @@ def main():
 
     # --- Summary ---
     print(f"\n{'='*60}")
-    print(f"📋 Kết quả")
+    print("📋 Kết quả")
     print(f"{'='*60}")
     print(f"  Tổng JD đã lưu  : {len(jds):,}")
     print(f"  Cần review       : {review_count:,}")

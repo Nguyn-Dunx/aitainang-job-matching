@@ -5,9 +5,10 @@ Chạy thủ công:  python scripts/check_llm_api.py
 (Tên file cố tình không bắt đầu "test_" để pytest không thu thập — xem pyproject.toml.)
 """
 
-import sys
 from openai import OpenAI
+
 from app.config import settings
+
 
 def check_api():
     print(f"Base URL: {settings.llm_base_url}")

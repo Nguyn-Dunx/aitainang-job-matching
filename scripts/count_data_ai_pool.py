@@ -5,12 +5,11 @@ trong pool 9,748 JD IT đã lọc (trước sampling).
 Usage:
     python scripts/count_data_ai_pool.py
 """
-import json
-import re
 import hashlib
+import re
 from collections import Counter
-from datasets import load_dataset
 
+from datasets import load_dataset
 
 # --- Cùng logic lọc IT thuần từ filter_and_sample_jds.py ---
 IT_EXACT_INDUSTRIES = {
@@ -164,12 +163,12 @@ def main():
             ind = jd.get("job_industry", "")
             sub_counter[ind] += 1
 
-        print(f"\nPhân bố job_industry cụ thể:")
+        print("\nPhân bố job_industry cụ thể:")
         for ind, cnt in sub_counter.most_common():
             print(f"  [{cnt:>3}] {ind}")
 
         # Sample titles
-        print(f"\nMẫu job_title (20 JD đầu):")
+        print("\nMẫu job_title (20 JD đầu):")
         for i, jd in enumerate(data_ai_jds[:20]):
             print(f"  {i+1:>2}. {jd['job_title']} | {jd.get('company_name','')[:40]}")
 
@@ -200,7 +199,7 @@ def main():
 
     total_data_ai = len(data_ai_jds) + len(extra_data_ai)
     print(f"\n{'='*70}")
-    print(f"TỔNG KẾT:")
+    print("TỔNG KẾT:")
     print(f"  - Data/AI theo job_industry: {len(data_ai_jds)}")
     print(f"  - Data/AI theo title (bổ sung): {len(extra_data_ai)}")
     print(f"  - TỔNG Data/AI tiềm năng: {total_data_ai}")

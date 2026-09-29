@@ -9,9 +9,7 @@ Usage:
 """
 import argparse
 import csv
-from collections import defaultdict
 from pathlib import Path
-import math
 
 
 def load_annotations(filepath):
@@ -158,7 +156,7 @@ def main():
     # Items with all raters
     complete = {k: v for k, v in merged_data.items()
                 if all(s is not None for s in v)}
-    print(f"\n📊 Thống kê:")
+    print("\n📊 Thống kê:")
     print(f"   Tổng cặp unique: {len(all_keys)}")
     print(f"   Cặp có đủ {len(all_anns)} người chấm: {len(complete)}")
 
@@ -179,7 +177,7 @@ def main():
     kappa = fleiss_kappa(ratings_matrix, n_categories=5)
     alpha = krippendorff_alpha(complete, n_categories=5)
 
-    print(f"\n📏 Agreement:")
+    print("\n📏 Agreement:")
     print(f"   Fleiss' kappa: {kappa:.3f}")
     print(f"   Krippendorff's alpha: {alpha:.3f}")
 
@@ -232,19 +230,19 @@ def main():
     report_path = Path(args.output)
     with open(report_path, "w", encoding="utf-8") as f:
         f.write("# D3 — Inter-Annotator Agreement Report\n\n")
-        f.write(f"## Thống kê\n\n")
+        f.write("## Thống kê\n\n")
         f.write(f"- Số người chấm: {len(all_anns)}\n")
         f.write(f"- Tổng cặp unique: {len(all_keys)}\n")
         f.write(f"- Cặp đủ {len(all_anns)} người: {len(complete)}\n\n")
-        f.write(f"## Agreement\n\n")
-        f.write(f"| Metric | Giá trị | Đánh giá |\n")
-        f.write(f"|--------|---------|----------|\n")
+        f.write("## Agreement\n\n")
+        f.write("| Metric | Giá trị | Đánh giá |\n")
+        f.write("|--------|---------|----------|\n")
         f.write(f"| Fleiss' kappa | {kappa:.3f} | {interpretation} |\n")
         f.write(f"| Krippendorff's alpha | {alpha:.3f} | — |\n\n")
-        f.write(f"## Cặp bất đồng lớn (|max-min| >= 3)\n\n")
+        f.write("## Cặp bất đồng lớn (|max-min| >= 3)\n\n")
         if disagreements:
-            f.write(f"| cv_id | jd_id | Scores |\n")
-            f.write(f"|-------|-------|--------|\n")
+            f.write("| cv_id | jd_id | Scores |\n")
+            f.write("|-------|-------|--------|\n")
             for key, scores in disagreements:
                 f.write(f"| {key[0]} | {key[1]} | {scores} |\n")
         else:

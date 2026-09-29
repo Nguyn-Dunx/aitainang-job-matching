@@ -5,14 +5,13 @@ lấy mẫu 300-500 JD đa dạng, map sang schema nội bộ.
 Usage:
     python scripts/filter_and_sample_jds.py
 """
-import json
 import hashlib
+import json
 import re
 from collections import Counter, defaultdict
 from pathlib import Path
 
 from datasets import load_dataset
-
 
 # --- Bước 3a: Định nghĩa nhóm ngành IT thuần ---
 # Phương án A: chỉ lấy nhóm IT/CNTT thuần túy
