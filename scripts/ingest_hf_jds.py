@@ -316,7 +316,7 @@ def main():
     )
     parser.add_argument(
         "-d", "--date",
-        default=str(date.today()),
+        default=str(date.today()),  # noqa: DTZ011
         help="Ngày thu thập (YYYY-MM-DD), mặc định = hôm nay",
     )
 

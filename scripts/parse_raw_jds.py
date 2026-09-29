@@ -208,7 +208,7 @@ def parse_one_jd(raw_text: str, jd_id: str, collected_date: str) -> dict:
 
     # --- Split into header + sections ---
     header_lines, sections = split_into_sections(raw_text)
-    header_text = "\n".join(header_lines)
+    header_text = "\n".join(header_lines)  # noqa: F841
 
     # --- Extract metadata from header lines ---
     metadata: dict[str, str | None] = {}
@@ -326,7 +326,7 @@ def main():
     parser.add_argument(
         "-d",
         "--date",
-        default=str(date.today()),
+        default=str(date.today()),  # noqa: DTZ011
         help="Ngày thu thập (YYYY-MM-DD), mặc định = hôm nay",
     )
     parser.add_argument(

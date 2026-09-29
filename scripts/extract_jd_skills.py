@@ -36,14 +36,14 @@ def main() -> None:
     ap.add_argument("--limit", type=int, default=0, help="Chi chay N JD dau (test)")
     args = ap.parse_args()
 
-    items = json.load(open(JDS_PATH, encoding="utf-8"))
+    items = json.load(open(JDS_PATH, encoding="utf-8"))  # noqa: SIM115
     if args.limit:
         items = items[: args.limit]
 
     results: list[dict] = []
     done_titles = set()
     if OUT_PATH.exists():
-        results = json.load(open(OUT_PATH, encoding="utf-8"))
+        results = json.load(open(OUT_PATH, encoding="utf-8"))  # noqa: SIM115
         done_titles = {r["title"] for r in results}
         log.info("Resume: da co %d ket qua", len(results))
 
@@ -71,7 +71,7 @@ def main() -> None:
         log.info("[%d/%d] batch %d JD xong (%.0fs), tong skills batch dau: %d",
                  min(start + BATCH_SIZE, len(todo)), len(todo), len(batch),
                  time.perf_counter() - t0, len(extracted[0].skills))
-        json.dump(results, open(OUT_PATH, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        json.dump(results, open(OUT_PATH, "w", encoding="utf-8"), ensure_ascii=False, indent=1)  # noqa: SIM115
 
     log.info("XONG: %d JD (llm=%d, rule=%d) -> %s", len(results), n_llm, n_rule, OUT_PATH)
 

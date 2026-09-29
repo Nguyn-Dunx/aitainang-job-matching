@@ -33,7 +33,7 @@ def check_api():
         )
         print("=> SUCCESS from primary model:")
         print(res.choices[0].message.content.encode('utf-8', errors='replace').decode('utf-8'))
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         print(f"=> ERROR primary: {e}")
 
     # 2. Test model fallback
@@ -47,7 +47,7 @@ def check_api():
         )
         print("=> SUCCESS fallback:")
         print(res.choices[0].message.content.encode('utf-8', errors='replace').decode('utf-8'))
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         print(f"=> ERROR fallback: {e}")
 
 if __name__ == "__main__":

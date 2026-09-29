@@ -106,3 +106,7 @@
 - **Retrieval dùng pgvector query thật, KHÔNG phải numpy in-memory**: `app/routers/cv.py` dòng 90-99 — SQL `ORDER BY embedding <=> CAST(:q AS vector) LIMIT :k` chạy trên bảng `jds` (Neon Postgres, pgvector 0.8.6). File `data/processed/jds_embeddings.npy` tồn tại nhưng KHÔNG được dùng trong luồng `/api/cv/upload`.
 - **Latency pgvector đo thật (28/09, top-30 trên 450 JD)**: lần đầu 441 ms (cold connection), sau đó 55/64/62/72 ms — warm TB ~60 ms.
 - **Embedding CV đo thật (28/09)**: cold 20,3 s (nạp BGE-M3, 1 lần mỗi phiên), warm 82–127 ms/câu.
+- **Latency LLM Tầng 5 đo thật qua endpoint `/api/cv/suggest-improvement` (29/09/2026, cấu hình `.env` mới — model chính `nvidia/nemotron-3-super-120b-a12b`, fallback `nvidia/nemotron-3-ultra-550b-a55b`, CV `cv_member_01_backend.json` × top-1 match thật, JD "Backend Developer (Node.JS/PHP)")**:
+  - **Super (model chính, budget 45 s)**: 3/3 lần OK — min 21,3 s / median 24,0 s / max 42,8 s. Lần max 42,8 s đã sát ngưỡng 45 s.
+  - **Ultra (fallback, budget 15 s trong code)**: đo qua đường fallback thật của endpoint — 3/3 lần THẤT BẠI (2 lần 503 "Service temporarily overloaded" từ NVIDIA sau 1–4 s, 1 lần timeout đúng 15 s). Khi tạm nâng cap lên 120 s để lấy số thật: 64,7 s và 90,3 s (median 77,5 s) — ultra KHÔNG THỂ thành công trong budget 15 s hiện tại, thậm chí vượt cả 45 s của model chính.
+  - Kết luận: fallback hiện tại chỉ là "cứ thử rồi báo timeout" — không mang lại gợi ý thật. Cần quyết định của người dùng (xem SUBMISSION_CHECKLIST / báo cáo BƯỚC 0).

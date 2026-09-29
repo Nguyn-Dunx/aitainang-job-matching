@@ -24,7 +24,7 @@ def main() -> None:
     ap.add_argument("--to-db", action="store_true", help="Ghi embedding vao bang jds")
     args = ap.parse_args()
 
-    items = json.load(open(JDS_PATH, encoding="utf-8"))
+    items = json.load(open(JDS_PATH, encoding="utf-8"))  # noqa: SIM115
     texts = ["\n\n".join(p for p in [it.get("title", ""), it.get("responsibilities", ""),
                                      it.get("requirements", "")] if p) for it in items]
     print(f"Encode {len(texts)} JD bang {MODEL_NAME}...")

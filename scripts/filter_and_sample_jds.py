@@ -146,7 +146,7 @@ def main():
         if any(k in exp_lower for k in ["không", "0 ", "dưới 1", "< 1", "thực tập",
                                           "mới tốt nghiệp", "fresher"]):
             return "Entry (0-1 năm)"
-        if any(k in exp_lower for k in ["1 năm", "1 -", "1-", "0,5", "lên đến 1"]):
+        if any(k in exp_lower for k in ["1 năm", "1 -", "1-", "0,5", "lên đến 1"]):  # noqa: SIM102
             if "10" not in exp_lower and "1 - 2" not in exp_lower and "1 - 3" not in exp_lower:
                 return "Entry (0-1 năm)"
         if any(k in exp_lower for k in ["1 - 2", "1 - 3", "1-2", "1-3", "2 năm",

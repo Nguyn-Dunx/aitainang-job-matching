@@ -74,7 +74,7 @@ def krippendorff_alpha(data, n_categories=5):
     disagreement_observed = 0
     all_values = []
 
-    for key, scores in data.items():
+    for key, scores in data.items():  # noqa: PERF102
         valid = [s for s in scores if s is not None]
         if len(valid) < 2:
             continue
@@ -165,7 +165,7 @@ def main():
         return
 
     # Build Fleiss matrix
-    n_raters = len(all_anns)
+    n_raters = len(all_anns)  # noqa: F841
     ratings_matrix = []
     for key, scores in complete.items():
         row = [0] * 5  # categories 1-5

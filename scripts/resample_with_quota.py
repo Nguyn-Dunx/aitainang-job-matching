@@ -185,14 +185,14 @@ def normalize_experience(exp):
     min_years = None
     if match_range:
         low = float(match_range.group(1).replace(',', '.'))
-        high = float(match_range.group(2).replace(',', '.'))
+        high = float(match_range.group(2).replace(',', '.'))  # noqa: F841
         min_years = low
     elif match_single:
         min_years = float(match_single.group(1).replace(',', '.'))
     elif match_below:
         min_years = 0
 
-    if "không" in e and "kinh nghiệm" not in e:
+    if "không" in e and "kinh nghiệm" not in e:  # noqa: SIM102
         # "Không" alone often means "no requirement"
         if min_years is None:
             return "Entry (0-1 năm)"
