@@ -27,7 +27,7 @@
 |---|---|---|---|
 | 1 | Điền bảng "Thông tin thí sinh" (3 thành viên) vào `docs/mau3_draft.md` | Người dùng | Sau đó yêu cầu build lại PDF (BƯỚC 3 của quy trình). |
 | 2 | **Quyết định fallback model Tầng 5** | Người dùng | Đo thật 29/09 qua endpoint: model chính `nemotron-3-super-120b-a12b` 21,3–42,8 s (OK trong budget 45 s nhưng lần max đã sát ngưỡng); fallback `nemotron-3-ultra-550b-a55b` 64,7–90,3 s khi dịch vụ khỏe, và hay trả 503 "overloaded" — **vượt cả budget 15 s của fallback lẫn 45 s của model chính → fallback hiện không bao giờ kịp trả gợi ý**. Phương án: (a) đổi fallback sang model nhẹ hơn, (b) tăng riêng timeout fallback (nhưng người dùng sẽ chờ > 90 s), (c) bỏ hẳn fallback và trả thông báo lỗi rõ ràng. Không tự chọn — chờ quyết định. |
-| 3 | QA end-to-end 6 bước × 3 lần (BƯỚC 2 của quy trình) | Chưa xong | Chưa chạy đủ trong phiên này — cần chạy khi có thời gian, trước khi quay video. |
+| 3 | QA end-to-end 6 bước × 3 lần (BƯỚC 2 của quy trình) | **Sẵn sàng (một phần)** | Đã chạy 29/09 qua `scripts/qa_e2e.py` với 3 CV khác nhau: match 0,9–27,5 s (27,5 s là cold-start nạp model lần đầu; warm 0,9–1,7 s), suggest 10,6–36,9 s, cả 3 lần `llm_status=ok`, 4 gợi ý/lần, delta 13,3/23,7/20,7. **0 lỗi mức chặn.** Lưu ý "khó chịu": cold-start ~27 s và suggest tới ~37 s (dưới ngưỡng 45 s nhưng người dùng phải chờ). Chưa test được bước 1–2 (`/upload` cần file .pdf/.docx thật, repo không có sẵn) — nên quay video với 1 CV PDF thật để phủ bước này. |
 | 4 | Quay 2 video demo | Người dùng | Sau khi mục 1–3 ở bảng này đóng. |
 | 5 | Upload Prompt Log lên Drive + mở quyền | Người dùng | Thư mục sẵn sàng, đã verify sạch. |
 
