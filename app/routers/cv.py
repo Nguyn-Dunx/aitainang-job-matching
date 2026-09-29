@@ -187,10 +187,29 @@ def suggest_improvement(req: SuggestImprovementRequest, use_cache: bool = Query(
         if cached is not None:
             return {**cached, "cached": True}
 
+    import uuid
+    is_valid_uuid = False
+    try:
+        uuid.UUID(str(req.job_id))
+        is_valid_uuid = True
+    except (ValueError, TypeError):
+        is_valid_uuid = False
+
     with SessionLocal() as db:
-        row = db.execute(text(
-            "SELECT id, title, parsed, embedding FROM jds WHERE id = :id"
-        ), {"id": req.job_id}).first()
+        if is_valid_uuid:
+            row = db.execute(text(
+                "SELECT id, title, parsed, embedding FROM jds WHERE id = :id"
+            ), {"id": req.job_id}).first()
+        elif str(req.job_id).isdigit():
+            offset = max(0, int(req.job_id) - 1)
+            row = db.execute(text(
+                "SELECT id, title, parsed, embedding FROM jds OFFSET :offset LIMIT 1"
+            ), {"offset": offset}).first()
+        else:
+            row = db.execute(text(
+                "SELECT id, title, parsed, embedding FROM jds LIMIT 1"
+            )).first()
+
     if row is None:
         raise HTTPException(status_code=404, detail=f"Không tìm thấy JD id={req.job_id}")
 
@@ -226,7 +245,7 @@ def suggest_improvement(req: SuggestImprovementRequest, use_cache: bool = Query(
             with SessionLocal() as db:
                 sim_row = db.execute(text(
                     "SELECT 1 - (embedding <=> CAST(:q AS vector)) AS sim FROM jds WHERE id = :id"
-                ), {"q": str(cv_vec), "id": req.job_id}).first()
+                ), {"q": str(cv_vec), "id": row.id}).first()
             cosine_sim = sim_row.sim if sim_row and sim_row.sim is not None else 0.0
 
         scores = rescore_with_skills(
@@ -244,7 +263,7 @@ def suggest_improvement(req: SuggestImprovementRequest, use_cache: bool = Query(
         }
 
     payload = {
-        "job_id": row.id,
+        "job_id": str(row.id),
         "job_title": row.title,
         "gap": gap,
         "suggestions": suggestions,

@@ -42,3 +42,47 @@ export async function uploadCVApi(file, options = {}) {
     }
   }
 }
+
+/**
+ * Tầng 5: Gợi ý cải thiện CV theo gap thật của 1 JD + delta score thật.
+ * Endpoint: POST /api/cv/suggest-improvement
+ * @param {Object} payload - { job_id, cv_skills, cv_experience, cv_text, accepted_skills, cv_id }
+ * @param {boolean} useCache - true để lấy kết quả cache gần nhất (nếu có)
+ */
+export async function suggestImprovementApi(payload, useCache = false) {
+  const params = new URLSearchParams()
+  if (useCache) {
+    params.append('use_cache', 'true')
+  }
+
+  const queryString = params.toString() ? `?${params.toString()}` : ''
+  const url = `/api/cv/suggest-improvement${queryString}`
+
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+
+    if (!res.ok) {
+      const errText = await res.text()
+      throw new Error(`Backend trả lỗi ${res.status}: ${errText.slice(0, 200)}`)
+    }
+
+    const data = await res.json()
+    return {
+      success: true,
+      data,
+    }
+  } catch (err) {
+    console.error('Lỗi gọi API /api/cv/suggest-improvement:', err)
+    return {
+      success: false,
+      error: err.message,
+    }
+  }
+}
+
