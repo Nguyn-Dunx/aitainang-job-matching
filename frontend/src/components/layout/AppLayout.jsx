@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import './AppLayout.css'
 
@@ -52,6 +53,27 @@ const STEPS = [
 
 export default function AppLayout() {
   const location = useLocation()
+
+  // Trạng thái Mock Mode: chỉ bật khi chưa có dữ liệu thật hoặc API lỗi
+  const [isMockMode, setIsMockMode] = useState(() => {
+    return localStorage.getItem('isMockMode') !== 'false'
+  })
+
+  useEffect(() => {
+    const checkMode = () => {
+      const mode = localStorage.getItem('isMockMode')
+      // Chỉ khi 'isMockMode' === 'false' thì tắt hẳn badge
+      setIsMockMode(mode !== 'false')
+    }
+
+    checkMode()
+    window.addEventListener('mockModeChanged', checkMode)
+    window.addEventListener('storage', checkMode)
+    return () => {
+      window.removeEventListener('mockModeChanged', checkMode)
+      window.removeEventListener('storage', checkMode)
+    }
+  }, [location.pathname])
 
   // Determine current step index
   const currentStepIndex = STEPS.findIndex(s => location.pathname.startsWith(s.path))
@@ -132,6 +154,17 @@ export default function AppLayout() {
         <main className="page-content">
           <Outlet />
         </main>
+
+        {/* Floating Demo Badge: CHỈ HIỂN THỊ khi thực sự dùng Mock Mode (chưa gọi API thật hoặc API lỗi) */}
+        {isMockMode && (
+          <div
+            className="demo-badge-floating"
+            title="Hệ thống đang chạy chế độ dữ liệu demo trong lúc chưa kết nối API backend thật"
+          >
+            <span style={{ fontSize: '0.85rem' }}>⚠️</span>
+            <span>Dữ liệu demo (Mock Mode)</span>
+          </div>
+        )}
       </div>
     </div>
   )

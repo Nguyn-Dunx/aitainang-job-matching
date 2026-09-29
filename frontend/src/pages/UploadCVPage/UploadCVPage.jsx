@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../../styles/pages.css'
+import { uploadCVApi } from '../../services/apiService'
 
 /**
  * Schema Tầng 2 — Structured Extraction theo AGENTS.md:
@@ -61,46 +62,108 @@ export default function UploadCVPage() {
   const [isParsing, setIsParsing] = useState(false)
   const [parseProgress, setParseProgress] = useState(0)
   const [parsedData, setParsedData] = useState(null)
+  const [apiError, setApiError] = useState(null)
+  const [isRealBackend, setIsRealBackend] = useState(false)
   const [newSkill, setNewSkill] = useState('')
   const [newBullet, setNewBullet] = useState({ expId: 1, text: '' })
 
-  // Xử lý khi người dùng chọn file
+  // Gọi API Backend thật: POST /api/cv/upload
+  const handleUploadRealCV = async (fileObj) => {
+    if (!fileObj) return
+    setIsParsing(true)
+    setApiError(null)
+    setParseProgress(20)
+
+    const timer1 = setTimeout(() => setParseProgress(50), 300)
+    const timer2 = setTimeout(() => setParseProgress(80), 700)
+
+    try {
+      // Đọc metadata lọc từ Career Profile nếu có
+      let options = { mode: 'llm', top_k: 20 }
+      try {
+        const career = JSON.parse(localStorage.getItem('careerProfile') || '{}')
+        if (career.preferredLocation) options.location = career.preferredLocation
+        if (career.experienceLevel) options.level = career.experienceLevel
+      } catch (e) {
+        console.warn('Không đọc được careerProfile:', e)
+      }
+
+      const res = await uploadCVApi(fileObj, options)
+
+      clearTimeout(timer1)
+      clearTimeout(timer2)
+
+      if (res.success && res.data) {
+        setParseProgress(100)
+        setIsParsing(false)
+        setIsRealBackend(true)
+
+        const uiCv = res.data.parsed_cv
+        setParsedData(uiCv)
+
+        // Lưu vào localStorage
+        localStorage.setItem('parsedCV', JSON.stringify(uiCv))
+        localStorage.setItem('backendMatches', JSON.stringify(res.data.matches || []))
+        localStorage.setItem('isMockMode', 'false')
+        // Thông báo cho AppLayout tắt hẳn Demo Mode badge
+        window.dispatchEvent(new Event('mockModeChanged'))
+      } else {
+        throw new Error(res.error || 'Backend không phản hồi thành công.')
+      }
+    } catch (err) {
+      clearTimeout(timer1)
+      clearTimeout(timer2)
+      setIsParsing(false)
+      setApiError(err.message)
+      console.error('Lỗi upload CV tới backend thật:', err)
+    }
+  }
+
+  // Xử lý khi người dùng chọn file thật từ máy
   const handleFileSelect = (selectedFile) => {
     if (!selectedFile) return
     setFile(selectedFile)
-    startSimulatedParsing(selectedFile.name)
+    handleUploadRealCV(selectedFile)
   }
 
-  // Nạp CV mẫu kiểm thử nhanh (Quick Demo)
-  const handleLoadSampleCV = () => {
-    const mockFile = { name: 'cv_sample_ungvien_A.pdf', size: 1024 * 340 }
-    setFile(mockFile)
-    startSimulatedParsing(mockFile.name)
-  }
-
-  // Giả lập tiến trình AI Ingestion & Structured Extraction (Tầng 1 + Tầng 2)
-  // Sẵn sàng thay bằng: await fetch('/api/cv/upload', { method: 'POST', body: formData }) khi B làm xong API
-  const startSimulatedParsing = (filename) => {
-    setIsParsing(true)
-    setParseProgress(15)
-
-    const timer1 = setTimeout(() => setParseProgress(45), 400)
-    const timer2 = setTimeout(() => setParseProgress(80), 900)
-    const timer3 = setTimeout(() => {
+  // Nạp CV mẫu kiểm thử nhanh (Quick Sample): dùng file cv_single_column.pdf thật
+  const handleLoadSampleCV = async () => {
+    try {
+      setIsParsing(true)
+      setParseProgress(10)
+      const resp = await fetch('/samples/cv_single_column.pdf')
+      if (!resp.ok) {
+        throw new Error('Không tải được file mẫu /samples/cv_single_column.pdf')
+      }
+      const blob = await resp.blob()
+      const sampleFile = new File([blob], 'cv_single_column.pdf', { type: 'application/pdf' })
+      setFile(sampleFile)
+      await handleUploadRealCV(sampleFile)
+    } catch (err) {
+      console.warn('Lỗi tải file mẫu thật, chuyển fallback mock:', err)
+      // Fallback nếu không có file
+      const mockFile = { name: 'cv_single_column.pdf', size: 1024 * 340 }
+      setFile(mockFile)
       setParseProgress(100)
       setIsParsing(false)
-      // Nạp dữ liệu mock theo đúng schema
       setParsedData({
         ...DEFAULT_MOCK_PARSED_CV,
-        uploaded_filename: filename,
+        uploaded_filename: mockFile.name,
       })
-    }, 1400)
-
-    return () => {
-      clearTimeout(timer1)
-      clearTimeout(timer2)
-      clearTimeout(timer3)
+      localStorage.setItem('isMockMode', 'true')
+      window.dispatchEvent(new Event('mockModeChanged'))
     }
+  }
+
+  // Chuyển sang chế độ giả lập nếu backend lỗi
+  const handleUseMockFallback = () => {
+    setApiError(null)
+    setParsedData({
+      ...DEFAULT_MOCK_PARSED_CV,
+      uploaded_filename: file?.name || 'cv_mock_fallback.pdf',
+    })
+    localStorage.setItem('isMockMode', 'true')
+    window.dispatchEvent(new Event('mockModeChanged'))
   }
 
   // --- Human-in-the-loop: Chỉnh sửa kỹ năng ---
@@ -263,9 +326,52 @@ export default function UploadCVPage() {
         </div>
       )}
 
+      {/* Lỗi gọi API backend */}
+      {apiError && !isParsing && (
+        <div className="alert-box alert-warning animate-fade-in" style={{ marginBottom: 'var(--space-6)' }}>
+          <span style={{ fontSize: '1.25rem' }}>⚠️</span>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontWeight: 'var(--font-weight-bold)', marginBottom: 'var(--space-1)' }}>
+              Không thể kết nối API Backend thật (POST /api/cv/upload)
+            </div>
+            <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-3)' }}>
+              Chi tiết lỗi: {apiError}
+            </div>
+            <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+              <button
+                type="button"
+                className="btn btn-primary"
+                style={{ fontSize: 'var(--font-size-xs)' }}
+                onClick={() => handleUploadRealCV(file)}
+              >
+                🔄 Thử lại
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                style={{ fontSize: 'var(--font-size-xs)' }}
+                onClick={handleUseMockFallback}
+              >
+                ⚡ Tiếp tục bằng dữ liệu mẫu (Mock Mode)
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Màn hình Xác nhận kết quả parse (HUMAN-IN-THE-LOOP) */}
       {parsedData && !isParsing && (
         <div className="animate-fade-in">
+          {/* Backend Status Notification */}
+          {isRealBackend && (
+            <div className="alert-box alert-success" style={{ marginBottom: 'var(--space-4)' }}>
+              <span style={{ fontSize: '1.25rem' }}>🟢</span>
+              <div>
+                <strong>API Backend Thật (FastAPI Tầng 1–4) đã xử lý thành công:</strong> Kết quả trích xuất cấu trúc (Structured Extraction) và tính toán độ khớp ngữ nghĩa song ngữ với kho JD thật. Chế độ Mock Mode đã được <strong>tắt hoàn toàn</strong>.
+              </div>
+            </div>
+          )}
+
           {/* Banner Human-in-the-loop */}
           <div className="alert-box alert-info">
             <span style={{ fontSize: '1.25rem' }}>💡</span>
