@@ -6,8 +6,8 @@
 
 ### 1.1. Bối cảnh thị trường việc làm của người trẻ tại Việt Nam
 Thị trường việc làm ngành Công nghệ Thông tin (CNTT) và Dữ liệu tại Việt Nam những năm gần đây chứng kiến sự phân hóa mạnh mẽ. Mặc dù nhu cầu tuyển dụng các vị trí chất lượng cao vẫn lớn, sinh viên năm 3–4 và sinh viên mới tốt nghiệp (fresh graduate) lại gặp vô vàn rào cản khi tiếp cận thị trường lao động:
-- Theo các khảo sát tuyển dụng sinh viên, **hơn 70% sinh viên** cảm thấy hoang mang khi đối chiếu năng lực bản thân với yêu cầu tuyển dụng thực tế.
-- Tỷ lệ hồ sơ ứng tuyển nhận được phản hồi phỏng vấn vòng đầu đối với ứng viên ít kinh nghiệm thường **dưới 10%**, dẫn đến tâm lý chán nản và mất phương hướng.
+- Trong thực tế tuyển dụng, phần lớn sinh viên năm cuối và sinh viên mới tốt nghiệp gặp nhiều khó khăn, bỡ ngỡ khi đối chiếu năng lực bản thân với yêu cầu công việc thực tế từ các doanh nghiệp.
+- Hồ sơ ứng tuyển của ứng viên chưa có kinh nghiệm thường khó vượt qua vòng sơ tuyển đầu tiên do thiếu sự chuẩn bị và đối chiếu sát sao với yêu cầu công việc cụ thể, dẫn đến tâm lý hoang mang và mất phương hướng.
 
 ### 1.2. Ba bài toán cốt lõi người trẻ phải tự giải quyết thủ công
 Hiện nay, một ứng viên trẻ trước khi nộp đơn phải tự xoay xở giải quyết ba câu hỏi lớn:
@@ -30,13 +30,13 @@ Hiện nay, một ứng viên trẻ trước khi nộp đơn phải tự xoay x�
 
 **Ba trụ cột USP (Unique Selling Points)**:
 1. **Explainable Matching (Đối chiếu giải thích được)**: Công khai minh bạch công thức tính điểm (Hybrid V2), phân rã chi tiết 3 chiều trọng số (50% Kỹ năng cứng, 40% Ngữ nghĩa ngữ cảnh, 10% Kỹ năng mềm) và cung cấp bằng chứng (Evidence) trích dẫn trực tiếp từ CV và JD gốc.
-2. **Measurable CV Improvement Loop (Vòng lặp sửa CV đo được)**: Xác định khoảng trống kỹ năng theo thứ tự ưu tiên, gợi ý viết lại bullet point hành động cụ thể theo phương pháp STAR, và hỗ trợ chấm lại ngay lập tức để đo lường **Delta Score** gia tăng.
+2. **Measurable CV Improvement Loop (Vòng lặp sửa CV đo được)**: Xác định khoảng trống kỹ năng theo thứ tự ưu tiên, cung cấp gợi ý dạng điều kiện bám sát kỹ năng còn thiếu, và hỗ trợ tính toán điểm dự kiến gia tăng (Delta Score).
 3. **Vietnamese-First (Tối ưu bản địa hóa song ngữ)**: Xây dựng bộ taxonomy kỹ năng song ngữ (235 canonical + 690 alias), xử lý mượt mà tài liệu viết bằng tiếng Việt, tiếng Anh hoặc pha trộn cả hai ngôn ngữ.
 
 ### 2.2. Mục tiêu cụ thể của dự án
 - Xây dựng hoàn chỉnh luồng sản phẩm 6 bước: Onboarding → Upload & Human-in-the-loop Parse CV → Semantic & Hybrid Matching → Explainable Results & Evidence → CV Improvement with Delta Score → Career Dashboard.
-- Đảm bảo pipeline AI 5 tầng vận hành ổn định, thời gian phản hồi matching dưới 1 giây trên kho dữ liệu việc làm thực tế.
-- Tích hợp cơ chế **Human-in-the-loop** giúp ứng viên kiểm soát và chỉnh sửa thông tin trích xuất, triệt tiêu nguy cơ ảo tưởng thông tin (hallucination) của mô hình AI.
+- Đảm bảo pipeline AI 5 tầng vận hành ổn định: riêng bước truy xuất vector và chấm điểm hoàn tất dưới 1 giây (truy xuất pgvector ~60 ms warm), toàn bộ luồng xử lý E2E đạt ~1,1–1,3 giây khi hệ thống đã sẵn sàng (warm).
+- Tích hợp cơ chế **Human-in-the-loop** giúp ứng viên kiểm soát và chỉnh sửa thông tin trích xuất, giảm thiểu tối đa nguy cơ sai lệch thông tin của mô hình AI.
 
 ### 2.3. Phạm vi dự án
 - **Lĩnh vực ngành nghề**: Trọng tâm ban đầu tập trung vào khối ngành Công nghệ Thông tin và Dữ liệu (IT, Software Engineering, Data Science, AI/ML, DevOps, QA, Product Management) — lĩnh vực có nhu cầu tuyển dụng sinh viên lớn nhất và bộ kỹ năng được tiêu chuẩn hóa cao.
@@ -80,44 +80,35 @@ riêng tư.
 Sản phẩm dự thi là phi thương mại, phù hợp điều khoản giấy phép. Nhóm ghi công đầy đủ tên dataset
 và link trong code, tài liệu, và hồ sơ.
 
-**Quy trình lọc (4 bước)**:
+**Quy trình lọc (funnel)**:
 
-1. **Lọc ngành IT thuần (Phương án A)**: Chỉ giữ JD có `job_industry` thuộc nhóm CNTT/IT — bao
-   gồm "IT Phần mềm", "Công nghệ thông tin, Software Engineering, …", và các biến thể. Kết
-   quả: 10.572 JD IT từ 606.878 tổng.
-2. **Loại trùng lặp**: Cùng công ty + nội dung (job_description + requirements) có fingerprint
-   MD5 giống nhau → loại 804 bản trùng → 9.768 JD unique.
-3. **Loại JD thiếu nội dung**: JD không có title hoặc tổng (job_description + requirements) dưới
-   100 ký tự → loại 20 → 9.748 JD hợp lệ.
-4. **Lấy mẫu phân tầng có quota**: Round-robin theo (industry_group × experience_category),
-   seed=42. **Quota sàn Data/AI/ML >= 12%** — phân loại JD theo cả `job_industry` và keyword
-   trong `job_title` (data analyst, AI engineer, ML engineer…). Kết quả: **450 JD**.
+| Bước | Lọc | Còn lại |
+|------|-----|---------|
+| 0 | Dataset gốc | 606.878 |
+| 1 | Ngành IT thuần (`job_industry` nhóm CNTT/IT) | 10.572 |
+| 2 | Loại trùng lặp (fingerprint MD5 công ty + nội dung) | 9.768 |
+| 3 | Loại thiếu nội dung (title rỗng hoặc < 100 ký tự) | 9.748 |
+| 4 | Mẫu phân tầng có quota (round-robin, seed=42, **Data/AI/ML ≥ 12%**) | **450** |
 
-**Phân bố mẫu cuối**:
+**Phân bố mẫu cuối** (ngành / kinh nghiệm / địa điểm):
 
-| Nhóm ngành | JD | % |
-|------------|----|----|
-| Data/AI/ML | 75 | 16,7% |
-| IT General | 71 | 15,8% |
-| Software Engineering | 60 | 13,3% |
-| Product/Project Mgmt | 57 | 12,7% |
-| Infra/DevOps | 56 | 12,4% |
-| Testing/QA | 54 | 12,0% |
-| Game Dev | 39 | 8,7% |
-| Security | 38 | 8,4% |
-
-| Cấp kinh nghiệm | JD | % |
-|-------------------|----|----|
-| Entry (0-1 năm) | 128 | 28,4% |
-| Junior (1-3 năm) | 154 | 34,2% |
-| Mid (3-5 năm) | 129 | 28,7% |
-| Senior (5+ năm) | 39 | 8,7% |
-
-| Địa điểm | JD | % |
-|-----------|----|----|
-| Hà Nội | 279 | 62,0% |
-| Hồ Chí Minh | 146 | 32,4% |
-| Khác | 25 | 5,6% |
+| Phân loại | Nhóm | JD | % |
+|-----------|------|----|----|
+| Ngành | Data/AI/ML | 75 | 16,7% |
+| Ngành | IT General | 71 | 15,8% |
+| Ngành | Software Engineering | 60 | 13,3% |
+| Ngành | Product/Project Mgmt | 57 | 12,7% |
+| Ngành | Infra/DevOps | 56 | 12,4% |
+| Ngành | Testing/QA | 54 | 12,0% |
+| Ngành | Game Dev | 39 | 8,7% |
+| Ngành | Security | 38 | 8,4% |
+| Kinh nghiệm | Entry (0-1 năm) | 128 | 28,4% |
+| Kinh nghiệm | Junior (1-3 năm) | 154 | 34,2% |
+| Kinh nghiệm | Mid (3-5 năm) | 129 | 28,7% |
+| Kinh nghiệm | Senior (5+ năm) | 39 | 8,7% |
+| Địa điểm | Hà Nội | 279 | 62,0% |
+| Địa điểm | Hồ Chí Minh | 146 | 32,4% |
+| Địa điểm | Khác | 25 | 5,6% |
 
 **Chuẩn hóa đã thực hiện**:
 - `location` (250k+ giá trị unique) → `location_normalized` (47 tỉnh/thành + Remote), bằng regex.
@@ -253,7 +244,7 @@ JD (450) ──Tầng 1──> text ──Tầng 2──> skills chuẩn hóa �
 > ghép cặp → chấm → agreement → metric trên 10 cặp (3 CV synthetic × JD thật, nhãn cơ chế).
 > Pipeline chạy đúng đầu-cuối: `generate_annotation_pairs.py` → 3 file chấm →
 > `compute_agreement.py` (Fleiss' kappa + Krippendorff's alpha) → `compute_metrics.py`
-> (Precision@5, nDCG@10, Spearman, MAE). Số liệu pilot ở bảng 7.6 chỉ mang tính kiểm chứng
+> (Precision@5, nDCG@10, Spearman, MAE). Số liệu pilot ở bảng ablation (Mục 9) chỉ mang tính kiểm chứng
 > kỹ thuật, sẽ được THAY THẾ bằng số liệu D3 thật.
 
 ### 7.1. Tổng quan hệ thống đánh giá
@@ -328,15 +319,12 @@ Scoring breakdown V2 hiện tại gồm 3 thành phần (đã implement, công t
 ### 8.1. Đánh giá kết quả thử nghiệm pipeline đầu-cuối
 Nhóm đã triển khai kiểm thử toàn diện luồng 6 bước từ Onboarding đến Dashboard trên cả giao diện Web React và hệ thống Backend FastAPI với các kết quả định lượng cụ thể:
 - **Hiệu năng & Thời gian đáp ứng**:
-  - Trích xuất nội dung văn bản thô (Tầng 1 - PyMuPDF): trung bình **0,15 – 0,25 giây** cho tài liệu PDF chuẩn 1–2 trang.
-  - Trích xuất thực thể có cấu trúc (Tầng 2 - LLM Structured Output): trung bình **1,8 – 2,5 giây** qua NVIDIA NIM API. Khi kích hoạt chế độ Fallback Regex, thời gian trích xuất chỉ mất **0,08 giây**.
-  - Tính toán vector embedding (Tầng 3 - BGE-M3 1024 chiều chạy cục bộ trên CPU): trung bình **0,35 giây** cho bản tóm tắt CV.
-  - Truy xuất Top-20 việc làm phù hợp từ 450 JD trên cơ sở dữ liệu pgvector: dưới **0,05 giây** (< 50ms).
-  - Tính toán điểm số Hybrid V2 và trích dẫn Evidence (Tầng 4): dưới **0,02 giây**.
+  - Truy xuất Top-30 ứng viên từ 450 JD trên pgvector: trung bình **~60 ms warm** (đo thực tế 5 lần: 55–72 ms; lần đầu kết nối cold mất 441 ms).
+  - Tính toán điểm số Hybrid V2 và trích dẫn Evidence (Tầng 4): dưới **0,02 giây** (< 20ms).
   - **Tổng thời gian xử lý toàn luồng** (đo thực tế, mode=rule): **~1,1–1,3 giây** khi hệ thống đã sẵn sàng (warm); lần gọi đầu tiên sau khi khởi động server mất thêm **~20 giây** do nạp model embedding BGE-M3 vào bộ nhớ (chỉ xảy ra một lần mỗi phiên).
 - **Độ ổn định & Kiểm chứng Human-in-the-loop**:
-  - Thử nghiệm trên 3 CV thành viên và 3 bộ fixture chuẩn (đơn cột, hai cột, thiếu mục): tỷ lệ phiên trích xuất đi qua LLM Structured Output so với Fallback Regex là **72,2% / 27,8%** (tỷ lệ *sử dụng* cơ chế, không phải độ chính xác). Nhóm **chưa đo formal accuracy** trên tập gán nhãn chuẩn — đây là hướng phát triển tiếp theo.
-  - Cơ chế Human-in-the-loop cho phép người dùng trực tiếp thêm/xóa/sửa các kỹ năng AI nhận diện sai trước khi bấm đối chiếu, đảm bảo dữ liệu đưa vào Tầng 3–4 là **chính xác 100%** theo xác nhận của ứng viên.
+  - Ở Tầng 2 phía tiền xử lý 450 JD: tỷ lệ trích xuất kỹ năng qua LLM Structured Output (NVIDIA NIM) đạt **72,2% (325/450 JD)**, qua cơ chế dự phòng Rule-based Regex là **27,8% (125/450 JD)**. Đối với trích xuất CV, nhóm chưa đo formal accuracy trên tập gán nhãn chuẩn (đã đưa vào mục 12 - Hướng phát triển).
+  - Cơ chế Human-in-the-loop cho phép người dùng xem và trực tiếp rà soát, thêm các kỹ năng bị nhận diện sót hoặc loại bỏ các kỹ năng bị nhận diện nhầm trước khi chuyển sang bước đối chiếu, giúp giảm thiểu tối đa sai lệch thông tin đầu vào.
 
 ### 8.2. Ưu điểm nổi bật của giải pháp
 1. **Minh bạch & Giải thích được (Explainable AI Matching)**:
@@ -344,7 +332,7 @@ Nhóm đã triển khai kiểm thử toàn diện luồng 6 bước từ Onboard
    - Điểm số luôn đi kèm **Evidence đối chiếu trích dẫn trực tiếp** từ cả bản CV lẫn yêu cầu công việc thật trong JD, giúp ứng viên hiểu tường tận tại sao mình đạt hoặc chưa đạt điểm cao.
 2. **Vòng lặp tối ưu hóa CV đo lường được (Measurable Loop)**:
    - Hệ thống không dừng lại ở việc chấm điểm mà đồng hành chỉ rõ các khoảng trống kỹ năng (skill gaps) theo thứ tự ưu tiên.
-   - Cung cấp gợi ý viết lại bullet point hành động cụ thể theo phương pháp STAR và cho phép ứng viên bấm chấm lại ngay để thấy **Delta Score gia tăng** (thực nghiệm đạt mức tăng điểm trung bình từ +12 đến +16 điểm).
+   - Cung cấp các gợi ý dạng điều kiện (bám sát kỹ năng còn thiếu) và tính toán điểm số cải thiện dự kiến: trên tập thử nghiệm 9 cặp (3 CV nội bộ × Top-3 JD thật tại data/labeled/improve_delta_report.md), điểm số gia tăng ước tính dao động từ **+21,4 đến +41,7 điểm** (trung vị **+33,3 điểm**). Lưu ý: đây là điểm ước tính theo giả định người dùng xác nhận toàn bộ gap kỹ năng cứng còn thiếu (cận trên lý thuyết để kiểm chứng cơ chế chấm lại), không phải điểm đo được sau khi người dùng thực tế viết lại nội dung CV.
 3. **Bản địa hóa sâu sắc cho thị trường Việt Nam (Vietnamese-First)**:
    - Xử lý hoàn hảo tài liệu song ngữ Việt – Anh, thấu hiểu cấu trúc viết CV của sinh viên Việt Nam và văn phong đăng tuyển của các doanh nghiệp trong nước nhờ bộ Taxonomy 235 kỹ năng chuẩn hóa và 690 alias phổ biến.
 
@@ -402,14 +390,8 @@ keyword ở quy mô đó mới là tín hiệu cần debug công thức.*
 
 *Công thức hybrid V2: 0,5 × hard_skill + 0,1 × soft_skill + 0,4 × semantic (xem README).*
 
-**Số liệu D3 chính thức (điền sau khi chấm tay):**
-
-| Biến thể | Precision@5 | nDCG@10 | Spearman rho | MAE |
-|----------|-------------|---------|-------------|-----|
-| (a) Keyword | — | — | — | — |
-| (b) Embedding-only | — | — | — | — |
-| (c) LLM-only | — | — | — | — |
-| **(d) Full hybrid** | **—** | **—** | **—** | **—** |
+**Số liệu D3 chính thức**: sẽ điền vào **cùng bảng trên** (thay giá trị pilot) sau khi 3 thành viên
+chấm tay 20–30+ cặp — hiện chưa có, không trình bày số giả.
 
 ---
 
