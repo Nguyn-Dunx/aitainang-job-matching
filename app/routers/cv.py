@@ -19,9 +19,13 @@ from sqlalchemy import text
 from app.db import SessionLocal
 from app.services.cv_extraction import extract_cv
 from app.services.cv_improve import (
+    cache_key,
     compute_gap,
     generate_suggestions,
+    load_cache,
+    now_iso,
     rescore_with_skills,
+    save_cache,
 )
 from app.services.cv_parser import parse_cv
 from app.services.embedding import embed_query
@@ -144,17 +148,45 @@ class SuggestImprovementRequest(BaseModel):
     cv_experience: list[str] = []  # các bullet mô tả kinh nghiệm hiện có
     cv_text: str = ""  # optional: embed để có cosine_sim thật; bỏ trống -> semantic = 0 cả 2 lần
     accepted_skills: list[str] | None = None  # None = chấp nhận tất cả skill trong gợi ý
+    cv_id: str | None = None  # optional: khoá cache ổn định theo (cv_id, job_id)
+
+
+def _status_message(llm_status: str, has_suggestions: bool, has_gap: bool) -> str:
+    """Thông báo tiếng Việt cho người dùng theo trạng thái thật của LLM."""
+    if llm_status == "timeout":
+        return ("Máy chủ gợi ý AI phản hồi quá lâu nên tạm thời chưa có gợi ý. "
+                "Vui lòng thử lại sau ít phút.")
+    if llm_status == "unavailable":
+        return ("Dịch vụ gợi ý AI hiện không khả dụng nên chưa tạo được gợi ý. "
+                "Vui lòng thử lại sau.")
+    if not has_gap:
+        return "CV của bạn đã đáp ứng đủ kỹ năng JD yêu cầu — không có khoảng trống để gợi ý."
+    if not has_suggestions:
+        return "Chưa tạo được gợi ý cho JD này. Vui lòng thử lại."
+    return ("Gợi ý dạng điều kiện dựa trên kỹ năng còn thiếu; điểm dự kiến nếu bạn "
+            "bổ sung kinh nghiệm này.")
 
 
 @router.post("/suggest-improvement")
-def suggest_improvement(req: SuggestImprovementRequest):
+def suggest_improvement(req: SuggestImprovementRequest, use_cache: bool = Query(False)):
     """Tầng 5: gợi ý sửa CV theo gap thật của 1 JD + chấm lại điểm (delta thật).
 
     - Gap lấy từ scoring hiện có (missing hard/soft skills), không tính lại từ đầu.
     - LLM chỉ gợi ý dựa trên missing skills; gợi ý lệch danh sách bị loại (chống bịa).
     - Delta = score_hybrid_v2(CV + accepted) - score_hybrid_v2(CV gốc), cùng cosine_sim
       -> delta thuần túy từ thành phần skill; semantic giữ nguyên.
+    - llm_status: "ok" | "unavailable" | "timeout". Khi không có gợi ý, delta = null
+      (KHÔNG trả 0 như thể là kết quả).
+    - ?use_cache=true: trả kết quả thành công gần nhất đã lưu (cached=true, generated_at).
+      KHÔNG tự dùng cache khi người dùng không yêu cầu.
     """
+    key = cache_key(req.cv_id, req.job_id, req.cv_skills, req.cv_text)
+
+    if use_cache:
+        cached = load_cache(key)
+        if cached is not None:
+            return {**cached, "cached": True}
+
     with SessionLocal() as db:
         row = db.execute(text(
             "SELECT id, title, parsed, embedding FROM jds WHERE id = :id"
@@ -170,11 +202,14 @@ def suggest_improvement(req: SuggestImprovementRequest):
     gap = compute_gap(req.cv_skills, jd_skills)
     missing_all = gap["missing_hard"] + gap["missing_soft"]
 
-    suggestions = generate_suggestions(
+    gen = generate_suggestions(
         job_title=row.title,
         missing_skills=missing_all,
         experience_texts=req.cv_experience,
     )
+    suggestions = gen["suggestions"]
+    llm_status = gen["llm_status"]
+    model_used = gen["model"]
 
     accepted = req.accepted_skills
     if accepted is None:
@@ -183,31 +218,50 @@ def suggest_improvement(req: SuggestImprovementRequest):
         # Chi cho phep skill nam trong gap that - chan client tu them skill ngoai
         accepted = [s for s in accepted if s.lower() in {m.lower() for m in missing_all}]
 
-    cosine_sim = 0.0
-    if req.cv_text:
-        cv_vec = embed_query(req.cv_text)
-        with SessionLocal() as db:
-            sim_row = db.execute(text(
-                "SELECT 1 - (embedding <=> CAST(:q AS vector)) AS sim FROM jds WHERE id = :id"
-            ), {"q": str(cv_vec), "id": req.job_id}).first()
-        cosine_sim = sim_row.sim if sim_row and sim_row.sim is not None else 0.0
+    # Chi cham diem khi thuc su co skill de them; neu khong -> delta = null (khong gia 0).
+    if accepted:
+        cosine_sim = 0.0
+        if req.cv_text:
+            cv_vec = embed_query(req.cv_text)
+            with SessionLocal() as db:
+                sim_row = db.execute(text(
+                    "SELECT 1 - (embedding <=> CAST(:q AS vector)) AS sim FROM jds WHERE id = :id"
+                ), {"q": str(cv_vec), "id": req.job_id}).first()
+            cosine_sim = sim_row.sim if sim_row and sim_row.sim is not None else 0.0
 
-    scores = rescore_with_skills(
-        cv_skills=req.cv_skills,
-        accepted_skills=accepted,
-        jd_skills=jd_skills,
-        cosine_sim=cosine_sim,
-        jd_evidence=jd_evidence,
-        cv_text=req.cv_text,
-    )
+        scores = rescore_with_skills(
+            cv_skills=req.cv_skills,
+            accepted_skills=accepted,
+            jd_skills=jd_skills,
+            cosine_sim=cosine_sim,
+            jd_evidence=jd_evidence,
+            cv_text=req.cv_text,
+        )
+    else:
+        scores = {
+            "score_before": None, "score_after": None, "delta": None,
+            "breakdown_before": None, "breakdown_after": None,
+        }
 
-    return {
+    payload = {
         "job_id": row.id,
         "job_title": row.title,
         "gap": gap,
         "suggestions": suggestions,
         "accepted_skills": accepted,
         **scores,
+        "llm_status": llm_status,
+        "model": model_used,
+        "message": _status_message(llm_status, bool(suggestions), bool(missing_all)),
+        "cached": False,
+        "generated_at": None,
         "note": ("delta chi den tu thanh phan skill overlap; semantic giu nguyen "
                  "(khong re-embed CV sau khi sua). Goi y dang dieu kien, khong bia kinh nghiem."),
     }
+
+    # Chi luu cache khi co ket qua THAT (LLM ok + co goi y).
+    if llm_status == "ok" and suggestions:
+        payload["generated_at"] = now_iso()
+        save_cache(key, {k: v for k, v in payload.items() if k != "cached"})
+
+    return payload

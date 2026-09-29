@@ -98,13 +98,17 @@ filter nếu UI có chọn location/level/industry.
 
 Input: CV **đã parse** (không cần upload lại file) + `job_id` của 1 JD trong danh sách match.
 
+Query param: `?use_cache=true` — trả kết quả thành công gần nhất đã lưu cho cặp `(cv_id, job_id)`
+(không tự dùng cache khi người dùng không yêu cầu).
+
 ```json
 {
   "job_id": "f356d908-...",            // UUID JD (trường id trong matches của /upload)
   "cv_skills": ["Python", "FastAPI", "..."],
   "cv_experience": ["Thiết kế RESTful API...", "..."],  // bullet kinh nghiệm hiện có
   "cv_text": "Backend Engineer | ... (bản tóm tắt CV)",   // optional: để tính cosine_sim thật
-  "accepted_skills": null              // null = chấp nhận tất cả skill trong gợi ý
+  "accepted_skills": null,             // null = chấp nhận tất cả skill trong gợi ý
+  "cv_id": "cv_member_01"              // optional: khoá cache ổn định theo (cv_id, job_id)
 }
 ```
 
@@ -123,9 +127,24 @@ Response (đo thật, CV `cv_member_01_backend` × JD "Kỹ Sư Quản Trị H�
   "accepted_skills": ["Communication", "Firewall", "Load Balancer", "Networking"],
   "score_before": 13.3, "score_after": 46.7, "delta": 33.4,
   "breakdown_before": {"...": "..."}, "breakdown_after": {"...": "..."},
+  "llm_status": "ok",                  // "ok" | "unavailable" | "timeout"
+  "model": "nvidia/nemotron-3-ultra-550b-a55b",  // model thực tế đã trả kết quả (null nếu lỗi)
+  "message": "Gợi ý dạng điều kiện dựa trên kỹ năng còn thiếu; điểm dự kiến nếu bạn bổ sung kinh nghiệm này.",
+  "cached": false,                     // true khi trả từ ?use_cache=true
+  "generated_at": "2026-09-29T10:20:30+00:00",  // null nếu chưa lưu cache
   "note": "delta chi den tu thanh phan skill overlap; semantic giu nguyen (khong re-embed CV sau khi sua). Goi y dang dieu kien, khong bia kinh nghiem."
 }
 ```
+
+**Trạng thái LLM trung thực (`llm_status`):**
+- `"ok"` — LLM trả gợi ý hợp lệ (hoặc CV không có gap → không cần gọi LLM).
+- `"unavailable"` — dịch vụ LLM lỗi/không khả dụng; `suggestions: []`, **`delta: null`**.
+- `"timeout"` — LLM phản hồi quá lâu; `suggestions: []`, **`delta: null`**.
+- Khi **không có gợi ý**, `delta` là `null` (KHÔNG trả `0` như thể là kết quả). `message` là thông
+  báo tiếng Việt cho người dùng theo trạng thái thật.
+
+**Cache (`data/demo_cache/`):** chỉ lưu khi có kết quả THẬT (`llm_status="ok"` + có gợi ý), kèm
+`generated_at` và `model`. `?use_cache=true` trả bản đã lưu với `cached: true` + `generated_at`.
 
 **Ràng buộc chống bịa:**
 - Gap lấy từ đúng hàm scoring hiện có (`split_hard_soft` + `_overlap_score`), không tính lại từ đầu.
@@ -134,5 +153,6 @@ Response (đo thật, CV `cv_member_01_backend` × JD "Kỹ Sư Quản Trị H�
 - `accepted_skills` từ client cũng bị lọc lại theo gap thật.
 - Delta = `score_hybrid_v2(CV + accepted) − score_hybrid_v2(CV gốc)`, cùng cosine_sim → delta chỉ đến từ skill overlap; semantic giữ nguyên.
 
-**Lỗi**: 404 nếu `job_id` không tồn tại; 200 với `suggestions: []` nếu LLM lỗi cả 3 lần thử
-(model chính ×2 + fallback) — khi đó `delta` vẫn tính được nếu client gửi `accepted_skills` riêng.
+**Lỗi**: 404 nếu `job_id` không tồn tại. Khi LLM lỗi cả 2 lượt (model chính + fallback), trả 200 với
+`suggestions: []`, `llm_status` là `"timeout"`/`"unavailable"` và `delta: null` — trừ khi client gửi
+`accepted_skills` riêng thì `delta` vẫn tính được.

@@ -10,9 +10,12 @@ Nguyên tắc:
 
 from __future__ import annotations
 
+import hashlib
 import json
 import logging
 import re
+from datetime import datetime, timezone
+from pathlib import Path
 
 from app.services.scoring import (
     PairInput,
@@ -74,8 +77,12 @@ def generate_suggestions(
     experience_texts: list[str],
     client=None,
     model: str | None = None,
-) -> list[dict]:
+) -> dict:
     """LLM sinh 2-4 gợi ý, ràng buộc chỉ dùng missing_skills thật.
+
+    Trả về dict: {"suggestions": [...], "llm_status": "ok"|"unavailable"|"timeout",
+    "model": str|None}. Trạng thái trung thực để endpoint KHÔNG trả delta 0 như thể
+    là kết quả khi LLM lỗi.
 
     Chuỗi retry 2 lượt: model chính (timeout đầy đủ) -> fallback (timeout rút ngắn
     15s) -> tổng tối đa ~60s cho endpoint. Gợi ý có skill ngoài danh sách missing
@@ -86,10 +93,11 @@ def generate_suggestions(
     from app.config import settings
 
     if not missing_skills:
-        return []
+        # Không có gap -> không phải lỗi LLM; không gọi API.
+        return {"suggestions": [], "llm_status": "ok", "model": None}
 
     client = client or OpenAI(base_url=settings.llm_base_url, api_key=settings.llm_api_key,
-                             max_retries=0)  # khong retry internal: fallback cham som hon
+                              max_retries=0)  # khong retry internal: fallback cham som hon
     prompt = _SUGGEST_PROMPT.format(
         job_title=job_title,
         missing_skills="\n".join(f"- {s}" for s in missing_skills),
@@ -99,6 +107,7 @@ def generate_suggestions(
         (model or settings.llm_model, True, settings.llm_timeout_s),
         (settings.llm_fallback_model, True, min(settings.llm_timeout_s, 15)),
     ]
+    last_status = "unavailable"
     for m, use_format, tmo in attempts:
         try:
             kwargs: dict = {"model": m,
@@ -109,6 +118,7 @@ def generate_suggestions(
             resp = client.chat.completions.create(**kwargs)
             data = _extract_json(resp.choices[0].message.content)
             if not data or not isinstance(data.get("suggestions"), list):
+                last_status = "unavailable"  # content rong/khong dung schema
                 continue
             allowed = {s.lower() for s in missing_skills}
             out = [
@@ -116,10 +126,51 @@ def generate_suggestions(
                 for s in data["suggestions"]
                 if isinstance(s, dict) and str(s.get("skill", "")).lower() in allowed and s.get("text")
             ]
-            return out[:4]
+            if out:
+                return {"suggestions": out[:4], "llm_status": "ok", "model": m}
+            last_status = "unavailable"
         except Exception as e:  # noqa: BLE001 - log roi thu model tiep theo
+            msg = str(e).lower()
+            last_status = "timeout" if ("timeout" in msg or "timed out" in msg) else "unavailable"
             log.warning("generate_suggestions loi (model=%s, fmt=%s): %s", m, use_format, e)
-    return []
+    return {"suggestions": [], "llm_status": last_status, "model": None}
+
+
+# --- Cache ket qua thanh cong gan nhat theo (cv_id, job_id) ---------------------
+# Muc dich: cho phep quay demo bang ket qua THAT da chay truoc do khi NVIDIA NIM
+# suy giam. KHONG tu dong dung cache khi nguoi dung khong yeu cau (?use_cache=true).
+
+_CACHE_DIR = Path("data/demo_cache")
+
+
+def cache_key(cv_id: str | None, job_id: str, cv_skills: list[str], cv_text: str = "") -> str:
+    """Khoa cache on dinh. Uu tien cv_id; neu khong co thi bam tu noi dung CV."""
+    if cv_id:
+        raw = f"{cv_id}|{job_id}"
+    else:
+        raw = f"{job_id}|{','.join(sorted(cv_skills))}|{cv_text[:200]}"
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
+
+
+def save_cache(key: str, payload: dict) -> None:
+    _CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    (_CACHE_DIR / f"{key}.json").write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+
+
+def load_cache(key: str) -> dict | None:
+    f = _CACHE_DIR / f"{key}.json"
+    if not f.exists():
+        return None
+    try:
+        return json.loads(f.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+
+
+def now_iso() -> str:
+    return datetime.now(timezone.utc).isoformat()
 
 
 def rescore_with_skills(

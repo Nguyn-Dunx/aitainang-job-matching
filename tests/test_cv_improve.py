@@ -49,10 +49,72 @@ def test_generate_suggestions_loc_skill_ngoai_gap(monkeypatch):
         job_title="Backend", missing_skills=["Docker", "Kubernetes"],
         experience_texts=["Lam API FastAPI"], client=FakeClient(),
     )
-    assert len(out) == 1
-    assert out[0]["skill"] == "Docker"
+    assert out["llm_status"] == "ok"
+    assert out["model"] is not None
+    assert len(out["suggestions"]) == 1
+    assert out["suggestions"][0]["skill"] == "Docker"
 
 
 def test_generate_suggestions_gap_rong_tra_ve_rong():
     from app.services.cv_improve import generate_suggestions
-    assert generate_suggestions("Backend", [], ["x"]) == []
+    out = generate_suggestions("Backend", [], ["x"])
+    assert out["suggestions"] == []
+    assert out["llm_status"] == "ok"  # khong co gap KHONG phai loi LLM
+
+
+def test_generate_suggestions_timeout_bao_dung_trang_thai():
+    """LLM timeout -> llm_status='timeout', suggestions rong (khong bia)."""
+    from app.services import cv_improve
+
+    def _fake_create(**kwargs):
+        raise TimeoutError("Request timed out.")
+
+    class FakeClient:
+        class chat:
+            class completions:
+                create = staticmethod(_fake_create)
+
+    out = cv_improve.generate_suggestions(
+        job_title="Backend", missing_skills=["Docker"], experience_texts=["x"],
+        client=FakeClient(),
+    )
+    assert out["suggestions"] == []
+    assert out["llm_status"] == "timeout"
+
+
+def test_generate_suggestions_unavailable_bao_dung_trang_thai():
+    from app.services import cv_improve
+
+    def _fake_create(**kwargs):
+        raise RuntimeError("503 Service Unavailable")
+
+    class FakeClient:
+        class chat:
+            class completions:
+                create = staticmethod(_fake_create)
+
+    out = cv_improve.generate_suggestions(
+        job_title="Backend", missing_skills=["Docker"], experience_texts=["x"],
+        client=FakeClient(),
+    )
+    assert out["suggestions"] == []
+    assert out["llm_status"] == "unavailable"
+
+
+def test_cache_roundtrip(tmp_path, monkeypatch):
+    """save_cache/load_cache luu va doc lai dung payload."""
+    from app.services import cv_improve
+
+    monkeypatch.setattr(cv_improve, "_CACHE_DIR", tmp_path)
+    key = cv_improve.cache_key("cv1", "job1", ["Python"])
+    assert cv_improve.load_cache(key) is None
+    cv_improve.save_cache(key, {"delta": 12.3, "generated_at": "2026-09-29T00:00:00Z"})
+    got = cv_improve.load_cache(key)
+    assert got["delta"] == 12.3
+    assert got["generated_at"] == "2026-09-29T00:00:00Z"
+
+
+def test_cache_key_on_dinh_theo_cv_id():
+    from app.services.cv_improve import cache_key
+    assert cache_key("cv1", "job1", ["Python"]) == cache_key("cv1", "job1", ["SQL"])
+    assert cache_key("cv1", "job1", ["Python"]) != cache_key("cv2", "job1", ["Python"])
