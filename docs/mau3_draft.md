@@ -144,7 +144,7 @@ dataset, không thể truy xuất bài đăng gốc. Nhóm ghi nhận hạn ch�
 |----------|---------|
 | Quy mô | **235 mục** + **690 alias** |
 | Active trong D1 | 211/235 (89,8%) xuất hiện trong >=1 JD |
-| Coverage | 99% JD (446/450) có >=1 skill; trung bình 8,6 skill/JD |
+| Coverage | 100% JD (450/450) có >=1 skill; trung bình 11,7 skill/JD (đếm lại từ DB ngày 28/09) |
 | Số nhóm | 32 category (Programming Language, Soft Skill, DevOps, Database, AI…) |
 
 **Phương pháp xây dựng**:
@@ -184,7 +184,7 @@ Writing 42,9%, English 40,2%…) chứ không phải kỹ năng cứng → scori
 4. **Trích xuất kỹ năng (Tầng 2)**: LLM (OpenRouter, model `moonshotai/kimi-k3`,
    fallback `nvidia/nemotron-3-ultra-550b-a55b`) trích skill theo taxonomy D4, kèm
    `evidence_snippet` trích nguyên văn JD; JD nào LLM lỗi/timeout thì fallback rule
-   (regex alias). Kết quả thực tế: **LLM 320/450 (72,2%), rule 125/450 (27,8%)**.
+   (regex alias). Kết quả thực tế: **LLM 325/450 (72,2%), rule 125/450 (27,8%)**.
 5. **Embedding (Tầng 3)**: toàn bộ 450 JD embed bằng BGE-M3 (1024-dim), lưu
    `jds_embeddings.npy` + cột `vector(1024)` trong Neon pgvector.
 
@@ -232,12 +232,15 @@ JD (450) ──Tầng 1──> text ──Tầng 2──> skills chuẩn hóa �
 - **Tích hợp LLM**: gọi qua OpenRouter API, prompt ép JSON schema, parse lỗi thì
   chuyển model fallback, cả hai lỗi thì chuyển rule — không bao giờ trả lỗi trần.
 - **Tích hợp embedding**: service singleton lazy-load (threading.Lock), model chỉ
-  tải 1 lần; ~0,8–1,0 s/JD trên CPU.
+  tải 1 lần; đo warm 82–127 ms/câu ngắn trên CPU (28/09); JD dài hơn ước ~0,8–1 s/JD
+  (ước tính từ phiên import, chưa lưu log đo riêng).
 - **Tích hợp DB**: migration Alembic-style (001 bảng, 002 cột chuẩn hóa + index);
   import 450/450 JD, 450/450 embedding, 0 dòng thiếu cột lọc.
 - **API**: `POST /api/cv/upload` (multipart PDF) → parse + extract + embed + match
   trong 1 request; filter `industry_group`, `location`, `level` truyền qua query params.
-  E2E test thật: upload PDF → nhận danh sách JD xếp hạng kèm breakdown (24,7 s).
+  E2E test thật: upload PDF → nhận danh sách JD xếp hạng kèm breakdown (24,7 s — gồm cả
+  thời gian khởi động app trong pytest; request đơn lẻ khi hệ thống đã warm đo riêng
+  ~1,1–1,3 s).
 
 ---
 
@@ -388,7 +391,9 @@ So sánh 4 biến thể trên cùng bộ D3:
 *Cảnh báo diễn giải: nhãn pilot sinh cơ học từ difficulty_hint nên các chỉ số KHÔNG phản ánh
 chất lượng thật; giá trị duy nhất của bảng này là chứng minh pipeline đo được đầu-cuối
 (đủ 4/4 biến thể, gồm cả LLM-only qua OpenRouter — 10/10 cặp chấm thành công sau khi vá
-retry cho lỗi provider trả content rỗng).
+retry cho lỗi provider trả content rỗng). Log đo lưu đầy đủ cho LLM-only
+(`data/labeled/metrics_llm_only_pilot.log`); các biến thể còn lại đo cùng phiên 27/09,
+chưa lưu log riêng — sẽ lưu lại khi chạy D3 thật.
 
 *Ghi chú theo dõi: ở pilot, keyword_only có Spearman cao nhất (0.296) so với hybrid_v2 (0.148)
 và llm_only (0.155). KHÔNG kết luận gì ở cỡ mẫu n=10 chấm cơ chế (nhiễu thống kê rất lớn) —
@@ -481,6 +486,8 @@ keyword ở quy mô đó mới là tín hiệu cần debug công thức.*
    - Tính toán chỉ số đồng thuận liên thẩm định (Inter-annotator Agreement: Fleiss' Kappa) và cập nhật bảng số liệu đánh giá chính thức (Spearman rho, nDCG@10, MAE) cho cả 4 biến thể mô hình.
 3. **Thử nghiệm người dùng thực tế (Pilot Testing)**:
    - Tổ chức đợt thử nghiệm cho 20–30 sinh viên năm cuối; thu thập bảng câu hỏi khảo sát trải nghiệm người dùng (SUS score) và đo lường mức độ hữu ích của các gợi ý sửa CV.
+4. **Đo lường formal accuracy cho module trích xuất (Tầng 2)**:
+   - Xây dựng tập dữ liệu CV có gán nhãn chuẩn (annotated entities ground-truth) để đo lường chính xác các chỉ số Precision, Recall và F1-score cho bước Structured Extraction (thay vì chỉ ghi nhận tỷ lệ kích hoạt LLM/fallback regex).
 
 ### 12.2. Lộ trình trung & dài hạn (Vòng Chung kết & Ứng dụng thực tế)
 1. **Tích hợp module OCR & Trích xuất layout phức tạp**:

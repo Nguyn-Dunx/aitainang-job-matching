@@ -32,7 +32,7 @@
 ### Slide 2: Vấn đề thực tiễn & Nỗi đau của người trẻ (0:30 – 1:10)
 - **Visual trên Slide**:
   - Infographic 3 câu hỏi lớn của sinh viên: *(1) Mình hợp việc gì? (2) CV thiếu gì so với JD? (3) Sửa CV thế nào để được gọi phỏng vấn?*
-  - Biểu đồ minh họa: Tỷ lệ CV gửi đi không phản hồi (>90%) đối với fresh graduate.
+  - Biểu đồ minh họa: Tỷ lệ CV gửi đi không phản hồi thường rất cao đối với fresh graduate (con số cụ thể đang cần trích dẫn khảo sát thật — xem FACT_AUDIT).
   - So sánh hạn chế giải pháp hiện hữu: Bảng tin đăng việc lọc từ khóa thô sơ; công cụ AI hiện tại là "hộp đen" chấm điểm không bằng chứng, thiếu vòng lặp sửa CV.
 - **Lời thuyết minh**:  
   *"Mỗi năm, hàng trăm nghìn sinh viên bước vào thị trường lao động trong sự hoang mang. Hiện nay, các bạn phải tự đọc hàng chục bản JD phức tạp, tự đoán lỗi CV và nộp đơn trong vô vọng. Các nền tảng hiện hữu chỉ dừng lại ở việc lọc từ khóa đơn giản hoặc chấm điểm hộp đen mà không giải thích nguyên do. Sinh viên hoàn toàn thiếu một công cụ đồng hành chỉ rõ khoảng trống năng lực và hướng dẫn sửa CV có thể đo lường trước khi nộp đơn."*
@@ -51,25 +51,24 @@
     $$\text{Score} = 0.5 \times \text{HardSkill} + 0.4 \times \text{Semantic} + 0.1 \times \text{SoftSkill}$$
   - Mô hình Embedding BGE-M3 (1024 chiều) kết hợp PostgreSQL + pgvector.
   - Bộ Taxonomy kỹ năng song ngữ Việt – Anh (235 canonical + 690 alias).
-  - Cơ chế Human-in-the-loop: Cho phép người dùng chỉnh sửa dữ liệu trích xuất, ngăn chặn hoàn toàn hallucination.
+  - Cơ chế Human-in-the-loop: Cho phép người dùng chỉnh sửa dữ liệu trích xuất, giảm thiểu hallucination.
 - **Lời thuyết minh**:  
   *"Về mặt kỹ thuật, điểm đột phá của aitainang nằm ở ba yếu tố: Thứ nhất, công thức chấm điểm Hybrid V2 công khai và minh bạch, kết hợp giữa độ phủ kỹ năng cứng, ngữ nghĩa ngữ cảnh sâu sắc và kỹ năng mềm. Thứ hai, bộ Taxonomy kỹ năng song ngữ giải quyết triệt để sự phân mảnh thuật ngữ Việt – Anh. Thứ ba, cơ chế Human-in-the-loop đảm bảo sinh viên luôn là người làm chủ thông tin, loại bỏ hoàn toàn nguy cơ AI bịa đặt dữ liệu."*
 
 ### Slide 5: Dữ liệu Hợp lệ & Kết quả Thực nghiệm (2:40 – 3:30)
 - **Visual trên Slide**:
   - Bảng thống kê dữ liệu hợp lệ: 450 JD thật (tinixai CC BY-NC 4.0), D2 gồm CV thành viên & bạn bè có văn bản đồng ý, ẩn danh hóa 100%.
-  - Bảng Ablation Study so sánh 4 biến thể: Keyword-only, Embedding-only, LLM-only và Full Hybrid V2.
-  - Thời gian xử lý toàn luồng (đo thực tế, mode=rule): ~1,1–1,3 giây khi hệ thống đã sẵn sàng (warm); lần gọi đầu sau khi khởi động mất thêm ~20 giây do nạp model embedding. Thời gian truy xuất pgvector < 50ms.
+  - Bảng Ablation Study so sánh 4 biến thể: Keyword-only, Embedding-only, LLM-only và Full Hybrid V2 (kết quả pilot 10 cặp, nhãn tự sinh — chưa phải D3 chính thức).
+  - Thời gian xử lý toàn luồng (đo thực tế, mode=rule): ~1,1–1,3 giây khi hệ thống đã sẵn sàng (warm); lần gọi đầu sau khi khởi động mất thêm ~20 giây do nạp model embedding. Thời gian truy xuất pgvector ~60 ms warm (đo thật 5 lần: 55–72 ms; lần đầu 441 ms).
 - **Lời thuyết minh**:  
   *"Về dữ liệu, nhóm cam kết tuân thủ nghiêm ngặt Điều 5.7 Thể lệ Cuộc thi. 450 JD tuyển dụng được xử lý từ dataset công khai tinixai với giấy phép CC BY-NC 4.0, tuyệt đối không dùng tên công ty bịa đặt. Toàn bộ CV mẫu đều có văn bản đồng ý và được ẩn danh hóa hoàn toàn. Kết quả thử nghiệm ablation trên 4 biến thể chứng minh mô hình Hybrid V2 đạt được sự cân bằng tối ưu giữa độ chính xác truy xuất và tính giải thích minh bạch."*
 
 ### Slide 6: Giá trị Thực tiễn & Đạo đức AI (3:30 – 4:20)
 - **Visual trên Slide**:
-  - Kết quả khảo sát pilot: 100% người dùng đánh giá cao tính năng Explainable Evidence và chỉ dẫn sửa CV cụ thể theo phương pháp STAR.
   - Minh họa Delta Score gia tăng (+33,4 điểm — số đo thật từ backend: 33,4 → 66,8) sau khi chỉnh sửa CV.
   - Cam kết Đạo đức AI: Không lưu trữ PII lâu dài, API keys bảo mật an toàn, minh bạch nguồn gốc và Prompt Log đầy đủ.
 - **Lời thuyết minh**:  
-  *"Giá trị thực tiễn lớn nhất của aitainang là mang lại sự tự tin cho người trẻ. Thông qua tính năng đo lường Delta Score, sinh viên có thể thấy rõ điểm số của mình tăng lên từ 72 lên 88 điểm sau khi hoàn thiện các kỹ năng còn thiếu. Sản phẩm tuân thủ đạo đức AI ở mức cao nhất: không thu thập dữ liệu trái phép, không bịa đặt kinh nghiệm và luôn cảnh báo điểm số mang tính định hướng tham khảo."*
+  *"Giá trị thực tiễn lớn nhất của aitainang là mang lại sự tự tin cho người trẻ. Thông qua tính năng đo lường Delta Score, sinh viên có thể thấy rõ điểm số của mình tăng lên từ 33,4 lên 66,8 điểm (+33,4 — số đo thật từ backend) sau khi hoàn thiện các kỹ năng còn thiếu. Sản phẩm tuân thủ đạo đức AI ở mức cao nhất: không thu thập dữ liệu trái phép, không bịa đặt kinh nghiệm và luôn cảnh báo điểm số mang tính định hướng tham khảo."*
 
 ### Slide 7: Lộ trình Phát triển & Lời Kết (4:20 – 5:00)
 - **Visual trên Slide**:

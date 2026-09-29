@@ -22,6 +22,14 @@ data/consent/*.png
 data/consent/*.jpg
 data/consent/*.pdf
 
+# Temp / scratch artifacts (không commit)
+t5_*.json
+t5_*.txt
+*.log
+!data/labeled/*.log
+mau3_draft.html
+gitleaks.zip
+
 # OS / editor
 .DS_Store
 Thumbs.db

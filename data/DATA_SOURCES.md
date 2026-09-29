@@ -102,18 +102,19 @@
 
 ---
 
-## D2 — CV mẫu
+## D2 — CV mẫu (Lưu trữ chuẩn tại `data/cv_samples/`)
 
-| # | Nguồn | Đồng ý | Ẩn danh | Số lượng | Ghi chú |
-|---|-------|--------|---------|---------|---------|
-| 1 | CV thành viên nhóm (3 người) | Có — tự nguyện | Đã xóa: tên, SĐT, email, ảnh, địa chỉ | 3 | — |
-| 2 | CV bạn bè (có xin phép văn bản) | Có — tin nhắn/email lưu lại | Như trên | … | Lưu bằng chứng đồng ý tại `data/consent/` |
-| 3 | CV tổng hợp (synthetic) | N/A | N/A | 3 | `tests/fixtures/cv_{single_column,two_column,missing_sections}.pdf` — sinh bằng `scripts/make_synthetic_cvs.py` (nhân vật hoàn toàn hư cấu), phục vụ test Tầng 1–2; CV synthetic bổ sung sau sẽ sinh bởi LLM từ template tự viết |
+| # | Nguồn | Đồng ý | Ẩn danh | Số lượng | Vị trí lưu trữ & Ghi chú |
+|---|-------|--------|---------|---------|-------------------------|
+| 1 | CV thành viên nhóm (3 người) | Có — tự nguyện bằng văn bản | Đã xóa 100%: tên thật, SĐT, email, ảnh, địa chỉ | 3 | `data/cv_samples/cv_member_01_backend.json`<br>`data/cv_samples/cv_member_02_data_ai.json`<br>`data/cv_samples/cv_member_03_frontend_product.json` |
+| 2 | CV bạn bè (có xin phép văn bản) | Có — tin nhắn/email lưu lại theo `docs/cv_consent_template.md` | Như trên (loại bỏ toàn bộ PII) | 8/15-20 (đang tiếp nhận) | Đang ẩn danh hóa trước khi nạp vào `data/cv_samples/`; lưu bằng chứng đồng ý tại `data/consent/` |
+| 3 | CV tổng hợp (synthetic) | N/A | N/A | 3 | `tests/fixtures/cv_{single_column,two_column,missing_sections}.pdf` — phục vụ test pipeline Tầng 1–2; pilot D3 tại `data/processed/cvs_pilot/` |
 
-### Quy trình ẩn danh CV
-- Xóa hoàn toàn: họ tên, SĐT, email, địa chỉ cụ thể, ảnh đại diện, link mạng xã hội cá nhân.
-- Thay thế: tên → `Ứng viên A/B/C…`, email → `candidate_X@example.com`.
-- File gốc **không** được commit vào repo; chỉ commit bản đã ẩn danh.
+### Quy trình ẩn danh CV (Tuân thủ Điều 5.7 Thể lệ Cuộc thi)
+- Xóa hoàn toàn: họ tên thật, SĐT, email, địa chỉ cụ thể, ảnh đại diện, link mạng xã hội cá nhân, tên trường/công ty nếu quá đặc thù.
+- Thay thế: tên → `Ứng viên #AIT-01/02/03…`, email → `candidate_XX@aitainang.vn`.
+- File CV gốc của người tham gia **tuyệt đối không** được commit vào repo; chỉ lưu bản đã ẩn danh tại `data/cv_samples/`.
+- Cam kết đạo đức: Chỉ dùng dữ liệu cho mục đích nghiên cứu, học thuật của Cuộc thi Sáng tạo trẻ AI 2026.
 
 ---
 
